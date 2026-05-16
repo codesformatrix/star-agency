@@ -1,0 +1,478 @@
+/* ============================================================
+   STAR WEB DESIGN AGENCY — DESIGN SYSTEM
+   globals.css
+   
+   Stack: Next.js 14 · Tailwind CSS · GSAP · Three.js · Lenis
+   Fonts: Fraunces (display) · Syne (ui)
+   Palette: Studio White · Ink · Saffron
+   ============================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ────────────────────────────────────────────────────────────
+   1. DESIGN TOKENS
+   ──────────────────────────────────────────────────────────── */
+
+:root {
+
+  /* ── Colors ─────────────────────────────────────────────── */
+
+  /* Base surfaces */
+  --color-bg:           #FAFAF8;   /* Studio white — primary background */
+  --color-bg-2:         #F3F1EC;   /* Slightly warm — alternating sections */
+  --color-dark:         #111111;   /* Ink — dark panels, portfolio section */
+  --color-darker:       #0A0A0A;   /* Deeper ink — footer, darkest moments */
+
+  /* Ink scale */
+  --color-ink-50:       #F7F7F6;
+  --color-ink-100:      #EBEBEA;
+  --color-ink-200:      #D4D4D2;
+  --color-ink-400:      #888886;
+  --color-ink-600:      #555553;
+  --color-ink-800:      #333332;
+  --color-ink-900:      #111111;
+
+  /* Saffron scale */
+  --color-saffron-50:   #FDF5E6;
+  --color-saffron-100:  #FADDAB;
+  --color-saffron-300:  #F2B24A;
+  --color-saffron:      #E8940A;   /* Primary accent */
+  --color-saffron-700:  #C67800;
+  --color-saffron-900:  #8A5200;
+
+  /* Semantic */
+  --color-text:         #111111;
+  --color-text-muted:   #888886;
+  --color-text-light:   #FAFAF8;
+  --color-border:       #EBEBEA;
+  --color-border-dark:  #1E1E1E;
+
+  /* ── Typography ─────────────────────────────────────────── */
+
+  --font-display:       var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  --font-ui:            var(--font-syne), system-ui, -apple-system, sans-serif;
+
+  /* Fluid type scale — clamp(min, preferred, max) */
+  --text-display:       clamp(3.25rem, 8.5vw, 7.75rem);    /* 52–124px */
+  --text-h1:            clamp(2.25rem, 5.5vw, 4.25rem);    /* 36–68px  */
+  --text-h2:            clamp(1.75rem, 3.2vw, 2.75rem);    /* 28–44px  */
+  --text-h3:            clamp(1.125rem, 1.6vw, 1.375rem);  /* 18–22px  */
+  --text-body:          clamp(0.9375rem, 1.1vw, 1.0625rem);/* 15–17px  */
+  --text-small:         0.8125rem;                          /* 13px     */
+  --text-label:         0.625rem;                           /* 10px     */
+
+  /* Leading */
+  --leading-display:    1.0;
+  --leading-tight:      1.1;
+  --leading-snug:       1.25;
+  --leading-normal:     1.5;
+  --leading-relaxed:    1.75;
+
+  /* Tracking */
+  --tracking-display:   -0.03em;
+  --tracking-tight:     -0.02em;
+  --tracking-normal:    0em;
+  --tracking-wide:      0.04em;
+  --tracking-wider:     0.08em;
+  --tracking-widest:    0.14em;
+
+  /* ── Spacing — 8px base grid ────────────────────────────── */
+
+  --space-1:    0.25rem;    /*   4px */
+  --space-2:    0.5rem;     /*   8px */
+  --space-3:    0.75rem;    /*  12px */
+  --space-4:    1rem;       /*  16px */
+  --space-5:    1.5rem;     /*  24px */
+  --space-6:    2rem;       /*  32px */
+  --space-7:    3rem;       /*  48px */
+  --space-8:    4rem;       /*  64px */
+  --space-9:    5rem;       /*  80px */
+  --space-10:   7.5rem;     /* 120px */
+  --space-11:   10rem;      /* 160px */
+  --space-12:   15rem;      /* 240px */
+
+  /* Section rhythm */
+  --section-py: clamp(5rem, 10vw, 10rem);   /* Vertical section padding */
+  --section-px: clamp(1.5rem, 5vw, 5rem);   /* Horizontal section padding */
+  --container:  1440px;                      /* Max content width */
+  --gutter:     clamp(1.5rem, 4vw, 4rem);   /* Left/right page margin */
+
+  /* ── Border Radius ──────────────────────────────────────── */
+
+  --radius-xs:   3px;
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   32px;
+  --radius-full: 9999px;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+
+  /* Durations */
+  --dur-instant:  150ms;
+  --dur-fast:     300ms;
+  --dur-normal:   600ms;
+  --dur-slow:     1000ms;
+  --dur-xslow:    1600ms;
+
+  /* CSS easing curves */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);      /* Expo out — primary */
+  --ease-in-out:   cubic-bezier(0.87, 0, 0.13, 1);     /* Expo in-out — transitions */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* Back out — hover states */
+  --ease-smooth:   cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Quad out — subtle */
+
+  /* ── Z-index ─────────────────────────────────────────────── */
+
+  --z-base:    0;
+  --z-raised:  10;
+  --z-sticky:  50;
+  --z-overlay: 100;
+  --z-nav:     200;
+  --z-cursor:  9999;
+
+}
+
+/* ────────────────────────────────────────────────────────────
+   2. REDUCED MOTION — respect user preference
+   ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-instant: 0ms;
+    --dur-fast:    0ms;
+    --dur-normal:  0ms;
+    --dur-slow:    0ms;
+    --dur-xslow:   0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto  !important;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   3. CSS RESET + BASE
+   ──────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin:     0;
+  padding:    0;
+}
+
+html {
+  scroll-behavior:          smooth;
+  -webkit-font-smoothing:   antialiased;
+  -moz-osx-font-smoothing:  grayscale;
+  text-rendering:           optimizeLegibility;
+  font-size:                16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color:            var(--color-text);
+  font-family:      var(--font-ui);
+  font-size:        var(--text-body);
+  line-height:      var(--leading-relaxed);
+  overflow-x:       hidden;
+}
+
+/* Lenis smooth scroll — applied by JS */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+img,
+video {
+  display:   block;
+  max-width: 100%;
+}
+
+a {
+  color:           inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor:     pointer;
+  border:     none;
+  background: none;
+  font:       inherit;
+}
+
+/* ────────────────────────────────────────────────────────────
+   4. TYPOGRAPHY UTILITY CLASSES
+   ──────────────────────────────────────────────────────────── */
+
+.font-display { font-family: var(--font-display); }
+.font-ui      { font-family: var(--font-ui); }
+
+/* Type scale */
+.text-display {
+  font-family:    var(--font-display);
+  font-size:      var(--text-display);
+  font-weight:    800;
+  font-style:     italic;
+  line-height:    var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+
+.text-h1 {
+  font-family:    var(--font-display);
+  font-size:      var(--text-h1);
+  font-weight:    700;
+  font-style:     italic;
+  line-height:    var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-h2 {
+  font-family:    var(--font-ui);
+  font-size:      var(--text-h2);
+  font-weight:    700;
+  line-height:    var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-h3 {
+  font-family:    var(--font-ui);
+  font-size:      var(--text-h3);
+  font-weight:    600;
+  line-height:    var(--leading-snug);
+}
+
+.text-body {
+  font-family: var(--font-ui);
+  font-size:   var(--text-body);
+  font-weight: 400;
+  line-height: var(--leading-relaxed);
+}
+
+.text-small {
+  font-family: var(--font-ui);
+  font-size:   var(--text-small);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+}
+
+.text-label {
+  font-family:    var(--font-ui);
+  font-size:      var(--text-label);
+  font-weight:    500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  line-height:    var(--leading-normal);
+}
+
+/* ────────────────────────────────────────────────────────────
+   5. LAYOUT UTILITIES
+   ──────────────────────────────────────────────────────────── */
+
+.container {
+  width:     100%;
+  max-width: var(--container);
+  margin:    0 auto;
+  padding:   0 var(--gutter);
+}
+
+.section {
+  padding-top:    var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+/* Surface variants */
+.surface-light { background-color: var(--color-bg); }
+.surface-warm  { background-color: var(--color-bg-2); }
+.surface-dark  { background-color: var(--color-dark); color: var(--color-text-light); }
+.surface-saffron { background-color: var(--color-saffron); color: var(--color-ink-900); }
+
+/* ────────────────────────────────────────────────────────────
+   6. COMPONENT BASE STYLES
+   ──────────────────────────────────────────────────────────── */
+
+/* ── Buttons ──────────────────────────────────────────────── */
+
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--space-2);
+  font-family:     var(--font-ui);
+  font-size:       var(--text-small);
+  font-weight:     600;
+  letter-spacing:  var(--tracking-wide);
+  padding:         0.75rem 1.75rem;
+  border-radius:   var(--radius-full);
+  transition:      transform var(--dur-fast) var(--ease-spring),
+                   background-color var(--dur-fast) var(--ease-out);
+  cursor:          pointer;
+  white-space:     nowrap;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background-color: var(--color-ink-900);
+  color:            var(--color-bg);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-ink-800);
+  transform:        translateY(-1px);
+}
+
+.btn-saffron {
+  background-color: var(--color-saffron);
+  color:            var(--color-ink-900);
+}
+
+.btn-saffron:hover {
+  background-color: var(--color-saffron-700);
+  transform:        translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color:            var(--color-ink-900);
+  border:           1px solid var(--color-border);
+}
+
+.btn-outline:hover {
+  border-color:     var(--color-ink-400);
+  transform:        translateY(-1px);
+}
+
+/* ── Section tag (e.g. "01 / Problem") ───────────────────── */
+
+.section-tag {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            var(--space-3);
+  font-family:    var(--font-ui);
+  font-size:      var(--text-label);
+  font-weight:    500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-text-muted);
+  margin-bottom:  var(--space-5);
+}
+
+.section-tag::before {
+  content:    '';
+  display:    block;
+  width:      2rem;
+  height:     1px;
+  background: var(--color-text-muted);
+}
+
+/* ── Horizontal rule ─────────────────────────────────────── */
+
+.divider {
+  border:     none;
+  border-top: 1px solid var(--color-border);
+  margin:     0;
+}
+
+.divider-dark {
+  border-top-color: var(--color-border-dark);
+}
+
+/* ────────────────────────────────────────────────────────────
+   7. ANIMATION UTILITY CLASSES
+   (initial states — JS/GSAP sets final states)
+   ──────────────────────────────────────────────────────────── */
+
+/* Elements that reveal on scroll — set invisible initially */
+[data-reveal] {
+  opacity:   0;
+  transform: translateY(2rem);
+  will-change: transform, opacity;
+}
+
+[data-reveal="left"] {
+  transform: translateX(-2rem);
+}
+
+[data-reveal="right"] {
+  transform: translateX(2rem);
+}
+
+[data-reveal="scale"] {
+  transform: scale(0.95);
+}
+
+/* Cursor — Three.js canvas host */
+.canvas-host {
+  position:   absolute;
+  inset:      0;
+  z-index:    var(--z-base);
+}
+
+/* Custom cursor */
+.cursor {
+  position:         fixed;
+  top:              0;
+  left:             0;
+  width:            10px;
+  height:           10px;
+  background:       var(--color-ink-900);
+  border-radius:    var(--radius-full);
+  pointer-events:   none;
+  z-index:          var(--z-cursor);
+  transform:        translate(-50%, -50%);
+  transition:       width  var(--dur-fast) var(--ease-out),
+                    height var(--dur-fast) var(--ease-out),
+                    background-color var(--dur-fast) var(--ease-out);
+  mix-blend-mode:   difference;
+}
+
+.cursor.is-hovering {
+  width:            40px;
+  height:           40px;
+}
+
+/* ────────────────────────────────────────────────────────────
+   8. SCROLLBAR
+   ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background:    var(--color-ink-200);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-400);
+}
+
+/* ────────────────────────────────────────────────────────────
+   9. SELECTION
+   ──────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--color-saffron-100);
+  color:            var(--color-ink-900);
+}
