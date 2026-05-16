@@ -98,8 +98,8 @@ export const LENIS_CONFIG = {
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 
   /* Scroll direction */
-  orientation:      'vertical',
-  gestureOrientation: 'vertical',
+  orientation:      /** @type {'vertical'} */ ('vertical'),
+  gestureOrientation: /** @type {'vertical'} */ ('vertical'),
 
   /* Smooth on desktop, native on touch (better mobile feel) */
   smoothWheel: true,

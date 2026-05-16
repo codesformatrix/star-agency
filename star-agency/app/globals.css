@@ -7,9 +7,8 @@
    Palette: Studio White · Ink · Saffron
    ============================================================ */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
 /* ────────────────────────────────────────────────────────────
    1. DESIGN TOKENS
@@ -475,4 +474,122 @@ button {
 ::selection {
   background-color: var(--color-saffron-100);
   color:            var(--color-ink-900);
+}
+
+/* ────────────────────────────────────────────────────────────
+   10. HERO SECTION
+   ──────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__grid {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter) var(--space-10);
+  gap: var(--space-7);
+}
+
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    min-height: calc(100vh - 64px);
+    min-height: calc(100dvh - 64px);
+    padding-top: var(--space-9);
+    padding-bottom: var(--space-10);
+  }
+}
+
+.hero__canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: min(52vh, 480px);
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+}
+
+@media (min-width: 1024px) {
+  .hero__canvas-wrap {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(calc(-50% + 20px));
+    width: 58%;
+    height: min(78vh, 720px);
+    max-height: 720px;
+  }
+}
+
+.hero__label {
+  opacity: 0;
+}
+
+.hero__headline {
+  margin-top: var(--space-4);
+}
+
+.hero__char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.hero__char {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+.hero__sub {
+  margin-top: var(--space-5);
+  max-width: 28rem;
+  color: var(--color-ink-400);
+  opacity: 0;
+}
+
+.hero__scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  opacity: 0;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 3rem;
+  background: var(--color-ink-200);
+  transform-origin: top center;
+  transform: scaleY(0.35);
+}
+
+.hero__scroll-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: 300;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-ink-400);
+}
+
+@media (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none !important;
+  }
 }
