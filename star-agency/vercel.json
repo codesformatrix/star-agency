@@ -1,12 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "installCommand": "cd star-agency && npm install",
-  "buildCommand": "cd star-agency && npm run build",
-  "builds": [
-    {
-      "src": "star-agency/package.json",
-      "use": "@vercel/next"
-    }
-  ]
+  "buildCommand": "npm run build",
+  "installCommand": "npm install"
 }
