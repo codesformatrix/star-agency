@@ -39,5 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# nested duplicate / build artifacts
-star-agency/

@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# STAR Web Design Agency
 
-## Getting Started
+Premium portfolio and marketing site for STAR Web Design Agency (Jaipur).
 
-First, run the development server:
+## Project structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The Next.js app lives at the **repository root** — not in a subfolder:
+
+```
+app/           → pages and layout
+components/    → UI, sections, Three.js hero
+lib/           → motion tokens, GSAP, data
+public/        → images and static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+There is no `star-agency/` subfolder. The app was flattened for Vercel; edit files at the root only.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open http://localhost:3000
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | *(empty — repository root)* |
+| **Install command** | `npm install` (default) |
+| **Build command** | `npm run build` (default) |
+| **Production branch** | `main` |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do not set Root Directory to `star-agency` — that path no longer exists.
+
+## Stack
+
+Next.js 16 · React 18 · GSAP · Lenis · Three.js · Tailwind CSS 4
