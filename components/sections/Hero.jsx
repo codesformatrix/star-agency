@@ -28,11 +28,21 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { MOTION } from '@/lib/motion'
+import CanvasErrorBoundary from '@/components/three/CanvasErrorBoundary'
 
 // Dynamic import — Three.js cannot run on the server
 const HeroCanvas = dynamic(() => import('@/components/three/HeroCanvas'), {
   ssr:     false,
-  loading: () => null,
+  loading: () => (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        background: '#FAFAF8',
+      }}
+      aria-hidden
+    />
+  ),
 })
 
 /* ── Manual char split (no GSAP Club needed) ─────────────────────────── */
@@ -61,9 +71,12 @@ export default function Hero() {
   const scrollRef   = useRef(null)
 
   useEffect(() => {
+    if (!headlineRef.current) return
+
     const ctx = gsap.context(() => {
       // Split headline into chars
       const chars = splitToChars(headlineRef.current)
+      if (!chars.length) return
 
       // Initial states — everything invisible
       gsap.set([tagRef.current, subRef.current, ctaRef.current, scrollRef.current], {
@@ -224,7 +237,7 @@ export default function Hero() {
             href="#work"
             onClick={(e) => {
               e.preventDefault()
-              window.lenis?.scrollTo('#section-work', { duration: 1.2 })
+              window.starLenis?.scrollTo('#work', { duration: 1.2 })
             }}
             style={{
               fontFamily:      'var(--font-ui)',
@@ -285,7 +298,9 @@ export default function Hero() {
         }}
         className="hero-canvas-col"
       >
-        <HeroCanvas />
+        <CanvasErrorBoundary>
+          <HeroCanvas />
+        </CanvasErrorBoundary>
       </div>
 
       {/* ── Scroll indicator (absolute, bottom-left) ────────────────────── */}

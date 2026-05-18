@@ -16,7 +16,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { RoundedBox, MeshDistortMaterial } from '@react-three/drei'
+import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 
 /* ── Card data — replace color with useTexture('/images/projects/x.jpg') ─ */
@@ -161,10 +161,24 @@ function CameraRig() {
 
 /* ── Canvas export ────────────────────────────────────────────────────── */
 export default function HeroCanvas() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    const update = () => setIsMobile(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  if (isMobile) {
+    return <MobileCanvasFallback />
+  }
+
   return (
     <Canvas
-      dpr={[1, 2]}                  // Cap at 2x for perf
-      gl={{ antialias: true, alpha: true }}
+      dpr={[1, 1.5]}
+      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{
         position:   'absolute',
         inset:       0,
@@ -192,5 +206,19 @@ export default function HeroCanvas() {
 
       <Scene />
     </Canvas>
+  )
+}
+
+function MobileCanvasFallback() {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        background:
+          'radial-gradient(ellipse at 70% 30%, #FADDAB 0%, transparent 50%), #FAFAF8',
+      }}
+      aria-hidden
+    />
   )
 }

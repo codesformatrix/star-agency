@@ -38,6 +38,9 @@ const syne = Syne({
 /* ── SEO Metadata ───────────────────────────────────────────────────────── */
 
 export const metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://star-web-design-agency.vercel.app'
+  ),
   title: {
     default:  'STAR Web Design Agency — Jaipur',
     template: '%s | STAR Web Design Agency',

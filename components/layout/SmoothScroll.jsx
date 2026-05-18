@@ -10,20 +10,27 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    const lenis = new Lenis(LENIS_CONFIG)
+    const lenis = new Lenis({
+      ...LENIS_CONFIG,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+    })
 
-    window.lenis = lenis
+    window.starLenis = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
-    const tick = (time) => lenis.raf(time * 1000)
-    gsap.ticker.add(tick)
+    const raf = (time) => {
+      lenis.raf(time)
+    }
+
+    gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
 
     return () => {
-      gsap.ticker.remove(tick)
+      gsap.ticker.remove(raf)
       lenis.destroy()
-      window.lenis = null
+      delete window.starLenis
     }
   }, [])
 
