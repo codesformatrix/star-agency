@@ -1,7 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "cd star-agency && npm install",
-  "buildCommand": "cd star-agency && npm run build",
-  "devCommand": "cd star-agency && npm run dev",
-  "framework": "nextjs"
-}
