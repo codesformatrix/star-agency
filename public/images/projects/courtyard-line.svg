@@ -1,0 +1,31 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" rx="42" fill="#FAF7F2"/>
+  <rect x="70" y="54" width="1460" height="892" rx="30" fill="#F8F4EE" stroke="#E4DCD0"/>
+  <rect x="70" y="54" width="1460" height="72" rx="30" fill="#F1EBE2"/>
+  <text x="804" y="96" fill="#302C27" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle" letter-spacing="4">COURTYARD LINE</text>
+  <rect x="124" y="172" width="152" height="26" rx="13" fill="#EAE0D2"/>
+  <text x="200" y="189" fill="#6E645A" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle" letter-spacing="4">RESIDENTIAL PRACTICE</text>
+  <text x="124" y="308" fill="#2D2A26" font-family="Georgia, Times New Roman, serif" font-size="108" font-style="italic">Warmth, not</text>
+  <text x="124" y="404" fill="#2D2A26" font-family="Georgia, Times New Roman, serif" font-size="108" font-style="italic">visual noise</text>
+  <text x="124" y="488" fill="#746A61" font-family="Arial, Helvetica, sans-serif" font-size="30">A calmer architecture presentation with long-form project storytelling and softer contrast.</text>
+  <rect x="124" y="566" width="444" height="258" rx="22" fill="#EEE7DD"/>
+  <rect x="154" y="596" width="196" height="168" rx="18" fill="#D8CEC1"/>
+  <path d="M180 730L248 650L298 692L334 654V764H180V730Z" fill="#AFA190"/>
+  <rect x="382" y="620" width="150" height="14" rx="7" fill="#403A33"/>
+  <rect x="382" y="654" width="118" height="14" rx="7" fill="#7A7067"/>
+  <rect x="382" y="714" width="96" height="38" rx="19" fill="#2D2A26"/>
+  <text x="430" y="738" fill="#F7F4EF" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="2">PROJECTS</text>
+  <rect x="700" y="172" width="678" height="652" rx="28" fill="#F2ECE4"/>
+  <rect x="736" y="210" width="606" height="218" rx="20" fill="#DDD3C7"/>
+  <rect x="768" y="244" width="542" height="150" rx="16" fill="#C7B9A9"/>
+  <path d="M792 374L912 286L1028 324L1132 270L1286 374V394H792V374Z" fill="#F7F2E9"/>
+  <rect x="736" y="472" width="188" height="14" rx="7" fill="#3F3832"/>
+  <rect x="736" y="506" width="286" height="14" rx="7" fill="#82766B"/>
+  <rect x="736" y="576" width="286" height="214" rx="20" fill="#F8F5F0" stroke="#E4DDD2"/>
+  <rect x="764" y="606" width="230" height="154" rx="16" fill="#E3D8CA"/>
+  <rect x="1050" y="576" width="292" height="214" rx="20" fill="#E9E0D5"/>
+  <rect x="1080" y="610" width="154" height="12" rx="6" fill="#2D2A26"/>
+  <rect x="1080" y="644" width="214" height="12" rx="6" fill="#746A61"/>
+  <rect x="1080" y="678" width="180" height="12" rx="6" fill="#A89C90"/>
+  <text x="1080" y="738" fill="#5C544C" font-family="Georgia, Times New Roman, serif" font-size="34" font-style="italic">Editorial pacing</text>
+</svg>

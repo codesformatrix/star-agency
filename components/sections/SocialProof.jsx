@@ -12,6 +12,7 @@
 
 import Link from 'next/link'
 import { useReveal } from '@/lib/hooks/useReveal'
+import { allProjects } from '@/lib/data/projects'
 
 /* ── Placeholder data — replace with real client content ──────────────── */
 
@@ -30,14 +31,12 @@ const TESTIMONIALS = [
   },
 ]
 
-const PROJECTS = [
-  { title: 'Roshan Events',       industry: 'Events',       slug: 'roshan-events',  color: '#1a2240' },
-  { title: 'Studio Verma',        industry: 'Architecture', slug: 'studio-verma',   color: '#0f2820' },
-  { title: 'The Garden Wedding',  industry: 'Wedding',      slug: 'garden-wedding', color: '#2d1a10' },
-  { title: 'Aangan Restaurant',   industry: 'Restaurant',   slug: 'aangan',         color: '#2d1020' },
-  { title: 'Jain Architects',     industry: 'Architecture', slug: 'jain-architects',color: '#1a1040' },
-  { title: 'Moments by Kavya',    industry: 'Wedding',      slug: 'moments-kavya',  color: '#102820' },
-]
+const PROJECTS = allProjects.slice(0, 6).map((project) => ({
+  title: project.title,
+  industry: project.category,
+  slug: project.slug,
+  color: project.palette[0],
+}))
 
 export default function SocialProof() {
   const sectionRef = useReveal()

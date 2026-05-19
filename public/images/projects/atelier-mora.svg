@@ -1,0 +1,33 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" rx="42" fill="#F3EEE6"/>
+  <rect x="70" y="54" width="1460" height="892" rx="30" fill="#F8F5EF" stroke="#DDD4C7"/>
+  <rect x="70" y="54" width="1460" height="72" rx="30" fill="#EFE7DA"/>
+  <circle cx="116" cy="90" r="7" fill="#181513"/>
+  <circle cx="144" cy="90" r="7" fill="#95897B"/>
+  <circle cx="172" cy="90" r="7" fill="#C9BEB0"/>
+  <text x="804" y="96" fill="#27211D" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle" letter-spacing="4">ATELIER MORA</text>
+  <rect x="126" y="178" width="188" height="28" rx="14" fill="#E6DFD3"/>
+  <text x="220" y="197" fill="#5A524B" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" letter-spacing="4">ARCHITECTURE STUDIO</text>
+  <text x="124" y="302" fill="#181513" font-family="Georgia, Times New Roman, serif" font-size="102" font-style="italic">Measured</text>
+  <text x="124" y="394" fill="#181513" font-family="Georgia, Times New Roman, serif" font-size="102" font-style="italic">portfolio rhythm</text>
+  <text x="124" y="476" fill="#6E645C" font-family="Arial, Helvetica, sans-serif" font-size="30">A quiet architecture presentation system with warm restraint and image-led case studies.</text>
+  <rect x="126" y="562" width="432" height="286" rx="24" fill="#E9E1D6"/>
+  <rect x="154" y="592" width="376" height="182" rx="18" fill="#D9D0C4"/>
+  <rect x="184" y="620" width="138" height="116" rx="14" fill="#BBAE9D"/>
+  <rect x="348" y="620" width="150" height="16" rx="8" fill="#82776E"/>
+  <rect x="348" y="654" width="124" height="16" rx="8" fill="#A79A8B"/>
+  <rect x="348" y="712" width="96" height="38" rx="19" fill="#181513"/>
+  <text x="396" y="736" fill="#F7F3EB" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="2">CASE STUDY</text>
+  <rect x="672" y="178" width="706" height="670" rx="26" fill="#EEE6DB"/>
+  <rect x="708" y="214" width="634" height="266" rx="18" fill="#D8CDBE"/>
+  <path d="M732 420L860 286L1000 348L1136 256L1318 420V456H732V420Z" fill="#988B7B"/>
+  <rect x="708" y="520" width="164" height="14" rx="7" fill="#7C7168"/>
+  <rect x="708" y="554" width="304" height="14" rx="7" fill="#A19588"/>
+  <rect x="708" y="626" width="634" height="174" rx="18" fill="#F8F4EE" stroke="#D9CFC3"/>
+  <rect x="736" y="654" width="146" height="12" rx="6" fill="#181513"/>
+  <rect x="736" y="690" width="278" height="12" rx="6" fill="#766B62"/>
+  <rect x="736" y="726" width="242" height="12" rx="6" fill="#B2A596"/>
+  <rect x="1180" y="650" width="132" height="132" rx="18" fill="#DDD3C6"/>
+  <text x="1246" y="723" fill="#3A332D" font-family="Georgia, Times New Roman, serif" font-size="30" font-style="italic" text-anchor="middle">Calm</text>
+  <text x="1246" y="758" fill="#3A332D" font-family="Georgia, Times New Roman, serif" font-size="30" font-style="italic" text-anchor="middle">detail</text>
+</svg>

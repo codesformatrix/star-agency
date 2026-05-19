@@ -1,11 +1,15 @@
 # Project screenshots
 
-Place hero/portfolio screenshots here (JPEG, ~1600×1000 recommended):
+Temporary Phase 5 portfolio visuals live here.
 
-- `roshan-events.jpg`
-- `studio-architects.jpg`
-- `vivaah-planners.jpg`
-- `atelier-design.jpg`
-- `celebrations-co.jpg`
+These are local SVG website mockups for now:
 
-Until files are added, the 3D hero uses branded canvas fallbacks.
+- `roshan-events.svg`
+- `atelier-mora.svg`
+- `studio-canopy.svg`
+- `courtyard-line.svg`
+- `vivaah-planners.svg`
+- `saffron-courtyard.svg`
+
+Later, each file can be replaced with real project screenshots while keeping the
+same path contract used by the Hero, portfolio grid, and case-study pages.

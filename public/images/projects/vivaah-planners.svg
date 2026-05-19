@@ -1,0 +1,27 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" rx="42" fill="#F9F2EF"/>
+  <circle cx="1322" cy="148" r="168" fill="#D4A574" fill-opacity="0.22"/>
+  <rect x="70" y="54" width="1460" height="892" rx="30" fill="#FFF8F5" stroke="#EBD7CC"/>
+  <rect x="70" y="54" width="1460" height="72" rx="30" fill="#F7ECE6"/>
+  <text x="804" y="96" fill="#41262E" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle" letter-spacing="4">VIVAAH PLANNERS</text>
+  <rect x="124" y="172" width="180" height="28" rx="14" fill="#F4E0D3"/>
+  <text x="214" y="190" fill="#8A5C4A" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle" letter-spacing="4">LUXURY CELEBRATIONS</text>
+  <text x="124" y="306" fill="#2D151D" font-family="Georgia, Times New Roman, serif" font-size="106" font-style="italic">Romance with</text>
+  <text x="124" y="400" fill="#2D151D" font-family="Georgia, Times New Roman, serif" font-size="106" font-style="italic">more polish</text>
+  <text x="124" y="482" fill="#7A6267" font-family="Arial, Helvetica, sans-serif" font-size="30">An editorial wedding planner concept designed to feel bespoke, soft, and conversion-aware.</text>
+  <rect x="124" y="560" width="212" height="56" rx="28" fill="#2D151D"/>
+  <text x="230" y="595" fill="#FFF7F1" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" text-anchor="middle" letter-spacing="2">DISCOVER THE WORK</text>
+  <rect x="846" y="164" width="532" height="684" rx="30" fill="#FFF1EB"/>
+  <rect x="882" y="200" width="460" height="224" rx="20" fill="#F2D7CB"/>
+  <rect x="916" y="236" width="392" height="156" rx="16" fill="#E5BC9E"/>
+  <path d="M952 374L1040 300L1106 330L1192 286L1300 374V392H952V374Z" fill="#FFF8F2"/>
+  <rect x="882" y="474" width="164" height="14" rx="7" fill="#6A4A54"/>
+  <rect x="882" y="508" width="266" height="14" rx="7" fill="#AA888F"/>
+  <rect x="882" y="574" width="204" height="238" rx="20" fill="#FFF8F5" stroke="#EEDDD3"/>
+  <rect x="910" y="604" width="148" height="182" rx="16" fill="#F2D8CC"/>
+  <rect x="1122" y="574" width="220" height="238" rx="20" fill="#F7E6DF"/>
+  <rect x="1150" y="608" width="128" height="12" rx="6" fill="#2D151D"/>
+  <rect x="1150" y="642" width="168" height="12" rx="6" fill="#865D69"/>
+  <rect x="1150" y="676" width="146" height="12" rx="6" fill="#B88F96"/>
+  <text x="1150" y="748" fill="#6A4750" font-family="Georgia, Times New Roman, serif" font-size="34" font-style="italic">Editorial gallery flow</text>
+</svg>

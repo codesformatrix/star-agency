@@ -1,0 +1,37 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="148" y1="74" x2="1424" y2="858" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A211A"/>
+      <stop offset="1" stop-color="#15110D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" rx="42" fill="url(#bg)"/>
+  <circle cx="1306" cy="182" r="162" fill="#E59A32" fill-opacity="0.2"/>
+  <rect x="70" y="54" width="1460" height="892" rx="30" fill="#1D1712" stroke="#3A2F24"/>
+  <rect x="70" y="54" width="1460" height="72" rx="30" fill="#16110D"/>
+  <text x="804" y="96" fill="#F2DFC2" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle" letter-spacing="4">SAFFRON COURTYARD</text>
+  <rect x="124" y="174" width="178" height="28" rx="14" fill="rgba(229,154,50,0.14)"/>
+  <text x="213" y="192" fill="#E59A32" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle" letter-spacing="4">BOUTIQUE HOSPITALITY</text>
+  <text x="124" y="314" fill="#FBF2E7" font-family="Georgia, Times New Roman, serif" font-size="106" font-style="italic">Atmosphere</text>
+  <text x="124" y="408" fill="#FBF2E7" font-family="Georgia, Times New Roman, serif" font-size="106" font-style="italic">that books</text>
+  <text x="124" y="488" fill="#A79684" font-family="Arial, Helvetica, sans-serif" font-size="30">A boutique hotel and dining concept with mood-first imagery and clearer reservation pathways.</text>
+  <rect x="124" y="568" width="210" height="56" rx="28" fill="#E59A32"/>
+  <text x="229" y="603" fill="#231B15" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" text-anchor="middle" letter-spacing="2">CHECK AVAILABILITY</text>
+  <rect x="844" y="170" width="534" height="672" rx="28" fill="#211913"/>
+  <rect x="880" y="206" width="462" height="246" rx="20" fill="#2B211A"/>
+  <rect x="914" y="240" width="394" height="176" rx="16" fill="#4F3927"/>
+  <path d="M942 392L1026 312L1116 344L1222 286L1308 392V416H942V392Z" fill="#D6B17A"/>
+  <rect x="880" y="500" width="192" height="14" rx="7" fill="#E7D8C2" fill-opacity="0.22"/>
+  <rect x="880" y="534" width="278" height="14" rx="7" fill="#E7D8C2" fill-opacity="0.16"/>
+  <rect x="880" y="598" width="206" height="212" rx="20" fill="#2A211A" stroke="#443526"/>
+  <text x="910" y="638" fill="#E59A32" font-family="Arial, Helvetica, sans-serif" font-size="12" letter-spacing="3">ROOMS</text>
+  <text x="910" y="694" fill="#FBF2E7" font-family="Georgia, Times New Roman, serif" font-size="38" font-style="italic">Stay</text>
+  <text x="910" y="736" fill="#FBF2E7" font-family="Georgia, Times New Roman, serif" font-size="38" font-style="italic">beautifully</text>
+  <rect x="1122" y="598" width="220" height="212" rx="20" fill="#231B15" stroke="#4A3828"/>
+  <text x="1152" y="638" fill="#E59A32" font-family="Arial, Helvetica, sans-serif" font-size="12" letter-spacing="3">DINING</text>
+  <text x="1152" y="694" fill="#FBF2E7" font-family="Georgia, Times New Roman, serif" font-size="38" font-style="italic">Dine with</text>
+  <text x="1152" y="736" fill="#FBF2E7" font-family="Georgia, Times New Roman, serif" font-size="38" font-style="italic">warmth</text>
+  <rect x="124" y="730" width="610" height="114" rx="24" fill="#1A140F" stroke="#35281C"/>
+  <text x="162" y="780" fill="#E59A32" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">FOCUS</text>
+  <text x="162" y="820" fill="#EFE2CE" font-family="Arial, Helvetica, sans-serif" font-size="30">One journey for rooms, dining, and event ambience without visual clutter.</text>
+</svg>

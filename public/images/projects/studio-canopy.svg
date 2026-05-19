@@ -1,0 +1,31 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" rx="42" fill="#0F1717"/>
+  <circle cx="1364" cy="158" r="152" fill="#D7A64B" fill-opacity="0.18"/>
+  <circle cx="192" cy="842" r="198" fill="#FFFFFF" fill-opacity="0.05"/>
+  <rect x="70" y="54" width="1460" height="892" rx="30" fill="#131E1E" stroke="#2A3636"/>
+  <rect x="70" y="54" width="1460" height="72" rx="30" fill="#101818"/>
+  <text x="804" y="96" fill="#E8E0D0" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle" letter-spacing="4">STUDIO CANOPY</text>
+  <rect x="124" y="170" width="178" height="26" rx="13" fill="rgba(215,166,75,0.14)"/>
+  <text x="213" y="188" fill="#D7A64B" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle" letter-spacing="4">ARCHITECTURE + INTERIORS</text>
+  <text x="124" y="316" fill="#F8F2E7" font-family="Georgia, Times New Roman, serif" font-size="108" font-style="italic">Presence for</text>
+  <text x="124" y="412" fill="#F8F2E7" font-family="Georgia, Times New Roman, serif" font-size="108" font-style="italic">serious studios</text>
+  <text x="124" y="492" fill="#95A3A3" font-family="Arial, Helvetica, sans-serif" font-size="29">A darker, more premium portfolio direction with stronger hierarchy and project contrast.</text>
+  <rect x="124" y="568" width="188" height="56" rx="28" fill="#D7A64B"/>
+  <text x="218" y="603" fill="#101A1A" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" text-anchor="middle" letter-spacing="2">EXPLORE WORK</text>
+  <rect x="850" y="170" width="528" height="676" rx="28" fill="#0E1515"/>
+  <rect x="886" y="208" width="456" height="280" rx="20" fill="#192525"/>
+  <rect x="918" y="242" width="388" height="194" rx="18" fill="#D7A64B" fill-opacity="0.18"/>
+  <path d="M938 390L1034 316L1104 348L1198 290L1306 390V430H938V390Z" fill="#F0DDB0"/>
+  <rect x="886" y="532" width="214" height="14" rx="7" fill="#E2DED0" fill-opacity="0.24"/>
+  <rect x="886" y="566" width="312" height="14" rx="7" fill="#E2DED0" fill-opacity="0.18"/>
+  <rect x="886" y="628" width="456" height="176" rx="20" fill="#162121" stroke="#2F3C3C"/>
+  <rect x="918" y="662" width="160" height="12" rx="6" fill="#D7A64B"/>
+  <rect x="918" y="696" width="228" height="12" rx="6" fill="#849393"/>
+  <rect x="918" y="730" width="186" height="12" rx="6" fill="#5E6C6C"/>
+  <rect x="1192" y="654" width="118" height="118" rx="18" fill="#203030"/>
+  <text x="1251" y="707" fill="#F7E8BE" font-family="Georgia, Times New Roman, serif" font-size="26" font-style="italic" text-anchor="middle">Curated</text>
+  <text x="1251" y="738" fill="#F7E8BE" font-family="Georgia, Times New Roman, serif" font-size="26" font-style="italic" text-anchor="middle">work</text>
+  <rect x="124" y="724" width="594" height="122" rx="24" fill="#111A1A" stroke="#293636"/>
+  <text x="160" y="776" fill="#D7A64B" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">POSITIONING</text>
+  <text x="160" y="818" fill="#E5E3DB" font-family="Arial, Helvetica, sans-serif" font-size="30">Sharper hierarchy, stronger visual authority, and clearer portfolio-led trust.</text>
+</svg>
