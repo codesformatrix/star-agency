@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "About",
-};
+  title: 'About',
+}
 
 export default function AboutPage() {
   return (
@@ -11,11 +11,11 @@ export default function AboutPage() {
           Ali Asgar · STAR
         </h1>
         <p className="mt-6 text-body-lg font-ui text-ink-400 max-w-prose">
-          Jaipur-based web design agency building premium sites for Indian
-          businesses — architects, wedding planners, and more. Full story coming
+          Bhopal-based web design agency building premium sites for Indian
+          businesses - architects, wedding planners, and more. Full story coming
           in Phase 6.
         </p>
       </div>
     </section>
-  );
+  )
 }

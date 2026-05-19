@@ -8,7 +8,7 @@ import PrimaryCTA from '@/components/sections/PrimaryCTA'
 import SecondaryCTA from '@/components/sections/SecondaryCTA'
 
 export const metadata = {
-  title: 'STAR Web Design Agency — Jaipur',
+  title: 'STAR Web Design Agency - Bhopal',
   description:
     'Premium websites for architects, wedding planners, and Indian businesses. Zero upfront cost.',
 }

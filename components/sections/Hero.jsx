@@ -1,380 +1,224 @@
 'use client'
 
-/**
- * Hero.jsx — Section 01
- *
- * Layout (desktop):
- * ┌─────────────────────┬──────────────────────┐
- * │  Tag                │                      │
- * │  H1 (Fraunces)      │   Three.js Canvas    │
- * │  Sub                │   (floating cards)   │
- * │  CTAs               │                      │
- * └─────────────────────┴──────────────────────┘
- * │ Scroll indicator                            │
- *
- * Layout (mobile): stacked, canvas hidden for perf
- *
- * Load sequence:
- *  0.0s  Section visible, canvas starts rendering
- *  0.4s  Agency tag fades up
- *  0.6s  Headline chars stagger in (power4.out)
- *  1.5s  Sub-headline fades up
- *  1.7s  CTA buttons fade up
- *  1.9s  Scroll indicator fades in
- */
-
 import { useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import { gsap } from 'gsap'
 import { MOTION } from '@/lib/motion'
 import CanvasErrorBoundary from '@/components/three/CanvasErrorBoundary'
 
-// Dynamic import — Three.js cannot run on the server
 const HeroCanvas = dynamic(() => import('@/components/three/HeroCanvas'), {
-  ssr:     false,
-  loading: () => (
-    <div
-      style={{
-        position: 'absolute',
-        inset: 0,
-        background: '#FAFAF8',
-      }}
-      aria-hidden
-    />
-  ),
+  ssr: false,
+  loading: () => <div className="hero__canvas-skeleton" aria-hidden="true" />,
 })
 
-/* ── Manual char split (no GSAP Club needed) ─────────────────────────── */
-function splitToChars(el) {
-  const text = el.innerText.trim()
-  el.setAttribute('aria-label', text)  // accessibility
-  el.innerHTML = ''
+function splitHeadlineFallback(element) {
+  const originalText = element.textContent?.trim() ?? ''
+  element.setAttribute('aria-label', originalText)
+  element.textContent = ''
 
-  const chars = []
-  text.split('').forEach((char) => {
-    const span = document.createElement('span')
-    span.style.cssText = 'display:inline-block; will-change:transform,opacity;'
-    span.textContent   = char === ' ' ? '\u00A0' : char
-    el.appendChild(span)
-    chars.push(span)
+  return Array.from(originalText).map((character) => {
+    const inner = document.createElement('span')
+    inner.className = 'hero__char'
+    inner.textContent = character === ' ' ? '\u00A0' : character
+
+    element.appendChild(inner)
+    return inner
   })
-  return chars
 }
 
 export default function Hero() {
-  const sectionRef  = useRef(null)
-  const tagRef      = useRef(null)
+  const sectionRef = useRef(null)
+  const visualRef = useRef(null)
+  const labelRef = useRef(null)
   const headlineRef = useRef(null)
-  const subRef      = useRef(null)
-  const ctaRef      = useRef(null)
-  const scrollRef   = useRef(null)
+  const subRef = useRef(null)
+  const scrollRef = useRef(null)
+  const cleanupRef = useRef(() => {})
 
   useEffect(() => {
-    if (!headlineRef.current) return
+    let isCancelled = false
+    let hideIndicator = false
+    let splitInstance = null
+    let chars = []
+    let scrollHandler = null
+    let lenisHandler = null
 
-    const ctx = gsap.context(() => {
-      // Split headline into chars
-      const chars = splitToChars(headlineRef.current)
-      if (!chars.length) return
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
 
-      // Initial states — everything invisible
-      gsap.set([tagRef.current, subRef.current, ctaRef.current, scrollRef.current], {
-        opacity: 0, y: 24,
+    const hideScrollIndicator = () => {
+      if (hideIndicator || !scrollRef.current) return
+      hideIndicator = true
+
+      gsap.to(scrollRef.current, {
+        autoAlpha: 0,
+        y: 14,
+        duration: MOTION.dur.fast,
+        ease: MOTION.ease.out,
+        pointerEvents: 'none',
       })
-      gsap.set(chars, { opacity: 0, y: 48 })
+    }
 
-      // Master timeline
-      const tl = gsap.timeline({
-        defaults: { ease: MOTION.ease.out },
-        delay: 0.1,
-      })
+    const attachScrollListeners = () => {
+      scrollHandler = () => {
+        if (window.scrollY > 24) {
+          hideScrollIndicator()
+        }
+      }
 
-      tl
-        // Tag
-        .to(tagRef.current, {
-          opacity:  1,
-          y:        0,
-          duration: MOTION.dur.normal,
-        }, 0.3)
+      window.addEventListener('scroll', scrollHandler, { passive: true })
 
-        // Headline chars stagger
-        .to(chars, {
-          opacity:  1,
-          y:        0,
-          duration: 0.9,
-          ease:     'power4.out',
-          stagger:  0.018,
-        }, 0.55)
+      const lenis = window.starLenis
+      if (lenis?.on) {
+        lenisHandler = ({ scroll }) => {
+          if (scroll > 24) {
+            hideScrollIndicator()
+          }
+        }
+        lenis.on('scroll', lenisHandler)
+      }
+    }
 
-        // Sub-headline
-        .to(subRef.current, {
-          opacity:  1,
-          y:        0,
-          duration: MOTION.dur.normal,
-        }, 1.5)
+    const run = async () => {
+      const headline = headlineRef.current
+      if (!headline || !visualRef.current || !labelRef.current || !subRef.current || !scrollRef.current) {
+        return
+      }
 
-        // CTAs
-        .to(ctaRef.current, {
-          opacity:  1,
-          y:        0,
-          duration: MOTION.dur.normal,
-        }, 1.7)
+      try {
+        const plugin = await import('gsap/SplitText')
+        if (isCancelled) return
 
-        // Scroll indicator
-        .to(scrollRef.current, {
-          opacity:  1,
-          y:        0,
-          duration: 0.5,
-        }, 1.9)
+        const SplitText = plugin.SplitText ?? plugin.default
+        if (SplitText) {
+          gsap.registerPlugin(SplitText)
+          splitInstance = new SplitText(headline, {
+            type: 'chars',
+            charsClass: 'hero__char',
+          })
+          chars = splitInstance.chars
+        }
+      } catch {
+        if (isCancelled) return
+        chars = splitHeadlineFallback(headline)
+      }
 
-    }, sectionRef)
+      if (isCancelled) return
 
-    return () => ctx.revert()
+      if (!chars.length) {
+        chars = splitHeadlineFallback(headline)
+      }
+
+      const ctx = gsap.context(() => {
+        if (prefersReducedMotion) {
+          gsap.set([visualRef.current, labelRef.current, subRef.current, scrollRef.current], {
+            autoAlpha: 1,
+            y: 0,
+          })
+          gsap.set(chars, { autoAlpha: 1, yPercent: 0 })
+          return
+        }
+
+        gsap.set(visualRef.current, { autoAlpha: 0, y: 20 })
+        gsap.set([labelRef.current, subRef.current, scrollRef.current], {
+          autoAlpha: 0,
+          y: 16,
+        })
+        gsap.set(chars, {
+          autoAlpha: 0,
+          y: 48,
+        })
+
+        gsap
+          .timeline({
+            defaults: { ease: MOTION.ease.out },
+          })
+          .to(visualRef.current, {
+            autoAlpha: 1,
+            y: 0,
+            duration: MOTION.dur.normal,
+          }, 0.2)
+          .to(labelRef.current, {
+            autoAlpha: 1,
+            y: 0,
+            duration: MOTION.dur.normal,
+          }, 0.4)
+          .to(chars, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power4.out',
+            stagger: 0.02,
+          }, 0.6)
+          .to(subRef.current, {
+            autoAlpha: 1,
+            y: 0,
+            duration: MOTION.dur.normal,
+          }, 1.4)
+          .to(scrollRef.current, {
+            autoAlpha: 1,
+            y: 0,
+            duration: MOTION.dur.fast,
+          }, 1.6)
+      }, sectionRef)
+
+      cleanupRef.current = () => {
+        ctx.revert()
+      }
+
+      attachScrollListeners()
+    }
+
+    run()
+
+    return () => {
+      isCancelled = true
+      cleanupRef.current()
+      if (splitInstance) {
+        splitInstance.revert()
+      }
+      if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler)
+      }
+      const lenis = window.starLenis
+      if (lenis?.off && lenisHandler) {
+        lenis.off('scroll', lenisHandler)
+      }
+    }
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      style={{
-        position:       'relative',
-        minHeight:      '100svh',
-        backgroundColor:'#FAFAF8',
-        display:        'grid',
-        gridTemplateColumns: '1fr 1fr',
-        alignItems:     'center',
-        overflow:       'hidden',
-      }}
-      className="hero-section"
-    >
+    <section ref={sectionRef} className="hero surface-light">
+      <div className="hero__grid">
+        <div className="hero__copy">
+          <div ref={labelRef} className="hero__label" aria-label="STAR">
+            <span>STAR</span>
+            <span className="hero__star" aria-hidden="true">
+              ✦
+            </span>
+          </div>
 
-      {/* ── Left: text content ─────────────────────────────────────────── */}
-      <div
-        style={{
-          position:      'relative',
-          zIndex:         10,
-          padding:       'clamp(5rem,10vw,8rem) 0 clamp(5rem,10vw,8rem) clamp(1.5rem,4vw,4rem)',
-          display:       'flex',
-          flexDirection: 'column',
-          justifyContent:'center',
-          maxWidth:       760,
-        }}
-      >
+          <h1 ref={headlineRef} className="hero__headline text-display">
+            Websites that make your business impossible to ignore.
+          </h1>
 
-        {/* Section tag */}
-        <div
-          ref={tagRef}
-          style={{
-            display:       'inline-flex',
-            alignItems:    'center',
-            gap:            12,
-            fontFamily:    'var(--font-ui)',
-            fontSize:       10,
-            fontWeight:     500,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color:         '#888886',
-            marginBottom:   32,
-          }}
-        >
-          <span style={{
-            display:    'block',
-            width:       28,
-            height:      1,
-            background: '#888886',
-            flexShrink:  0,
-          }} />
-          Web Design Agency
-          <span style={{ color: '#E8940A', fontSize: 12 }}>✦</span>
-          Jaipur, India
+          <p ref={subRef} className="hero__sub">
+            Premium web design for Indian businesses — zero upfront cost.
+          </p>
+
+          <div ref={scrollRef} className="hero__scroll" aria-label="Scroll to explore">
+            <span className="hero__scroll-line" aria-hidden="true" />
+            <span className="hero__scroll-label">Scroll to explore</span>
+          </div>
         </div>
 
-        {/* Headline — Fraunces 800 italic */}
-        <h1
-          ref={headlineRef}
-          style={{
-            fontFamily:    'var(--font-display)',
-            fontSize:      'clamp(3rem,6vw,7rem)',
-            fontWeight:     800,
-            fontStyle:     'italic',
-            lineHeight:     1.0,
-            letterSpacing: '-0.03em',
-            color:         '#111111',
-            marginBottom:   28,
-            maxWidth:      '12ch',
-          }}
-        >
-          Websites that make businesses impossible to ignore.
-        </h1>
-
-        {/* Sub-headline */}
-        <p
-          ref={subRef}
-          style={{
-            fontFamily:  'var(--font-ui)',
-            fontSize:    'clamp(0.9375rem,1.1vw,1.0625rem)',
-            fontWeight:   400,
-            lineHeight:   1.75,
-            color:       '#888886',
-            maxWidth:    '44ch',
-            marginBottom: 40,
-          }}
-        >
-          Premium web design for architects, wedding planners, and Indian
-          businesses ready to grow.{' '}
-          <span style={{ color: '#111111', fontWeight: 500 }}>
-            Zero upfront cost
-          </span>{' '}
-          — you pay only if you love it.
-        </p>
-
-        {/* CTA buttons */}
-        <div
-          ref={ctaRef}
-          style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}
-        >
-          <a
-            href="#work"
-            onClick={(e) => {
-              e.preventDefault()
-              window.starLenis?.scrollTo('#work', { duration: 1.2 })
-            }}
-            style={{
-              fontFamily:      'var(--font-ui)',
-              fontSize:         13,
-              fontWeight:       600,
-              letterSpacing:   '0.04em',
-              color:           '#FAFAF8',
-              backgroundColor: '#111111',
-              padding:         '13px 28px',
-              borderRadius:     9999,
-              textDecoration:  'none',
-              transition:      'background 0.2s, transform 0.2s',
-              display:         'inline-block',
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-          >
-            See our work
-          </a>
-
-          <Link
-            href="/contact"
-            style={{
-              fontFamily:      'var(--font-ui)',
-              fontSize:         13,
-              fontWeight:       500,
-              letterSpacing:   '0.04em',
-              color:           '#111111',
-              backgroundColor: 'transparent',
-              padding:         '12px 28px',
-              borderRadius:     9999,
-              textDecoration:  'none',
-              border:          '1px solid #EBEBEA',
-              transition:      'border-color 0.2s, transform 0.2s',
-              display:         'inline-block',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = '#888886'
-              e.currentTarget.style.transform   = 'translateY(-2px)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = '#EBEBEA'
-              e.currentTarget.style.transform   = 'translateY(0)'
-            }}
-          >
-            Let's talk
-          </Link>
+        <div ref={visualRef} className="hero__canvas-wrap" data-cursor="view">
+          <CanvasErrorBoundary>
+            <HeroCanvas />
+          </CanvasErrorBoundary>
         </div>
-
       </div>
-
-      {/* ── Right: Three.js canvas ─────────────────────────────────────── */}
-      <div
-        style={{
-          position:       'relative',
-          height:         '100%',
-          minHeight:      '100svh',
-        }}
-        className="hero-canvas-col"
-      >
-        <CanvasErrorBoundary>
-          <HeroCanvas />
-        </CanvasErrorBoundary>
-      </div>
-
-      {/* ── Scroll indicator (absolute, bottom-left) ────────────────────── */}
-      <div
-        ref={scrollRef}
-        style={{
-          position:   'absolute',
-          bottom:     '2.5rem',
-          left:      'clamp(1.5rem,4vw,4rem)',
-          display:   'flex',
-          alignItems: 'center',
-          gap:         12,
-          zIndex:     10,
-        }}
-      >
-        {/* Animated vertical line */}
-        <span
-          style={{
-            display:         'block',
-            width:            1,
-            height:           44,
-            backgroundColor: '#EBEBEA',
-            position:        'relative',
-            overflow:        'hidden',
-            borderRadius:    9999,
-          }}
-        >
-          <span style={{
-            position:        'absolute',
-            top:             '-100%',
-            left:             0,
-            right:            0,
-            height:          '100%',
-            backgroundColor: '#888886',
-            animation:       'scrollDrop 1.8s cubic-bezier(0.16,1,0.3,1) infinite',
-          }} />
-        </span>
-        <span style={{
-          fontFamily:    'var(--font-ui)',
-          fontSize:       10,
-          fontWeight:     500,
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-          color:         '#888886',
-          writingMode:   'vertical-rl',
-        }}>
-          Scroll
-        </span>
-      </div>
-
-      {/* ── Responsive + animation keyframes ────────────────────────────── */}
-      <style>{`
-        @keyframes scrollDrop {
-          0%   { top: -100%; }
-          100% { top:  100%; }
-        }
-
-        @media (max-width: 768px) {
-          .hero-section {
-            grid-template-columns: 1fr !important;
-            min-height: 100svh !important;
-          }
-          .hero-canvas-col {
-            display: none !important;
-          }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-          .hero-section {
-            grid-template-columns: 55% 45% !important;
-          }
-        }
-      `}</style>
-
     </section>
   )
 }

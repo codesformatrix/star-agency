@@ -124,7 +124,7 @@ export default function SocialProof() {
                 display:     'block',
                 marginBottom:-8,
               }}>
-                "
+                &ldquo;
               </span>
 
               <p style={{
