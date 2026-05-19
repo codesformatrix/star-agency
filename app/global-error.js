@@ -1,6 +1,10 @@
 'use client'
 
 export default function GlobalError({ error, reset }) {
+  if (typeof window !== 'undefined') {
+    console.error('Global app error:', error)
+  }
+
   return (
     <html lang="en">
       <body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', background: '#FAFAF8' }}>
