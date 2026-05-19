@@ -6,57 +6,77 @@ import { useEffect, useRef, useState } from 'react'
 import IntroLoader from '@/components/layout/IntroLoader'
 import { MOTION } from '@/lib/motion'
 
+function bindMediaQueryChange(mediaQuery, listener) {
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', listener)
+    return () => mediaQuery.removeEventListener('change', listener)
+  }
+
+  if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(listener)
+    return () => mediaQuery.removeListener(listener)
+  }
+
+  return () => {}
+}
+
+function readSessionFlag(key) {
+  try {
+    return window.sessionStorage.getItem(key) === '1'
+  } catch {
+    return true
+  }
+}
+
+function writeSessionFlag(key) {
+  try {
+    window.sessionStorage.setItem(key, '1')
+  } catch {
+    return
+  }
+}
+
 export default function ExperienceShell({ children }) {
   const pathname = usePathname()
   const [showIntro, setShowIntro] = useState(false)
   const [routeVeilVisible, setRouteVeilVisible] = useState(false)
-  const [reducedMotion, setReducedMotion] = useState(null)
+  const [reducedMotion, setReducedMotion] = useState(false)
+  const [preferencesReady, setPreferencesReady] = useState(false)
   const initializedRef = useRef(false)
   const lastPathRef = useRef(pathname)
   const routeTimeoutRef = useRef(null)
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+
     const applyPreference = () => {
       setReducedMotion(mediaQuery.matches)
+      setPreferencesReady(true)
     }
 
     applyPreference()
-    mediaQuery.addEventListener('change', applyPreference)
-
-    return () => {
-      mediaQuery.removeEventListener('change', applyPreference)
-    }
+    return bindMediaQueryChange(mediaQuery, applyPreference)
   }, [])
 
   useEffect(() => {
-    if (reducedMotion === null) return
-
-    if (reducedMotion) {
-      initializedRef.current = true
-      return
-    }
-
-    if (initializedRef.current) {
-      return
-    }
+    if (!preferencesReady || initializedRef.current) return
 
     initializedRef.current = true
 
-    const hasSeenIntro = window.sessionStorage.getItem(MOTION.loader.sessionKey) === '1'
-    if (hasSeenIntro) {
+    if (reducedMotion || readSessionFlag(MOTION.loader.sessionKey)) {
+      writeSessionFlag(MOTION.loader.sessionKey)
       return
     }
 
     const showFrame = window.requestAnimationFrame(() => {
       setShowIntro(true)
+      document.body.classList.add('is-intro-active')
     })
-    document.body.classList.add('is-intro-active')
 
     const hideTimeout = window.setTimeout(() => {
       setShowIntro(false)
       document.body.classList.remove('is-intro-active')
-      window.sessionStorage.setItem(MOTION.loader.sessionKey, '1')
+      writeSessionFlag(MOTION.loader.sessionKey)
     }, MOTION.loader.holdMs)
 
     return () => {
@@ -64,11 +84,11 @@ export default function ExperienceShell({ children }) {
       window.clearTimeout(hideTimeout)
       document.body.classList.remove('is-intro-active')
     }
-  }, [reducedMotion])
+  }, [preferencesReady, reducedMotion])
 
   useEffect(() => {
-    if (!initializedRef.current) return
-    if (showIntro) return
+    if (!preferencesReady) return
+    if (!initializedRef.current || showIntro) return
     if (lastPathRef.current === pathname) return
 
     lastPathRef.current = pathname
@@ -87,7 +107,7 @@ export default function ExperienceShell({ children }) {
         window.clearTimeout(routeTimeoutRef.current)
       }
     }
-  }, [pathname, showIntro])
+  }, [pathname, preferencesReady, showIntro])
 
   return (
     <>

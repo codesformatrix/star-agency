@@ -90,11 +90,22 @@ export default function HeroCanvas() {
     }
 
     applyPreference()
-    reducedMotionQuery.addEventListener('change', applyPreference)
 
-    return () => {
-      reducedMotionQuery.removeEventListener('change', applyPreference)
+    if (typeof reducedMotionQuery.addEventListener === 'function') {
+      reducedMotionQuery.addEventListener('change', applyPreference)
+      return () => {
+        reducedMotionQuery.removeEventListener('change', applyPreference)
+      }
     }
+
+    if (typeof reducedMotionQuery.addListener === 'function') {
+      reducedMotionQuery.addListener(applyPreference)
+      return () => {
+        reducedMotionQuery.removeListener(applyPreference)
+      }
+    }
+
+    return () => {}
   }, [])
 
   return (

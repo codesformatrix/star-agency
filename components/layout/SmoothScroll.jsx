@@ -37,16 +37,17 @@ export default function SmoothScroll({ children }) {
       ScrollTrigger.refresh()
     }
 
+    const frameId = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh()
+    })
+
     lenis.on('scroll', ScrollTrigger.update)
     gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
     window.addEventListener('resize', onResize)
 
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh()
-    })
-
     return () => {
+      window.cancelAnimationFrame(frameId)
       window.removeEventListener('resize', onResize)
       gsap.ticker.remove(raf)
       lenis.destroy()
@@ -64,9 +65,13 @@ export default function SmoothScroll({ children }) {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     }
 
-    requestAnimationFrame(() => {
+    const frameId = window.requestAnimationFrame(() => {
       ScrollTrigger.refresh()
     })
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+    }
   }, [pathname])
 
   return <>{children}</>
