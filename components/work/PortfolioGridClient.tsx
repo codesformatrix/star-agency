@@ -73,6 +73,7 @@ export function PortfolioGridView({ projects, activeCategory }: PortfolioGridVie
                   key={filter}
                   href={href}
                   scroll={false}
+                  data-cursor="open"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',

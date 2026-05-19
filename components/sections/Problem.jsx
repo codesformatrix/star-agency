@@ -1,51 +1,38 @@
 'use client'
 
-/**
- * Problem.jsx — Section 02
- *
- * Purpose: Agitate the pain before presenting the solution.
- * The visitor (an Indian business owner) recognises their situation
- * and feels understood before Ali has pitched anything.
- *
- * Layout:
- *  - Dark #111111 background — dramatic shift from white hero
- *  - Running marquee of pain keywords (CSS animation, zero JS cost)
- *  - Large Fraunces italic central statement
- *  - 3 numbered pain points in a grid
- */
-
 import { useReveal } from '@/lib/hooks/useReveal'
 
 const MARQUEE_WORDS = [
-  'Outdated website',
-  '✦',
-  'Losing clients',
-  '✦',
-  'No online trust',
-  '✦',
-  'Invisible to Google',
-  '✦',
-  'Looks unprofessional',
-  '✦',
-  'Competitors winning',
-  '✦',
+  'Quiet website',
+  '*',
+  'Weak first impression',
+  '*',
+  'No visual trust',
+  '*',
+  'Too similar to everyone else',
+  '*',
+  'Better work than the website suggests',
+  '*',
 ]
 
 const PAIN_POINTS = [
   {
     num: '01',
-    title: 'First impressions happen in 3 seconds',
-    body:  'Before a potential client calls you, they judge your business entirely on how your website looks. 94% of first impressions are design-related. A bad website costs you the meeting before it starts.',
+    title: 'The website looks polite, not memorable',
+    body:
+      'Most businesses are not losing trust because they lack information. They are losing it because the presentation feels generic before the visitor has even started reading.',
   },
   {
     num: '02',
-    title: 'Your competitors look more established',
-    body:  'When a client searches for an architect or wedding planner in Jaipur, they compare websites side by side. If yours looks old or generic, they assume your work is too — regardless of how good it actually is.',
+    title: 'Good work is being framed too weakly',
+    body:
+      'Architects, wedding planners, and hospitality brands rely on taste. If the site does not express that standard immediately, the work gets judged lower than it deserves.',
   },
   {
     num: '03',
-    title: 'A website built before 2023 is working against you',
-    body:  "The way people browse, trust, and decide has changed entirely in the AI era. Websites that don't move, don't load fast, and don't feel premium are sending one clear signal: this business isn't keeping up.",
+    title: 'The next step feels forgettable',
+    body:
+      'When the story, motion, and contact path feel interchangeable, visitors browse, compare, and leave. The business becomes easy to admire and easy to forget.',
   },
 ]
 
@@ -57,44 +44,44 @@ export default function Problem() {
       ref={sectionRef}
       id="section-problem"
       style={{
-        backgroundColor: '#111111',
-        color:           '#FAFAF8',
-        overflow:        'hidden',
+        position: 'relative',
+        overflow: 'hidden',
+        background:
+          'radial-gradient(circle at 18% 14%, rgba(232,148,10,0.14), transparent 18%), linear-gradient(180deg, #111111 0%, #090909 100%)',
+        color: '#FAFAF8',
       }}
     >
-
-      {/* ── Marquee ─────────────────────────────────────────────────────── */}
       <div
         aria-hidden="true"
         style={{
-          borderTop:    '1px solid #1E1E1E',
-          borderBottom: '1px solid #1E1E1E',
-          padding:      '14px 0',
-          overflow:     'hidden',
-          whiteSpace:   'nowrap',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          padding: '0.95rem 0',
         }}
       >
-        {/* Duplicate for seamless loop */}
-        {[0, 1].map(n => (
+        {[0, 1].map((index) => (
           <span
-            key={n}
+            key={index}
             style={{
-              display:       'inline-block',
-              animation:     'marqueeScroll 22s linear infinite',
-              paddingRight:   80,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 28,
+              paddingRight: 28,
+              animation: 'problem-marquee 22s linear infinite',
             }}
           >
-            {MARQUEE_WORDS.map((word, i) => (
+            {MARQUEE_WORDS.map((word, wordIndex) => (
               <span
-                key={i}
+                key={`${index}-${wordIndex}-${word}`}
                 style={{
-                  fontFamily:    'var(--font-ui)',
-                  fontSize:       12,
-                  fontWeight:     word === '✦' ? 400 : 500,
-                  letterSpacing:  word === '✦' ? 0 : '0.08em',
-                  textTransform: 'uppercase',
-                  color:          word === '✦' ? '#E8940A' : '#555553',
-                  marginRight:    32,
+                  fontFamily: 'var(--font-ui)',
+                  fontSize: 11,
+                  fontWeight: word === '*' ? 700 : 600,
+                  letterSpacing: word === '*' ? '0' : '0.14em',
+                  textTransform: word === '*' ? 'none' : 'uppercase',
+                  color: word === '*' ? '#E8940A' : 'rgba(250,250,248,0.45)',
                 }}
               >
                 {word}
@@ -104,112 +91,174 @@ export default function Problem() {
         ))}
       </div>
 
-      {/* ── Central statement ────────────────────────────────────────────── */}
       <div
+        className="container"
         style={{
-          maxWidth: 1440,
-          margin:  '0 auto',
-          padding: 'clamp(5rem,10vw,9rem) clamp(1.5rem,4vw,4rem)',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 0.88fr) minmax(0, 1.12fr)',
+          gap: 34,
+          paddingTop: 'clamp(4.5rem,9vw,8rem)',
+          paddingBottom: 'clamp(5rem,10vw,9rem)',
         }}
       >
-        <div data-reveal style={{ marginBottom: 'clamp(1rem,2vw,1.5rem)' }}>
-          <span style={{
-            fontFamily:    'var(--font-ui)',
-            fontSize:       10,
-            fontWeight:     500,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color:         '#555553',
-            display:       'inline-flex',
-            alignItems:    'center',
-            gap:            12,
-          }}>
-            <span style={{ display:'block', width:28, height:1, background:'#555553' }} />
-            02 — The Problem
-          </span>
-        </div>
-
-        <h2
+        <div
           data-reveal
-          data-delay="0.1"
           style={{
-            fontFamily:    'var(--font-display)',
-            fontSize:      'clamp(2.5rem,6vw,6rem)',
-            fontWeight:     800,
-            fontStyle:     'italic',
-            lineHeight:     1.0,
-            letterSpacing: '-0.03em',
-            color:         '#FAFAF8',
-            maxWidth:      '16ch',
-            marginBottom:  'clamp(4rem,8vw,7rem)',
+            position: 'sticky',
+            top: 96,
+            alignSelf: 'start',
+            maxWidth: 480,
           }}
         >
-          Your competitors are getting your clients. Your website is why.
-        </h2>
+          <p className="section-tag" style={{ color: 'rgba(250,250,248,0.5)' }}>
+            02 - The problem
+          </p>
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(2.8rem,6vw,6rem)',
+              fontWeight: 800,
+              fontStyle: 'italic',
+              lineHeight: 0.98,
+              letterSpacing: '-0.03em',
+              color: '#FAFAF8',
+              marginBottom: 20,
+              maxWidth: '10ch',
+            }}
+          >
+            Better businesses deserve a stronger digital first impression.
+          </h2>
+          <p
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'clamp(1rem,1.2vw,1.08rem)',
+              lineHeight: 1.9,
+              color: 'rgba(250,250,248,0.62)',
+              maxWidth: '34ch',
+            }}
+          >
+            The issue is rarely the business itself. It is the gap between how thoughtful the work
+            is in real life and how ordinary the website makes it look online.
+          </p>
+        </div>
 
-        {/* ── Pain points grid ──────────────────────────────────────────── */}
         <div
           data-reveal="stagger-parent"
           style={{
-            display:             'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap:                  1,
-            borderTop:           '1px solid #1E1E1E',
+            display: 'grid',
+            gap: 18,
           }}
         >
-          {PAIN_POINTS.map(({ num, title, body }) => (
-            <div
-              key={num}
+          {PAIN_POINTS.map((item, index) => (
+            <article
+              key={item.num}
               data-stagger-child
+              data-cursor="open"
               style={{
-                padding:       'clamp(2rem,4vw,3rem) clamp(1.5rem,3vw,2.5rem)',
-                borderRight:   '1px solid #1E1E1E',
-                borderBottom:  '1px solid #1E1E1E',
+                position: 'relative',
+                overflow: 'hidden',
+                padding: 'clamp(1.5rem,3vw,2.15rem)',
+                borderRadius: 30,
+                border: '1px solid rgba(255,255,255,0.08)',
+                background:
+                  index === 1
+                    ? 'linear-gradient(135deg, rgba(232,148,10,0.16), rgba(255,255,255,0.04))'
+                    : 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
+                boxShadow: '0 24px 56px rgba(0,0,0,0.24)',
+                transform: `translateZ(${16 + index * 8}px)`,
               }}
             >
-              <span style={{
-                fontFamily:    'var(--font-ui)',
-                fontSize:       11,
-                fontWeight:     500,
-                letterSpacing: '0.12em',
-                color:         '#E8940A',
-                display:       'block',
-                marginBottom:   20,
-              }}>
-                {num}
-              </span>
-              <h3 style={{
-                fontFamily:    'var(--font-ui)',
-                fontSize:      'clamp(1rem,1.4vw,1.25rem)',
-                fontWeight:     600,
-                lineHeight:     1.3,
-                color:         '#FAFAF8',
-                marginBottom:   16,
-              }}>
-                {title}
-              </h3>
-              <p style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize:    14,
-                lineHeight:  1.75,
-                color:      '#555553',
-                fontWeight:  400,
-              }}>
-                {body}
-              </p>
-            </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 'auto -10% -28% auto',
+                  width: 180,
+                  height: 180,
+                  borderRadius: '50%',
+                  background: 'rgba(232,148,10,0.11)',
+                  filter: 'blur(16px)',
+                }}
+              />
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: 16,
+                    marginBottom: 18,
+                    alignItems: 'center',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-ui)',
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: '0.14em',
+                      textTransform: 'uppercase',
+                      color: '#E8940A',
+                    }}
+                  >
+                    {item.num}
+                  </span>
+                  <span
+                    style={{
+                      width: 42,
+                      height: 1,
+                      background: 'rgba(250,250,248,0.14)',
+                    }}
+                  />
+                </div>
+
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.55rem,2.3vw,2.25rem)',
+                    fontWeight: 700,
+                    fontStyle: 'italic',
+                    lineHeight: 1.05,
+                    letterSpacing: '-0.02em',
+                    color: '#FAFAF8',
+                    marginBottom: 16,
+                    maxWidth: '18ch',
+                  }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 15,
+                    lineHeight: 1.85,
+                    color: 'rgba(250,250,248,0.66)',
+                    maxWidth: '42ch',
+                  }}
+                >
+                  {item.body}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
 
-      {/* ── Marquee keyframe ─────────────────────────────────────────────── */}
       <style>{`
-        @keyframes marqueeScroll {
+        @keyframes problem-marquee {
           from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 940px) {
+          #section-problem .container {
+            grid-template-columns: 1fr !important;
+          }
+
+          #section-problem [style*='position: sticky'] {
+            position: relative !important;
+            top: 0 !important;
+          }
         }
       `}</style>
-
     </section>
   )
 }

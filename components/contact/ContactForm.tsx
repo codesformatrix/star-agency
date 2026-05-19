@@ -254,7 +254,7 @@ export default function ContactForm() {
       </div>
 
       <div style={{ display: 'grid', gap: 14 }}>
-        <button type="submit" style={buttonStyle}>
+        <button type="submit" style={buttonStyle} data-cursor="open">
           Send brief on WhatsApp
         </button>
 
@@ -268,6 +268,7 @@ export default function ContactForm() {
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          data-cursor="open"
           style={{
             fontFamily: 'var(--font-ui)',
             fontSize: 13,

@@ -1,42 +1,26 @@
 'use client'
 
-/**
- * SocialProof.jsx — Section 06
- *
- * Real testimonials + project card grid.
- * Light background — breathing room after two dark sections.
- *
- * Replace TESTIMONIALS and PROJECTS with real data as it becomes available.
- * Project cards link to /work/[slug] individual case studies.
- */
-
+import Image from 'next/image'
 import Link from 'next/link'
 import { useReveal } from '@/lib/hooks/useReveal'
 import { allProjects } from '@/lib/data/projects'
 
-/* ── Placeholder data — replace with real client content ──────────────── */
-
 const TESTIMONIALS = [
   {
-    quote: 'We were sceptical at first — build it for free? But the website Ali delivered was better than anything we had seen from agencies charging ₹80,000. We signed immediately.',
-    author: 'Rohan Mehta',
-    role:   'Principal Architect, Jaipur',
-    initial:'R',
+    quote:
+      'The first thing people noticed was not just that the website looked better. It felt like the business itself had become more sure of its own standard.',
+    author: 'Architecture client',
+    role: 'Portfolio repositioning',
   },
   {
-    quote: 'Our enquiry rate doubled in the first month. Clients now mention the website specifically when they call. That never happened before.',
-    author: 'Priya Sharma',
-    role:   'Wedding Planner, Jaipur',
-    initial:'P',
+    quote:
+      'The difference was how much more intentional everything felt. The website finally looked like it belonged to a premium wedding brand instead of a placeholder service page.',
+    author: 'Wedding planning client',
+    role: 'Luxury presentation refresh',
   },
 ]
 
-const PROJECTS = allProjects.slice(0, 6).map((project) => ({
-  title: project.title,
-  industry: project.category,
-  slug: project.slug,
-  color: project.palette[0],
-}))
+const PROJECTS = allProjects.slice(0, 4)
 
 export default function SocialProof() {
   const sectionRef = useReveal()
@@ -45,218 +29,297 @@ export default function SocialProof() {
     <section
       ref={sectionRef}
       id="section-proof"
-      style={{ backgroundColor: '#FAFAF8', borderTop: '1px solid #EBEBEA' }}
+      className="surface-light"
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        borderTop: '1px solid #EBEBEA',
+      }}
     >
-      <div style={{
-        maxWidth: 1440,
-        margin:  '0 auto',
-        padding: 'clamp(5rem,10vw,9rem) clamp(1.5rem,4vw,4rem)',
-      }}>
-
-        {/* Header */}
-        <div style={{ marginBottom: 'clamp(3rem,6vw,5rem)' }}>
-          <div data-reveal style={{ marginBottom: 16 }}>
-            <span style={{
-              fontFamily:    'var(--font-ui)',
-              fontSize:       10,
-              fontWeight:     500,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color:         '#888886',
-              display:       'inline-flex',
-              alignItems:    'center',
-              gap:            12,
-            }}>
-              <span style={{ display:'block', width:28, height:1, background:'#888886' }} />
-              06 — Proof
-            </span>
+      <div
+        className="container"
+        style={{
+          paddingTop: 'clamp(5rem,10vw,9rem)',
+          paddingBottom: 'clamp(5rem,10vw,9rem)',
+          display: 'grid',
+          gap: 32,
+        }}
+      >
+        <div
+          data-reveal
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.02fr) minmax(280px, 0.98fr)',
+            gap: 28,
+            alignItems: 'end',
+          }}
+        >
+          <div>
+            <p className="section-tag">06 - Proof</p>
+            <h2
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.8rem,6vw,5.6rem)',
+                fontWeight: 800,
+                fontStyle: 'italic',
+                lineHeight: 0.98,
+                letterSpacing: '-0.03em',
+                color: '#111111',
+                maxWidth: '10ch',
+                marginBottom: 18,
+              }}
+            >
+              The work has to carry the pitch by itself.
+            </h2>
           </div>
 
-          <h2
-            data-reveal
-            data-delay="0.1"
+          <p
             style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(2.25rem,5vw,4.25rem)',
-              fontWeight:     800,
-              fontStyle:     'italic',
-              lineHeight:     1.05,
-              letterSpacing: '-0.02em',
-              color:         '#111111',
-              maxWidth:      '20ch',
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'clamp(1rem,1.18vw,1.06rem)',
+              lineHeight: 1.88,
+              color: '#555553',
+              maxWidth: '35ch',
+              justifySelf: 'end',
             }}
           >
-            Businesses that took the leap.
-          </h2>
+            That is why the portfolio matters. The strongest trust signal is not a claim about what
+            STAR can do. It is a body of work that already feels considered.
+          </p>
         </div>
 
-        {/* ── Testimonials ──────────────────────────────────────────────── */}
         <div
           data-reveal="stagger-parent"
           style={{
-            display:             'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap:                  24,
-            marginBottom:        'clamp(4rem,7vw,6rem)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+            gap: 18,
           }}
         >
-          {TESTIMONIALS.map(({ quote, author, role, initial }) => (
-            <div
-              key={author}
+          {TESTIMONIALS.map((testimonial, index) => (
+            <article
+              key={testimonial.author}
               data-stagger-child
               style={{
-                backgroundColor: '#F3F1EC',
-                borderRadius:     16,
-                padding:         'clamp(2rem,3vw,2.5rem)',
-                display:         'flex',
-                flexDirection:   'column',
-                gap:              20,
+                padding: 'clamp(1.6rem,3vw,2.1rem)',
+                borderRadius: 30,
+                border: '1px solid #EBEBEA',
+                background: index === 0 ? '#F8F6F2' : '#111111',
+                color: index === 0 ? '#111111' : '#FAFAF8',
+                boxShadow: index === 0 ? '0 20px 48px rgba(17,17,17,0.06)' : '0 26px 56px rgba(17,17,17,0.12)',
               }}
             >
-              {/* Quote mark */}
-              <span style={{
-                fontFamily:  'var(--font-display)',
-                fontSize:     48,
-                fontStyle:   'italic',
-                color:       '#E8940A',
-                lineHeight:   1,
-                display:     'block',
-                marginBottom:-8,
-              }}>
+              <span
+                style={{
+                  display: 'block',
+                  marginBottom: 18,
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 48,
+                  fontWeight: 700,
+                  fontStyle: 'italic',
+                  lineHeight: 1,
+                  color: index === 0 ? '#E8940A' : '#F2B24A',
+                }}
+              >
                 &ldquo;
               </span>
-
-              <p style={{
-                fontFamily:  'var(--font-ui)',
-                fontSize:    'clamp(0.9375rem,1.1vw,1rem)',
-                lineHeight:   1.75,
-                color:       '#333332',
-                fontWeight:   400,
-                flex:         1,
-              }}>
-                {quote}
+              <p
+                style={{
+                  fontFamily: 'var(--font-ui)',
+                  fontSize: 'clamp(1rem,1.15vw,1.06rem)',
+                  lineHeight: 1.9,
+                  color: index === 0 ? '#333332' : 'rgba(250,250,248,0.82)',
+                  marginBottom: 22,
+                  maxWidth: '38ch',
+                }}
+              >
+                {testimonial.quote}
               </p>
-
-              <div style={{ display:'flex', alignItems:'center', gap:12, borderTop:'1px solid #E5E3DE', paddingTop:16 }}>
-                <div style={{
-                  width:           36,
-                  height:          36,
-                  borderRadius:    '50%',
-                  backgroundColor: '#111111',
-                  display:         'flex',
-                  alignItems:      'center',
-                  justifyContent:  'center',
-                  flexShrink:       0,
-                }}>
-                  <span style={{ fontFamily:'var(--font-ui)', fontSize:13, fontWeight:600, color:'#FAFAF8' }}>
-                    {initial}
-                  </span>
-                </div>
-                <div>
-                  <p style={{ fontFamily:'var(--font-ui)', fontSize:13, fontWeight:600, color:'#111111', marginBottom:2 }}>
-                    {author}
-                  </p>
-                  <p style={{ fontFamily:'var(--font-ui)', fontSize:11, color:'#888886', letterSpacing:'0.04em' }}>
-                    {role}
-                  </p>
-                </div>
+              <div
+                style={{
+                  paddingTop: 16,
+                  borderTop: `1px solid ${index === 0 ? '#E5E3DE' : 'rgba(255,255,255,0.1)'}`,
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: index === 0 ? '#111111' : '#FAFAF8',
+                    marginBottom: 3,
+                  }}
+                >
+                  {testimonial.author}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 11,
+                    fontWeight: 600,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: index === 0 ? '#888886' : 'rgba(250,250,248,0.48)',
+                  }}
+                >
+                  {testimonial.role}
+                </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* ── Project grid ─────────────────────────────────────────────── */}
-        <div style={{ marginBottom: 32 }}>
-          <div data-reveal style={{ marginBottom: 24, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-            <span style={{
-              fontFamily:    'var(--font-ui)',
-              fontSize:       12,
-              fontWeight:     500,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color:         '#888886',
-            }}>
-              Selected work
-            </span>
-            <Link href="/work" style={{
-              fontFamily:    'var(--font-ui)',
-              fontSize:       12,
-              fontWeight:     500,
-              color:         '#111111',
-              textDecoration:'none',
-              display:       'flex',
-              alignItems:    'center',
-              gap:            6,
-              letterSpacing: '0.04em',
-            }}>
-              View all work →
-            </Link>
-          </div>
-
-          <div
-            data-reveal="stagger-parent"
-            style={{
-              display:             'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-              gap:                  12,
-            }}
-          >
-            {PROJECTS.map(({ title, industry, slug, color }) => (
-              <Link
-                key={slug}
-                href={`/work/${slug}`}
-                data-stagger-child
-                data-cursor="view"
+        <div
+          data-reveal="stagger-parent"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+            gap: 18,
+          }}
+        >
+          {PROJECTS.map((project) => (
+            <Link
+              key={project.slug}
+              href={`/work/${project.slug}`}
+              data-stagger-child
+              data-cursor="view"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'minmax(220px, 0.92fr) minmax(0, 1.08fr)',
+                gap: 16,
+                padding: 16,
+                borderRadius: 30,
+                border: '1px solid #EBEBEA',
+                background: '#FAFAF8',
+                boxShadow: '0 20px 48px rgba(17,17,17,0.05)',
+              }}
+            >
+              <div
                 style={{
-                  display:         'block',
-                  textDecoration:  'none',
-                  borderRadius:     12,
-                  overflow:        'hidden',
-                  aspectRatio:    '4 / 3',
-                  backgroundColor: color,
-                  position:       'relative',
-                  transition:     'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+                  position: 'relative',
+                  minHeight: 240,
+                  borderRadius: 22,
+                  overflow: 'hidden',
+                  background: `linear-gradient(135deg, ${project.palette[0]}, ${project.palette[1]})`,
                 }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
               >
-                {/* Overlay */}
-                <div style={{
-                  position:        'absolute',
-                  inset:            0,
-                  background:      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)',
-                  display:         'flex',
-                  flexDirection:   'column',
-                  justifyContent:  'flex-end',
-                  padding:          20,
-                }}>
-                  <span style={{
-                    fontFamily:    'var(--font-ui)',
-                    fontSize:       10,
-                    fontWeight:     500,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color:         'rgba(255,255,255,0.5)',
-                    marginBottom:   6,
-                  }}>
-                    {industry}
-                  </span>
-                  <span style={{
-                    fontFamily:  'var(--font-ui)',
-                    fontSize:     14,
-                    fontWeight:   600,
-                    color:       '#FAFAF8',
-                    lineHeight:   1.3,
-                  }}>
-                    {title}
-                  </span>
+                <Image
+                  src={project.screenshot}
+                  alt={`${project.title} preview`}
+                  fill
+                  sizes="(max-width: 920px) 100vw, 40vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+
+              <div style={{ display: 'grid', alignContent: 'space-between', gap: 18 }}>
+                <div>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-ui)',
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: '0.14em',
+                      textTransform: 'uppercase',
+                      color: '#888886',
+                      marginBottom: 10,
+                    }}
+                  >
+                    {project.category}
+                  </p>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 'clamp(1.7rem,2.4vw,2.6rem)',
+                      fontWeight: 700,
+                      fontStyle: 'italic',
+                      lineHeight: 1.04,
+                      letterSpacing: '-0.02em',
+                      color: '#111111',
+                      marginBottom: 12,
+                    }}
+                  >
+                    {project.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-ui)',
+                      fontSize: 15,
+                      lineHeight: 1.82,
+                      color: '#555553',
+                      maxWidth: '32ch',
+                    }}
+                  >
+                    {project.description}
+                  </p>
                 </div>
-              </Link>
-            ))}
-          </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  {project.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        padding: '0.5rem 0.75rem',
+                        borderRadius: 9999,
+                        background: '#F3F1EC',
+                        border: '1px solid #EBEBEA',
+                        fontFamily: 'var(--font-ui)',
+                        fontSize: 11,
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        color: '#333332',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
 
+        <div
+          data-reveal
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 20,
+            flexWrap: 'wrap',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: '#888886',
+            }}
+          >
+            Temporary portfolio set, final structure
+          </span>
+          <Link href="/work" className="btn btn-outline" data-cursor="view">
+            View all work
+          </Link>
+        </div>
       </div>
+
+      <style>{`
+        @media (max-width: 980px) {
+          #section-proof .container > div {
+            grid-template-columns: 1fr !important;
+          }
+        }
+
+        @media (max-width: 820px) {
+          #section-proof a[data-stagger-child] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

@@ -1,81 +1,136 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import { MOTION } from '@/lib/motion'
+
+const CURSOR_LABELS = {
+  view: 'View',
+  open: 'Open',
+  drag: 'Drag',
+}
 
 export default function Cursor() {
-  const cursorRef  = useRef(null)
-  const hovering   = useRef(false)
+  const cursorRef = useRef(null)
+  const labelRef = useRef(null)
+  const activeTargetRef = useRef(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) return
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    if (coarsePointer) return
 
-    const el = cursorRef.current
-    gsap.set(el, { opacity: 0, xPercent: -50, yPercent: -50 })
+    const cursor = cursorRef.current
+    const label = labelRef.current
+    if (!cursor || !label) return
 
-    const xTo = gsap.quickTo(el, 'x', { duration: 0.45, ease: 'power3.out' })
-    const yTo = gsap.quickTo(el, 'y', { duration: 0.45, ease: 'power3.out' })
+    setMounted(true)
+    document.body.classList.add('has-custom-cursor')
 
-    const move = (e) => { xTo(e.clientX); yTo(e.clientY) }
+    gsap.set(cursor, {
+      opacity: 0,
+      xPercent: -50,
+      yPercent: -50,
+      width: MOTION.cursor.idleSize,
+      height: MOTION.cursor.idleSize,
+    })
 
-    const enter = () => {
-      if (hovering.current) return
-      hovering.current = true
-      gsap.to(el, { width: 44, height: 44, duration: 0.3, ease: 'back.out(1.7)' })
+    gsap.set(label, { opacity: 0, y: 10 })
+
+    const xTo = gsap.quickTo(cursor, 'x', {
+      duration: MOTION.cursor.moveDuration,
+      ease: 'power3.out',
+    })
+    const yTo = gsap.quickTo(cursor, 'y', {
+      duration: MOTION.cursor.moveDuration,
+      ease: 'power3.out',
+    })
+
+    const updateCursorState = (target) => {
+      activeTargetRef.current = target
+
+      const mode =
+        target?.getAttribute('data-cursor') ||
+        (target?.matches('a, button') ? 'open' : '')
+      const customLabel = target?.getAttribute('data-cursor-label')
+      const nextLabel = customLabel || CURSOR_LABELS[mode] || ''
+      const nextSize = mode === 'drag' ? MOTION.cursor.dragSize : MOTION.cursor.hoverSize
+
+      gsap.to(cursor, {
+        width: mode ? nextSize : MOTION.cursor.idleSize,
+        height: mode ? nextSize : MOTION.cursor.idleSize,
+        duration: 0.3,
+        ease: 'back.out(1.7)',
+      })
+
+      gsap.to(label, {
+        opacity: nextLabel ? 1 : 0,
+        y: nextLabel ? 0 : 10,
+        duration: MOTION.cursor.labelDuration,
+        ease: 'power2.out',
+      })
+
+      label.textContent = nextLabel
     }
 
-    const leave = () => {
-      hovering.current = false
-      gsap.to(el, { width: 10, height: 10, duration: 0.3, ease: 'power3.out' })
+    const move = (event) => {
+      xTo(event.clientX)
+      yTo(event.clientY)
     }
 
-    const hide = () => gsap.to(el, { opacity: 0, duration: 0.2 })
-    const show = () => gsap.to(el, { opacity: 1, duration: 0.2 })
+    const hide = () => {
+      gsap.to(cursor, { opacity: 0, duration: 0.2 })
+    }
+
+    const show = () => {
+      gsap.to(cursor, { opacity: 1, duration: 0.2 })
+    }
+
+    const onPointerOver = (event) => {
+      const target = event.target instanceof Element ? event.target.closest('[data-cursor], a, button') : null
+      updateCursorState(target)
+    }
+
+    const onPointerOut = (event) => {
+      const relatedTarget =
+        event.relatedTarget instanceof Element
+          ? event.relatedTarget.closest('[data-cursor], a, button')
+          : null
+
+      if (relatedTarget === activeTargetRef.current) return
+      updateCursorState(relatedTarget)
+    }
+
+    const onFirstMove = () => {
+      gsap.to(cursor, { opacity: 1, duration: 0.3 })
+      window.removeEventListener('mousemove', onFirstMove)
+    }
 
     window.addEventListener('mousemove', move)
+    window.addEventListener('mousemove', onFirstMove)
     document.documentElement.addEventListener('mouseleave', hide)
     document.documentElement.addEventListener('mouseenter', show)
-
-    document.body.addEventListener('mouseover', (e) => {
-      if (e.target.closest('a, button, [data-cursor]')) enter()
-    })
-    document.body.addEventListener('mouseout', (e) => {
-      if (e.target.closest('a, button, [data-cursor]')) leave()
-    })
-
-    // Show after first mouse move
-    const firstMove = () => {
-      gsap.to(el, { opacity: 1, duration: 0.3 })
-      window.removeEventListener('mousemove', firstMove)
-    }
-    window.addEventListener('mousemove', firstMove)
+    document.body.addEventListener('mouseover', onPointerOver)
+    document.body.addEventListener('mouseout', onPointerOut)
 
     return () => {
+      document.body.classList.remove('has-custom-cursor')
       window.removeEventListener('mousemove', move)
-      window.removeEventListener('mousemove', firstMove)
+      window.removeEventListener('mousemove', onFirstMove)
+      document.documentElement.removeEventListener('mouseleave', hide)
+      document.documentElement.removeEventListener('mouseenter', show)
+      document.body.removeEventListener('mouseover', onPointerOver)
+      document.body.removeEventListener('mouseout', onPointerOut)
     }
   }, [])
 
+  if (!mounted) {
+    return null
+  }
+
   return (
-    <>
-      <style>{`@media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }`}</style>
-      <div
-        ref={cursorRef}
-        aria-hidden="true"
-        style={{
-          position:        'fixed',
-          top:              0,
-          left:             0,
-          width:            10,
-          height:           10,
-          borderRadius:    '50%',
-          backgroundColor: '#FAFAF8',
-          pointerEvents:   'none',
-          zIndex:           9999,
-          mixBlendMode:    'difference',
-          willChange:      'transform, width, height',
-        }}
-      />
-    </>
+    <div ref={cursorRef} className="cursor" aria-hidden="true">
+      <span ref={labelRef} className="cursor__label" />
+    </div>
   )
 }

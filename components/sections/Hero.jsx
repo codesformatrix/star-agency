@@ -1,224 +1,216 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { gsap } from 'gsap'
-import { MOTION } from '@/lib/motion'
-import CanvasErrorBoundary from '@/components/three/CanvasErrorBoundary'
+import Link from 'next/link'
+import Image from 'next/image'
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
+import { heroWallItems } from '@/lib/data/projects'
 
 const HeroCanvas = dynamic(() => import('@/components/three/HeroCanvas'), {
   ssr: false,
   loading: () => <div className="hero__canvas-skeleton" aria-hidden="true" />,
 })
 
-function splitHeadlineFallback(element) {
-  const originalText = element.textContent?.trim() ?? ''
-  element.setAttribute('aria-label', originalText)
-  element.textContent = ''
-
-  return Array.from(originalText).map((character) => {
-    const inner = document.createElement('span')
-    inner.className = 'hero__char'
-    inner.textContent = character === ' ' ? '\u00A0' : character
-
-    element.appendChild(inner)
-    return inner
-  })
+function splitRows(items) {
+  return [items.slice(0, 5), items.slice(5, 10), items.slice(10, 15)]
 }
 
 export default function Hero() {
-  const sectionRef = useRef(null)
-  const visualRef = useRef(null)
-  const labelRef = useRef(null)
-  const headlineRef = useRef(null)
-  const subRef = useRef(null)
-  const scrollRef = useRef(null)
-  const cleanupRef = useRef(() => {})
+  const [pointer, setPointer] = useState({ x: 0, y: 0 })
+  const rows = useMemo(() => splitRows(heroWallItems), [])
+  const { scrollYProgress } = useScroll()
 
-  useEffect(() => {
-    let isCancelled = false
-    let hideIndicator = false
-    let splitInstance = null
-    let chars = []
-    let scrollHandler = null
-    let lenisHandler = null
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches
-
-    const hideScrollIndicator = () => {
-      if (hideIndicator || !scrollRef.current) return
-      hideIndicator = true
-
-      gsap.to(scrollRef.current, {
-        autoAlpha: 0,
-        y: 14,
-        duration: MOTION.dur.fast,
-        ease: MOTION.ease.out,
-        pointerEvents: 'none',
-      })
-    }
-
-    const attachScrollListeners = () => {
-      scrollHandler = () => {
-        if (window.scrollY > 24) {
-          hideScrollIndicator()
-        }
-      }
-
-      window.addEventListener('scroll', scrollHandler, { passive: true })
-
-      const lenis = window.starLenis
-      if (lenis?.on) {
-        lenisHandler = ({ scroll }) => {
-          if (scroll > 24) {
-            hideScrollIndicator()
-          }
-        }
-        lenis.on('scroll', lenisHandler)
-      }
-    }
-
-    const run = async () => {
-      const headline = headlineRef.current
-      if (!headline || !visualRef.current || !labelRef.current || !subRef.current || !scrollRef.current) {
-        return
-      }
-
-      try {
-        const plugin = await import('gsap/SplitText')
-        if (isCancelled) return
-
-        const SplitText = plugin.SplitText ?? plugin.default
-        if (SplitText) {
-          gsap.registerPlugin(SplitText)
-          splitInstance = new SplitText(headline, {
-            type: 'chars',
-            charsClass: 'hero__char',
-          })
-          chars = splitInstance.chars
-        }
-      } catch {
-        if (isCancelled) return
-        chars = splitHeadlineFallback(headline)
-      }
-
-      if (isCancelled) return
-
-      if (!chars.length) {
-        chars = splitHeadlineFallback(headline)
-      }
-
-      const ctx = gsap.context(() => {
-        if (prefersReducedMotion) {
-          gsap.set([visualRef.current, labelRef.current, subRef.current, scrollRef.current], {
-            autoAlpha: 1,
-            y: 0,
-          })
-          gsap.set(chars, { autoAlpha: 1, yPercent: 0 })
-          return
-        }
-
-        gsap.set(visualRef.current, { autoAlpha: 0, y: 20 })
-        gsap.set([labelRef.current, subRef.current, scrollRef.current], {
-          autoAlpha: 0,
-          y: 16,
-        })
-        gsap.set(chars, {
-          autoAlpha: 0,
-          y: 48,
-        })
-
-        gsap
-          .timeline({
-            defaults: { ease: MOTION.ease.out },
-          })
-          .to(visualRef.current, {
-            autoAlpha: 1,
-            y: 0,
-            duration: MOTION.dur.normal,
-          }, 0.2)
-          .to(labelRef.current, {
-            autoAlpha: 1,
-            y: 0,
-            duration: MOTION.dur.normal,
-          }, 0.4)
-          .to(chars, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power4.out',
-            stagger: 0.02,
-          }, 0.6)
-          .to(subRef.current, {
-            autoAlpha: 1,
-            y: 0,
-            duration: MOTION.dur.normal,
-          }, 1.4)
-          .to(scrollRef.current, {
-            autoAlpha: 1,
-            y: 0,
-            duration: MOTION.dur.fast,
-          }, 1.6)
-      }, sectionRef)
-
-      cleanupRef.current = () => {
-        ctx.revert()
-      }
-
-      attachScrollListeners()
-    }
-
-    run()
-
-    return () => {
-      isCancelled = true
-      cleanupRef.current()
-      if (splitInstance) {
-        splitInstance.revert()
-      }
-      if (scrollHandler) {
-        window.removeEventListener('scroll', scrollHandler)
-      }
-      const lenis = window.starLenis
-      if (lenis?.off && lenisHandler) {
-        lenis.off('scroll', lenisHandler)
-      }
-    }
-  }, [])
+  const rotateX = useSpring(useTransform(scrollYProgress, [0, 0.18], [15, 0]), {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.8,
+  })
+  const rotateZ = useSpring(useTransform(scrollYProgress, [0, 0.18], [9, 0]), {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.8,
+  })
+  const translateY = useSpring(useTransform(scrollYProgress, [0, 0.24], [-180, 120]), {
+    stiffness: 90,
+    damping: 18,
+    mass: 0.6,
+  })
+  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.16], [0.45, 1]), {
+    stiffness: 120,
+    damping: 24,
+  })
+  const firstRowX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 860]), {
+    stiffness: 110,
+    damping: 24,
+  })
+  const secondRowX = useSpring(useTransform(scrollYProgress, [0, 1], [0, -860]), {
+    stiffness: 110,
+    damping: 24,
+  })
+  const thirdRowX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 620]), {
+    stiffness: 110,
+    damping: 24,
+  })
+  const pointerRotateY = useMotionTemplate`${pointer.x * 4.5}deg`
+  const pointerRotateX = useMotionTemplate`${pointer.y * -2.8}deg`
 
   return (
-    <section ref={sectionRef} className="hero surface-light">
-      <div className="hero__grid">
-        <div className="hero__copy">
-          <div ref={labelRef} className="hero__label" aria-label="STAR">
-            <span>STAR</span>
-            <span className="hero__star" aria-hidden="true">
-              ✦
-            </span>
-          </div>
+    <section className="hero hero--parallax surface-light">
+      <div className="hero__backdrop">
+        <HeroCanvas />
+      </div>
 
-          <h1 ref={headlineRef} className="hero__headline text-display">
-            Websites that make your business impossible to ignore.
-          </h1>
+      <div className="hero__noise" aria-hidden="true" />
 
-          <p ref={subRef} className="hero__sub">
-            Premium web design for Indian businesses — zero upfront cost.
-          </p>
+      <div className="hero__stage container">
+        <div className="hero__content">
+          <motion.p
+            className="hero__eyebrow"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            STAR <span className="hero__star">*</span> Web Design Agency
+          </motion.p>
 
-          <div ref={scrollRef} className="hero__scroll" aria-label="Scroll to explore">
-            <span className="hero__scroll-line" aria-hidden="true" />
-            <span className="hero__scroll-label">Scroll to explore</span>
-          </div>
+          <motion.h1
+            className="hero__title"
+            initial={{ opacity: 0, y: 36 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Web design that gives Indian businesses the kind of presence people remember.
+          </motion.h1>
+
+          <motion.p
+            className="hero__lede"
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.26, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Built for architects, wedding planners, hospitality brands, and ambitious businesses
+            that need more than another polite template.
+          </motion.p>
+
+          <motion.div
+            className="hero__actions"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Link href="/work" className="btn btn-primary" data-cursor="view">
+              View the work
+            </Link>
+            <Link href="/contact" className="btn btn-outline" data-cursor="open">
+              Start a project
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="hero__meta"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span>Bhopal-based, India-wide</span>
+            <span>Build first. Pay only if you love it.</span>
+          </motion.div>
         </div>
 
-        <div ref={visualRef} className="hero__canvas-wrap" data-cursor="view">
-          <CanvasErrorBoundary>
-            <HeroCanvas />
-          </CanvasErrorBoundary>
-        </div>
+        <motion.div
+          className="hero__wall-wrap"
+          style={{
+            rotateX,
+            rotateZ,
+            y: translateY,
+            opacity,
+          }}
+          onMouseMove={(event) => {
+            const bounds = event.currentTarget.getBoundingClientRect()
+            const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2
+            const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2
+            setPointer({ x, y })
+          }}
+          onMouseLeave={() => setPointer({ x: 0, y: 0 })}
+        >
+          <motion.div
+            className="hero__wall"
+            style={{
+              rotateY: pointerRotateY,
+              rotateX: pointerRotateX,
+            }}
+          >
+            <motion.div className="hero__row hero__row--reverse" style={{ x: firstRowX }}>
+              {rows[0].map((item) => (
+                <HeroWallCard key={item.id} item={item} />
+              ))}
+            </motion.div>
+            <motion.div className="hero__row" style={{ x: secondRowX }}>
+              {rows[1].map((item) => (
+                <HeroWallCard key={item.id} item={item} />
+              ))}
+            </motion.div>
+            <motion.div className="hero__row hero__row--reverse" style={{ x: thirdRowX }}>
+              {rows[2].map((item) => (
+                <HeroWallCard key={item.id} item={item} />
+              ))}
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="hero__scroll"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="hero__scroll-line" aria-hidden="true" />
+          <span className="hero__scroll-label">Scroll to explore</span>
+        </motion.div>
       </div>
     </section>
+  )
+}
+
+function HeroWallCard({ item }) {
+  return (
+    <motion.div
+      className="hero-wall-card"
+      whileHover={{ y: -18, rotateX: 5, rotateY: 2, scale: 1.02 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <Link href={item.link} className="hero-wall-card__link" data-cursor="view">
+        <div
+          className="hero-wall-card__image"
+          style={{
+            background: `linear-gradient(135deg, ${item.palette[0]}, ${item.palette[1]})`,
+          }}
+        >
+          <Image
+            src={item.thumbnail}
+            alt={item.caption}
+            fill
+            sizes="(max-width: 768px) 92vw, 30rem"
+            style={{
+              objectFit: 'cover',
+              objectPosition: item.objectPosition,
+            }}
+          />
+          <div className="hero-wall-card__wash" />
+        </div>
+
+        <div className="hero-wall-card__meta">
+          <span className="hero-wall-card__category">{item.category}</span>
+          <span className="hero-wall-card__title">{item.title}</span>
+        </div>
+      </Link>
+    </motion.div>
   )
 }

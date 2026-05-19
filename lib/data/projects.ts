@@ -10,6 +10,12 @@ export type ProjectGalleryItem = {
   objectPosition?: string
 }
 
+export type ProjectHeroFrame = {
+  image: string
+  alt: string
+  objectPosition?: string
+}
+
 export type Project = {
   id: string
   title: string
@@ -30,6 +36,7 @@ export type Project = {
   outcome: string
   deliverables: string[]
   gallery: ProjectGalleryItem[]
+  heroFrames: ProjectHeroFrame[]
 }
 
 export const allProjects: Project[] = [
@@ -61,6 +68,23 @@ export const allProjects: Project[] = [
       'Project-led service storytelling',
       'WhatsApp-focused enquiry flow',
       'Custom visual rhythm and motion system',
+    ],
+    heroFrames: [
+      {
+        image: '/images/projects/roshan-events.svg',
+        alt: 'Roshan Events editorial hero frame',
+        objectPosition: 'center top',
+      },
+      {
+        image: '/images/projects/roshan-events.svg',
+        alt: 'Roshan Events enquiry flow frame',
+        objectPosition: 'right center',
+      },
+      {
+        image: '/images/projects/roshan-events.svg',
+        alt: 'Roshan Events cinematic portfolio frame',
+        objectPosition: 'center center',
+      },
     ],
     gallery: [
       {
@@ -106,6 +130,23 @@ export const allProjects: Project[] = [
       'Refined project navigation',
       'Warm editorial visual direction',
     ],
+    heroFrames: [
+      {
+        image: '/images/projects/atelier-mora.svg',
+        alt: 'Atelier Mora editorial frame',
+        objectPosition: 'center top',
+      },
+      {
+        image: '/images/projects/atelier-mora.svg',
+        alt: 'Atelier Mora quiet system frame',
+        objectPosition: 'left center',
+      },
+      {
+        image: '/images/projects/atelier-mora.svg',
+        alt: 'Atelier Mora project navigation frame',
+        objectPosition: 'center center',
+      },
+    ],
     gallery: [
       {
         image: '/images/projects/atelier-mora.svg',
@@ -149,6 +190,23 @@ export const allProjects: Project[] = [
       'Interior and architecture showcase modules',
       'Structured project previews',
       'High-contrast visual system',
+    ],
+    heroFrames: [
+      {
+        image: '/images/projects/studio-canopy.svg',
+        alt: 'Studio Canopy premium hero frame',
+        objectPosition: 'center center',
+      },
+      {
+        image: '/images/projects/studio-canopy.svg',
+        alt: 'Studio Canopy portfolio frame',
+        objectPosition: 'right center',
+      },
+      {
+        image: '/images/projects/studio-canopy.svg',
+        alt: 'Studio Canopy contrast frame',
+        objectPosition: 'center top',
+      },
     ],
     gallery: [
       {
@@ -194,6 +252,23 @@ export const allProjects: Project[] = [
       'Residential project presentation',
       'Lead-oriented contact pathways',
     ],
+    heroFrames: [
+      {
+        image: '/images/projects/courtyard-line.svg',
+        alt: 'Courtyard Line editorial frame',
+        objectPosition: 'center top',
+      },
+      {
+        image: '/images/projects/courtyard-line.svg',
+        alt: 'Courtyard Line residential frame',
+        objectPosition: 'center center',
+      },
+      {
+        image: '/images/projects/courtyard-line.svg',
+        alt: 'Courtyard Line neutral frame',
+        objectPosition: 'right center',
+      },
+    ],
     gallery: [
       {
         image: '/images/projects/courtyard-line.svg',
@@ -237,6 +312,23 @@ export const allProjects: Project[] = [
       'Gallery-first content blocks',
       'Package discovery sections',
       'Soft editorial typography direction',
+    ],
+    heroFrames: [
+      {
+        image: '/images/projects/vivaah-planners.svg',
+        alt: 'Vivaah Planners editorial frame',
+        objectPosition: 'center top',
+      },
+      {
+        image: '/images/projects/vivaah-planners.svg',
+        alt: 'Vivaah Planners gallery frame',
+        objectPosition: 'left center',
+      },
+      {
+        image: '/images/projects/vivaah-planners.svg',
+        alt: 'Vivaah Planners romantic frame',
+        objectPosition: 'center center',
+      },
     ],
     gallery: [
       {
@@ -282,6 +374,23 @@ export const allProjects: Project[] = [
       'Reservation-focused calls to action',
       'Atmospheric visual storytelling',
     ],
+    heroFrames: [
+      {
+        image: '/images/projects/saffron-courtyard.svg',
+        alt: 'Saffron Courtyard hospitality frame',
+        objectPosition: 'center center',
+      },
+      {
+        image: '/images/projects/saffron-courtyard.svg',
+        alt: 'Saffron Courtyard reservation frame',
+        objectPosition: 'right center',
+      },
+      {
+        image: '/images/projects/saffron-courtyard.svg',
+        alt: 'Saffron Courtyard dining frame',
+        objectPosition: 'center top',
+      },
+    ],
     gallery: [
       {
         image: '/images/projects/saffron-courtyard.svg',
@@ -300,6 +409,19 @@ export const allProjects: Project[] = [
 ]
 
 export const heroProjects: Project[] = allProjects.filter((project) => project.featured).slice(0, 5)
+
+export const heroWallItems = heroProjects.flatMap((project) =>
+  project.heroFrames.map((frame, index) => ({
+    id: `${project.slug}-${index}`,
+    title: project.title,
+    category: project.category,
+    link: `/work/${project.slug}`,
+    thumbnail: frame.image,
+    objectPosition: frame.objectPosition ?? 'center center',
+    palette: project.palette,
+    caption: frame.alt,
+  }))
+)
 
 export const CARD_LAYOUT = [
   { x: -2.8, y: 0.4, z: -0.8, rotY: 0.35, rotX: -0.08 },

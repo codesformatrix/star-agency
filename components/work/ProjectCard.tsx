@@ -13,9 +13,8 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
       href={`/work/${project.slug}`}
       data-cursor="view"
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 18,
+        display: 'grid',
+        gap: 16,
         textDecoration: 'none',
         color: '#111111',
       }}
@@ -23,12 +22,12 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
       <div
         style={{
           position: 'relative',
-          aspectRatio: '16 / 10',
+          aspectRatio: '16 / 11',
           overflow: 'hidden',
-          borderRadius: 24,
-          backgroundColor: project.palette[0],
-          border: '1px solid #EBEBEA',
-          boxShadow: '0 16px 50px rgba(17,17,17,0.08)',
+          borderRadius: 28,
+          background: `linear-gradient(135deg, ${project.palette[0]}, ${project.palette[1]})`,
+          border: '1px solid rgba(17,17,17,0.08)',
+          boxShadow: '0 24px 56px rgba(17,17,17,0.08)',
         }}
       >
         <Image
@@ -39,16 +38,24 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: 'cover' }}
         />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         <div
           style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(180deg, rgba(255,255,255,0.08), transparent 30%), linear-gradient(180deg, transparent 46%, rgba(17,17,17,0.48) 100%)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            left: 18,
+            right: 18,
+            bottom: 16,
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: 16,
-            flexWrap: 'wrap',
+            alignItems: 'flex-end',
+            gap: 14,
           }}
         >
           <div>
@@ -56,10 +63,10 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
               style={{
                 fontFamily: 'var(--font-ui)',
                 fontSize: 10,
-                fontWeight: 500,
-                letterSpacing: '0.12em',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: '#888886',
+                color: 'rgba(250,250,248,0.58)',
                 marginBottom: 8,
               }}
             >
@@ -71,40 +78,55 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
                 fontSize: 'clamp(1.5rem,2vw,2rem)',
                 fontStyle: 'italic',
                 fontWeight: 700,
-                lineHeight: 1.06,
+                lineHeight: 1.04,
                 letterSpacing: '-0.02em',
+                color: '#FAFAF8',
               }}
             >
               {project.title}
             </h2>
           </div>
-
           <span
             style={{
               fontFamily: 'var(--font-ui)',
-              fontSize: 12,
-              color: '#555553',
-              whiteSpace: 'nowrap',
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: '#F2B24A',
             }}
           >
-            {project.location} · {project.year}
+            Open
           </span>
         </div>
+      </div>
+
+      <div style={{ display: 'grid', gap: 10, paddingInline: 2 }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-ui)',
+            fontSize: 12,
+            color: '#555553',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {project.location} · {project.year}
+        </span>
 
         <p
           style={{
             fontFamily: 'var(--font-ui)',
             fontSize: 15,
-            lineHeight: 1.7,
+            lineHeight: 1.8,
             color: '#555553',
-            maxWidth: '48ch',
+            maxWidth: '46ch',
           }}
         >
           {project.description}
         </p>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {project.tags.slice(0, 4).map((tag) => (
+          {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
               style={{
@@ -116,7 +138,7 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
                 border: '1px solid #EBEBEA',
                 fontFamily: 'var(--font-ui)',
                 fontSize: 11,
-                fontWeight: 500,
+                fontWeight: 600,
                 letterSpacing: '0.04em',
                 color: '#333332',
               }}

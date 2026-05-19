@@ -1,30 +1,26 @@
 'use client'
 
-/**
- * Results.jsx — Section 05
- *
- * What clients actually gain — bold Fraunces italic statements.
- * Dark background — contrast from the warm process section.
- * Each statement scrolls in on its own trigger — staggered impact.
- */
-
+import Link from 'next/link'
 import { useReveal } from '@/lib/hooks/useReveal'
 
 const RESULTS = [
   {
-    stat:  '3×',
-    label: 'more client enquiries',
-    body:  'When your website communicates quality, potential clients reach out instead of scrolling past. Your inbox changes.',
+    stat: '01',
+    label: 'The business looks more established before the first call.',
+    body:
+      'A more deliberate website changes the tone of the conversation. Visitors arrive with more confidence, more context, and a stronger sense that the brand already knows what it is doing.',
   },
   {
-    stat:  '↑',
-    label: 'premium brand perception',
-    body:  'The same business, with the right website, commands higher fees. Clients arrive already trusting you. Negotiations are easier.',
+    stat: '02',
+    label: 'Premium positioning feels easier to justify.',
+    body:
+      'When the presentation is aligned with the quality of the work, the business stops looking like it should compete on price alone. The perception becomes sharper, calmer, and more credible.',
   },
   {
-    stat:  '✦',
-    label: 'competitors start noticing you',
-    body:  'When your digital presence is stronger than everyone around you, the market shifts. Referrals increase. Your reputation compounds.',
+    stat: '03',
+    label: 'Outreach becomes less about persuasion and more about proof.',
+    body:
+      'The website starts doing part of the selling by itself. Instead of explaining taste and capability in messages, the business can point people to something that already communicates both.',
   },
 ]
 
@@ -35,122 +31,184 @@ export default function Results() {
     <section
       ref={sectionRef}
       id="section-results"
+      className="surface-dark"
       style={{
-        backgroundColor: '#111111',
-        color:           '#FAFAF8',
-        borderTop:       '1px solid #1E1E1E',
+        position: 'relative',
+        overflow: 'hidden',
+        borderTop: '1px solid #1E1E1E',
       }}
     >
-      <div style={{
-        maxWidth: 1440,
-        margin:  '0 auto',
-        padding: 'clamp(5rem,10vw,9rem) clamp(1.5rem,4vw,4rem)',
-      }}>
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: '12% auto auto 10%',
+          width: 260,
+          height: 260,
+          borderRadius: '50%',
+          background: 'rgba(232,148,10,0.12)',
+          filter: 'blur(30px)',
+        }}
+      />
 
-        {/* Header */}
-        <div style={{ marginBottom: 'clamp(3rem,6vw,5rem)' }}>
-          <div data-reveal style={{ marginBottom: 16 }}>
-            <span style={{
-              fontFamily:    'var(--font-ui)',
-              fontSize:       10,
-              fontWeight:     500,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color:         '#555553',
-              display:       'inline-flex',
-              alignItems:    'center',
-              gap:            12,
-            }}>
-              <span style={{ display:'block', width:28, height:1, background:'#555553' }} />
-              05 — The Results
-            </span>
+      <div
+        className="container"
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          paddingTop: 'clamp(5rem,10vw,9rem)',
+          paddingBottom: 'clamp(5rem,10vw,9rem)',
+        }}
+      >
+        <div
+          data-reveal
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(280px, 0.72fr)',
+            gap: 28,
+            alignItems: 'end',
+            marginBottom: 'clamp(2.4rem,5vw,4rem)',
+          }}
+        >
+          <div>
+            <p className="section-tag" style={{ color: 'rgba(250,250,248,0.5)' }}>
+              05 - The results
+            </p>
+            <h2
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.8rem,6vw,5.6rem)',
+                fontWeight: 800,
+                fontStyle: 'italic',
+                lineHeight: 0.98,
+                letterSpacing: '-0.03em',
+                color: '#FAFAF8',
+                maxWidth: '10ch',
+              }}
+            >
+              The shift is not just visual. It changes the way the business is read.
+            </h2>
           </div>
 
-          <h2
-            data-reveal
-            data-delay="0.1"
+          <p
             style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(2.25rem,5vw,4.25rem)',
-              fontWeight:     800,
-              fontStyle:     'italic',
-              lineHeight:     1.05,
-              letterSpacing: '-0.02em',
-              color:         '#FAFAF8',
-              maxWidth:      '22ch',
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'clamp(1rem,1.18vw,1.06rem)',
+              lineHeight: 1.88,
+              color: 'rgba(250,250,248,0.62)',
+              maxWidth: '34ch',
+              justifySelf: 'end',
             }}
           >
-            What changes when your website works for you.
-          </h2>
+            Better motion and better presentation do not exist for their own sake. They exist to
+            make the business feel more convincing, more distinctive, and harder to overlook.
+          </p>
         </div>
 
-        {/* Result rows */}
-        <div style={{ borderTop: '1px solid #1E1E1E' }}>
-          {RESULTS.map(({ stat, label, body }, i) => (
-            <div
-              key={i}
-              data-reveal
-              data-delay={`${i * 0.1}`}
+        <div
+          data-reveal="stagger-parent"
+          style={{
+            display: 'grid',
+            gap: 16,
+          }}
+        >
+          {RESULTS.map((item, index) => (
+            <article
+              key={item.stat}
+              data-stagger-child
               style={{
-                display:       'grid',
-                gridTemplateColumns: 'clamp(4rem,8vw,7rem) 1fr 1fr',
-                gap:           'clamp(1rem,3vw,2.5rem)',
-                alignItems:    'center',
-                padding:       'clamp(2rem,4vw,3rem) 0',
-                borderBottom:  '1px solid #1E1E1E',
+                display: 'grid',
+                gridTemplateColumns: 'minmax(86px, 0.16fr) minmax(0, 0.92fr) minmax(0, 0.92fr)',
+                gap: 24,
+                alignItems: 'start',
+                padding: '1.7rem 0',
+                borderTop: index === 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
               }}
-              className="result-row"
             >
-              {/* Stat */}
-              <span style={{
-                fontFamily:    'var(--font-display)',
-                fontSize:      'clamp(2rem,4vw,4rem)',
-                fontWeight:     800,
-                fontStyle:     'italic',
-                color:         '#E8940A',
-                lineHeight:     1,
-                letterSpacing: '-0.02em',
-              }}>
-                {stat}
+              <span
+                style={{
+                  fontFamily: 'var(--font-ui)',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: '#E8940A',
+                }}
+              >
+                {item.stat}
               </span>
 
-              {/* Label */}
-              <h3 style={{
-                fontFamily:    'var(--font-display)',
-                fontSize:      'clamp(1.25rem,2.5vw,2.5rem)',
-                fontWeight:     700,
-                fontStyle:     'italic',
-                lineHeight:     1.1,
-                letterSpacing: '-0.02em',
-                color:         '#FAFAF8',
-              }}>
-                {label}
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(1.75rem,2.8vw,3rem)',
+                  fontWeight: 700,
+                  fontStyle: 'italic',
+                  lineHeight: 1.06,
+                  letterSpacing: '-0.02em',
+                  color: '#FAFAF8',
+                  maxWidth: '16ch',
+                }}
+              >
+                {item.label}
               </h3>
 
-              {/* Body */}
-              <p style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize:    14,
-                lineHeight:  1.75,
-                color:      '#555553',
-                fontWeight:  400,
-              }}>
-                {body}
+              <p
+                style={{
+                  fontFamily: 'var(--font-ui)',
+                  fontSize: 15,
+                  lineHeight: 1.85,
+                  color: 'rgba(250,250,248,0.64)',
+                  maxWidth: '40ch',
+                }}
+              >
+                {item.body}
               </p>
-            </div>
+            </article>
           ))}
         </div>
 
+        <div
+          data-reveal
+          data-delay="0.18"
+          style={{
+            marginTop: 30,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 20,
+            flexWrap: 'wrap',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: 'rgba(250,250,248,0.44)',
+            }}
+          >
+            Built to become a better trust asset
+          </span>
+          <Link href="/work" className="btn btn-outline" data-cursor="view" style={{ color: '#FAFAF8', borderColor: 'rgba(255,255,255,0.18)' }}>
+            See the portfolio
+          </Link>
+        </div>
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .result-row {
-            grid-template-columns: auto 1fr !important;
-            grid-template-rows: auto auto !important;
+        @media (max-width: 980px) {
+          #section-results [data-reveal] {
+            grid-template-columns: 1fr !important;
           }
-          .result-row p {
-            grid-column: 1 / -1 !important;
+        }
+
+        @media (max-width: 820px) {
+          #section-results article {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

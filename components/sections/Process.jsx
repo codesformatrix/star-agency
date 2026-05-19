@@ -1,215 +1,239 @@
 'use client'
 
-/**
- * Process.jsx — Section 04
- *
- * The zero-upfront-cost model explained clearly.
- * 4 numbered steps with an animated connector line (GSAP ScrollTrigger scaleX).
- * Warm background #F3F1EC — visual variety between white and dark sections.
- */
-
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReveal } from '@/lib/hooks/useReveal'
-import { MOTION } from '@/lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const STEPS = [
   {
-    num:   '01',
-    title: 'We research your business',
-    body:  'We study your Google Maps profile, Instagram, client reviews, and competitors. We extract your real visual identity before writing a single line of code.',
+    num: '01',
+    title: 'Study the business before styling the page',
+    body:
+      'The process starts with category research, references, and the current weak spots, so the direction is grounded in the business rather than decoration.',
   },
   {
-    num:   '02',
-    title: 'We design and build it',
-    body:  'A fully custom website — designed specifically for your industry, your city, and your clients. Every animation, every section, every detail crafted with intent.',
+    num: '02',
+    title: 'Build the first version with real momentum',
+    body:
+      'Layout, motion, hierarchy, and contact flow get designed together so the site already feels like a finished point of view, not an early placeholder.',
   },
   {
-    num:   '03',
-    title: 'You review every detail',
-    body:  'We show you the live website. You explore it, test it, and tell us what you want changed. We revise until it is exactly right — no limits on feedback.',
+    num: '03',
+    title: 'Refine the details until the story clicks',
+    body:
+      'The strongest version usually comes from sharpening rhythm, emphasis, and clarity after the first pass has made the opportunity visible.',
   },
   {
-    num:   '04',
-    title: 'You pay only if you love it',
-    body:  'If the website impresses you, you invest in it. If it does not meet your expectations — you owe us nothing. No invoice. No awkward conversation. Just walk away.',
+    num: '04',
+    title: 'Only then does the payment conversation matter',
+    body:
+      'The client sees the work, reviews it, and decides from a position of certainty. The standard has to be visible before the invoice exists.',
   },
 ]
 
 export default function Process() {
-  const sectionRef  = useReveal()
-  const lineRef     = useRef(null)
+  const sectionRef = useReveal()
+  const lineRef = useRef(null)
 
-  /* ── Animate the connector line on scroll ─────────────────────────────── */
   useEffect(() => {
     if (!lineRef.current) return
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(lineRef.current,
-        { scaleX: 0, transformOrigin: 'left center' },
+      gsap.fromTo(
+        lineRef.current,
+        { scaleY: 0, transformOrigin: 'top center' },
         {
-          scaleX: 1,
-          duration: MOTION.dur.xslow,
-          ease:     MOTION.ease.smooth,
+          scaleY: 1,
+          ease: 'power2.out',
+          duration: 1.4,
           scrollTrigger: {
-            trigger:       lineRef.current,
-            start:         'top 80%',
-            toggleActions: 'play none none none',
+            trigger: lineRef.current,
+            start: 'top 75%',
+            end: 'bottom center',
+            scrub: 0.9,
           },
         }
       )
-    })
+    }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [sectionRef])
 
   return (
     <section
       ref={sectionRef}
       id="section-process"
-      style={{ backgroundColor: '#F3F1EC', borderTop: '1px solid #E5E3DE' }}
+      className="surface-warm"
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        borderTop: '1px solid #E5E3DE',
+      }}
     >
-      <div style={{
-        maxWidth: 1440,
-        margin:  '0 auto',
-        padding: 'clamp(5rem,10vw,9rem) clamp(1.5rem,4vw,4rem)',
-      }}>
-
-        {/* Header */}
-        <div style={{ marginBottom: 'clamp(3rem,6vw,5rem)' }}>
-          <div data-reveal style={{ marginBottom: 16 }}>
-            <span style={{
-              fontFamily:    'var(--font-ui)',
-              fontSize:       10,
-              fontWeight:     500,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color:         '#888886',
-              display:       'inline-flex',
-              alignItems:    'center',
-              gap:            12,
-            }}>
-              <span style={{ display:'block', width:28, height:1, background:'#888886' }} />
-              04 — How It Works
-            </span>
-          </div>
-
+      <div
+        className="container"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 0.84fr) minmax(0, 1.16fr)',
+          gap: 32,
+          paddingTop: 'clamp(5rem,10vw,9rem)',
+          paddingBottom: 'clamp(5rem,10vw,9rem)',
+        }}
+      >
+        <div
+          data-reveal
+          style={{
+            position: 'sticky',
+            top: 96,
+            alignSelf: 'start',
+            maxWidth: 480,
+          }}
+        >
+          <p className="section-tag">04 - How it works</p>
           <h2
-            data-reveal
-            data-delay="0.1"
             style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(2.25rem,5vw,4.25rem)',
-              fontWeight:     800,
-              fontStyle:     'italic',
-              lineHeight:     1.05,
-              letterSpacing: '-0.02em',
-              color:         '#111111',
-              maxWidth:      '20ch',
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(2.8rem,6vw,5.6rem)',
+              fontWeight: 800,
+              fontStyle: 'italic',
+              lineHeight: 0.98,
+              letterSpacing: '-0.03em',
+              color: '#111111',
+              maxWidth: '10ch',
+              marginBottom: 20,
             }}
           >
-            Simple process. No risk. Guaranteed results.
+            A cleaner process keeps the quality visible the whole way through.
           </h2>
+          <p
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'clamp(1rem,1.2vw,1.08rem)',
+              lineHeight: 1.9,
+              color: '#555553',
+              maxWidth: '36ch',
+            }}
+          >
+            The point is not to create more steps. It is to remove blind commitment so the business
+            can judge the standard with more confidence and less guesswork.
+          </p>
         </div>
 
-        {/* ── Steps ──────────────────────────────────────────────────────── */}
-        <div style={{ position: 'relative' }}>
-
-          {/* Connector line — desktop only */}
-          <div style={{
-            position:      'absolute',
-            top:            28,
-            left:          'calc(28px + 0.5rem)',
-            right:         'calc(28px + 0.5rem)',
-            height:         1,
-            backgroundColor:'#D4D2CE',
-            transformOrigin:'left center',
+        <div
+          data-reveal="stagger-parent"
+          style={{
+            position: 'relative',
+            display: 'grid',
+            gap: 20,
+            paddingLeft: 'clamp(1.25rem,3vw,2.25rem)',
           }}
-            className="process-line-track"
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 22,
+              left: 10,
+              bottom: 22,
+              width: 1,
+              background: 'rgba(17,17,17,0.08)',
+            }}
           >
             <div
               ref={lineRef}
               style={{
-                position:        'absolute',
-                inset:            0,
-                backgroundColor: '#E8940A',
-                transformOrigin: 'left center',
-                transform:       'scaleX(0)',
+                width: '100%',
+                height: '100%',
+                transform: 'scaleY(0)',
+                transformOrigin: 'top center',
+                background: 'linear-gradient(180deg, #E8940A 0%, #111111 100%)',
               }}
             />
           </div>
 
-          {/* Steps grid */}
-          <div
-            data-reveal="stagger-parent"
-            style={{
-              display:             'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap:                 'clamp(2rem,4vw,3rem)',
-            }}
-          >
-            {STEPS.map(({ num, title, body }) => (
-              <div key={num} data-stagger-child>
-
-                {/* Step number circle */}
-                <div style={{
-                  width:           56,
-                  height:          56,
-                  borderRadius:    '50%',
-                  backgroundColor: '#111111',
-                  display:         'flex',
-                  alignItems:      'center',
-                  justifyContent:  'center',
-                  marginBottom:     24,
-                  position:        'relative',
-                  zIndex:           1,
-                  flexShrink:       0,
-                }}>
-                  <span style={{
-                    fontFamily:    'var(--font-ui)',
-                    fontSize:       12,
-                    fontWeight:     600,
-                    letterSpacing: '0.08em',
-                    color:         '#FAFAF8',
-                  }}>
-                    {num}
-                  </span>
-                </div>
-
-                <h3 style={{
-                  fontFamily:  'var(--font-ui)',
-                  fontSize:    'clamp(1rem,1.3vw,1.125rem)',
-                  fontWeight:   600,
-                  lineHeight:   1.3,
-                  color:       '#111111',
-                  marginBottom: 12,
-                }}>
-                  {title}
-                </h3>
-
-                <p style={{
+          {STEPS.map((step, index) => (
+            <article
+              key={step.num}
+              data-stagger-child
+              data-cursor="open"
+              style={{
+                position: 'relative',
+                display: 'grid',
+                gridTemplateColumns: 'auto 1fr',
+                gap: 20,
+                alignItems: 'start',
+                padding: '1.5rem 1.5rem 1.5rem 0.6rem',
+                borderRadius: 28,
+                background: index === 1 ? '#FAFAF8' : 'rgba(250,250,248,0.72)',
+                border: '1px solid rgba(17,17,17,0.08)',
+                boxShadow: '0 18px 48px rgba(17,17,17,0.05)',
+              }}
+            >
+              <div
+                style={{
+                  width: 42,
+                  height: 42,
+                  borderRadius: 9999,
+                  display: 'grid',
+                  placeItems: 'center',
+                  background: index % 2 === 0 ? '#111111' : '#E8940A',
+                  color: index % 2 === 0 ? '#FAFAF8' : '#111111',
                   fontFamily: 'var(--font-ui)',
-                  fontSize:    14,
-                  lineHeight:  1.75,
-                  color:      '#888886',
-                  fontWeight:  400,
-                }}>
-                  {body}
-                </p>
-
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 0 0 8px rgba(243,241,236,1)',
+                }}
+              >
+                {step.num}
               </div>
-            ))}
-          </div>
-        </div>
 
+              <div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.5rem,2.15vw,2.15rem)',
+                    fontWeight: 700,
+                    fontStyle: 'italic',
+                    lineHeight: 1.06,
+                    letterSpacing: '-0.02em',
+                    color: '#111111',
+                    marginBottom: 12,
+                    maxWidth: '18ch',
+                  }}
+                >
+                  {step.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 15,
+                    lineHeight: 1.85,
+                    color: '#555553',
+                    maxWidth: '40ch',
+                  }}
+                >
+                  {step.body}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .process-line-track { display: none !important; }
+        @media (max-width: 960px) {
+          #section-process .container {
+            grid-template-columns: 1fr !important;
+          }
+
+          #section-process [style*='position: sticky'] {
+            position: relative !important;
+            top: 0 !important;
+          }
         }
       `}</style>
     </section>

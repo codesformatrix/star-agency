@@ -50,13 +50,31 @@ export default async function WorkCaseStudyPage({
     (candidate) => candidate.slug !== project.slug
   )
 
-  const moreProjects = (relatedProjects.length ? relatedProjects : fallbackRelatedProjects).slice(0, 2)
+  const moreProjects = (relatedProjects.length ? relatedProjects : fallbackRelatedProjects).slice(
+    0,
+    2
+  )
 
   return (
-    <section className="surface-light">
+    <section className="surface-light" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: '-12% auto auto 68%',
+          width: '26rem',
+          height: '26rem',
+          borderRadius: '50%',
+          background: 'rgba(232,148,10,0.1)',
+          filter: 'blur(28px)',
+        }}
+      />
+
       <div
         className="container"
         style={{
+          position: 'relative',
+          zIndex: 1,
           paddingTop: 'clamp(4rem,8vw,7rem)',
           paddingBottom: 'clamp(5rem,9vw,8rem)',
           display: 'flex',
@@ -67,6 +85,7 @@ export default async function WorkCaseStudyPage({
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           <Link
             href="/work"
+            data-cursor="open"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -80,7 +99,7 @@ export default async function WorkCaseStudyPage({
               textDecoration: 'none',
             }}
           >
-            <span aria-hidden="true">←</span>
+            <span aria-hidden="true">&larr;</span>
             Back to work
           </Link>
 
@@ -411,7 +430,7 @@ export default async function WorkCaseStudyPage({
               </h2>
             </div>
 
-            <Link className="btn btn-outline" href="/work">
+            <Link className="btn btn-outline" href="/work" data-cursor="view">
               View all projects
             </Link>
           </div>

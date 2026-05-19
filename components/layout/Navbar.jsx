@@ -19,7 +19,6 @@ const TALK_LABEL = "Let's talk"
 export default function Navbar() {
   const navRef = useRef(null)
   const menuRef = useRef(null)
-  const lineRefs = useRef([])
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
@@ -31,20 +30,22 @@ export default function Navbar() {
 
     const trigger = ScrollTrigger.create({
       start: 'top -72px',
-      onEnter: () => gsap.to(nav, {
-        '--nb': '1',
-        '--nblur': '14px',
-        '--nborder': '1',
-        duration: 0.35,
-        ease: 'power2.out',
-      }),
-      onLeaveBack: () => gsap.to(nav, {
-        '--nb': '0',
-        '--nblur': '0px',
-        '--nborder': '0',
-        duration: 0.35,
-        ease: 'power2.out',
-      }),
+      onEnter: () =>
+        gsap.to(nav, {
+          '--nb': '1',
+          '--nblur': '14px',
+          '--nborder': '1',
+          duration: 0.35,
+          ease: 'power2.out',
+        }),
+      onLeaveBack: () =>
+        gsap.to(nav, {
+          '--nb': '0',
+          '--nblur': '0px',
+          '--nborder': '0',
+          duration: 0.35,
+          ease: 'power2.out',
+        }),
     })
 
     return () => trigger.kill()
@@ -115,6 +116,7 @@ export default function Navbar() {
         >
           <Link
             href="/"
+            data-cursor="open"
             style={{ display: 'flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}
           >
             <span
@@ -129,7 +131,7 @@ export default function Navbar() {
             >
               STAR
             </span>
-            <span style={{ fontSize: 16, color: '#E8940A', lineHeight: 1 }}>✦</span>
+            <span style={{ fontSize: 16, color: '#E8940A', lineHeight: 1 }}>*</span>
           </Link>
 
           <div
@@ -140,6 +142,7 @@ export default function Navbar() {
               <Link
                 key={href}
                 href={href}
+                data-cursor="open"
                 style={{
                   fontFamily: 'var(--font-ui)',
                   fontSize: 13,
@@ -156,6 +159,7 @@ export default function Navbar() {
 
             <Link
               href="/contact"
+              data-cursor="open"
               style={{
                 fontFamily: 'var(--font-ui)',
                 fontSize: 12,
@@ -192,9 +196,6 @@ export default function Navbar() {
             {[0, 1, 2].map((index) => (
               <span
                 key={index}
-                ref={(element) => {
-                  lineRefs.current[index] = element
-                }}
                 style={{
                   display: 'block',
                   width: 22,
@@ -235,6 +236,7 @@ export default function Navbar() {
           <Link
             key={href}
             href={href}
+            data-cursor="open"
             onClick={() => setOpen(false)}
             style={{
               display: 'block',
@@ -274,7 +276,7 @@ export default function Navbar() {
               textTransform: 'uppercase',
             }}
           >
-            STAR ✦ Web Design
+            STAR * Web Design
           </span>
           <span style={{ fontFamily: 'var(--font-ui)', fontSize: 11, color: '#555553' }}>
             Bhopal, India

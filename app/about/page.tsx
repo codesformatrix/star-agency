@@ -10,29 +10,29 @@ export const metadata = {
     'Meet Ali Asgar and learn how STAR builds portfolio-grade websites for Indian businesses with zero upfront cost.',
 }
 
-const aboutPillars = [
+const principles = [
   {
-    title: 'Look unlike templates',
+    title: 'Distinctiveness before decoration',
     text:
-      'The work is designed to break away from the generic agency look. Typography, pacing, imagery, and motion all need a point of view.',
+      'Every project needs a point of view. Typography, composition, motion, and copy should feel chosen, not auto-generated from the same agency template.',
   },
   {
-    title: 'Lead with business clarity',
+    title: 'Business clarity, not just visual polish',
     text:
-      'A strong first impression only matters if the site also explains the offer, builds trust quickly, and makes the next step obvious.',
+      'A premium site still has to explain the offer, reduce doubt, and make the next step obvious. Taste and conversion should support each other.',
   },
   {
-    title: 'Earn trust before payment',
+    title: 'Trust earned through the work itself',
     text:
-      'STAR builds the first version before asking for money. The work has to carry the pitch, not just the promise around it.',
+      'STAR builds the first version before asking for money. That model only works when the quality is strong enough to carry the decision.',
   },
 ]
 
 const workingModel = [
-  'Review the current website, references, and what feels weak today.',
-  'Design and build a first version tailored to the business and city context.',
-  'Refine the direction around feedback until the presentation feels right.',
-  'Launch only when the client is convinced the work is worth paying for.',
+  'Study the business, category, city context, and what feels weak online right now.',
+  'Design and build a first version that already feels closer to the standard the brand should have.',
+  'Refine the presentation until the positioning, clarity, and tone feel commercially ready.',
+  'Move forward only when the client feels the work is worth paying for.',
 ]
 
 const spotlightProjects = [
@@ -44,74 +44,178 @@ const spotlightProjects = [
 export default function AboutPage() {
   return (
     <>
-      <section className="section surface-warm">
+      <section
+        className="section surface-light"
+        style={{ position: 'relative', overflow: 'hidden' }}
+      >
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: '-8rem',
+            right: '-5rem',
+            width: '26rem',
+            height: '26rem',
+            borderRadius: '50%',
+            background: 'rgba(232,148,10,0.11)',
+            filter: 'blur(36px)',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 'auto auto 5% -8%',
+            width: '24rem',
+            height: '24rem',
+            borderRadius: '50%',
+            background: 'rgba(17,17,17,0.05)',
+            filter: 'blur(44px)',
+          }}
+        />
+
         <RevealSection>
           <div
-            className="container about-intro"
+            className="container about-hero"
             style={{
+              position: 'relative',
+              zIndex: 1,
               display: 'grid',
-              gridTemplateColumns: 'minmax(0, 1.05fr) minmax(300px, 0.95fr)',
-              gap: 40,
+              gridTemplateColumns: 'minmax(0, 1.02fr) minmax(320px, 0.98fr)',
+              gap: 32,
               alignItems: 'end',
             }}
           >
             <div>
               <p className="section-tag" data-reveal>
-                About
+                About STAR
               </p>
               <h1
                 data-reveal
                 data-delay="0.05"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(3.1rem,7.5vw,6.8rem)',
+                  fontSize: 'clamp(3.15rem,7.8vw,6.9rem)',
                   fontWeight: 800,
                   fontStyle: 'italic',
-                  lineHeight: 1,
+                  lineHeight: 0.98,
                   letterSpacing: '-0.03em',
                   color: '#111111',
                   maxWidth: '11ch',
+                  marginBottom: 24,
                 }}
               >
-                Ali built STAR to remove the risk from hiring better web design.
+                STAR exists to make hiring better web design feel less risky.
               </h1>
-            </div>
-
-            <div data-reveal data-delay="0.1" style={{ justifySelf: 'end', maxWidth: 480 }}>
               <p
+                data-reveal
+                data-delay="0.12"
                 style={{
                   fontFamily: 'var(--font-ui)',
-                  fontSize: 'clamp(1rem,1.3vw,1.125rem)',
-                  lineHeight: 1.8,
+                  fontSize: 'clamp(1rem,1.25vw,1.125rem)',
+                  lineHeight: 1.86,
                   color: '#555553',
+                  maxWidth: '46ch',
                   marginBottom: 28,
                 }}
               >
-                Based in {siteConfig.locationCity} and working across India, STAR helps premium
-                businesses look as considered online as they do in real life, without asking them
-                to commit blindly upfront.
+                Built by Ali Asgar in {siteConfig.locationCity}, STAR helps Indian businesses look
+                more considered online without asking them to commit blindly upfront. The work has
+                to prove itself first.
               </p>
 
               <div
-                className="about-intro__facts"
+                data-reveal
+                data-delay="0.16"
+                style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}
+              >
+                <Link href="/work" className="btn btn-primary" data-cursor="view">
+                  Review the work
+                </Link>
+                <Link href="/contact" className="btn btn-outline" data-cursor="open">
+                  Start a conversation
+                </Link>
+              </div>
+            </div>
+
+            <div
+              data-reveal
+              data-delay="0.1"
+              style={{
+                display: 'grid',
+                gap: 16,
+              }}
+            >
+              <article
+                style={{
+                  padding: 'clamp(1.5rem,2vw,2rem)',
+                  borderRadius: 28,
+                  backgroundColor: '#111111',
+                  color: '#FAFAF8',
+                  boxShadow: '0 24px 70px rgba(17,17,17,0.16)',
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 10,
+                    fontWeight: 500,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    color: '#E8940A',
+                    marginBottom: 14,
+                  }}
+                >
+                  Founder note
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.6rem,2vw,2.25rem)',
+                    fontWeight: 700,
+                    fontStyle: 'italic',
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.02em',
+                    color: '#FAFAF8',
+                    marginBottom: 16,
+                    maxWidth: '12ch',
+                  }}
+                >
+                  The portfolio should do part of the selling before the call even starts.
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 15,
+                    lineHeight: 1.8,
+                    color: 'rgba(250,250,248,0.72)',
+                  }}
+                >
+                  STAR was built around that exact moment: when a prospect asks what has been done
+                  before, and the answer needs to feel sharp, credible, and hard to forget.
+                </p>
+              </article>
+
+              <div
+                className="about-hero__facts"
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-                  gap: 14,
+                  gap: 12,
                 }}
               >
                 {[
                   { label: 'Base', value: siteConfig.locationCity },
                   { label: 'Model', value: 'Zero upfront' },
-                  { label: 'Reach', value: 'India-wide' },
+                  { label: 'Scope', value: 'India-wide' },
                 ].map((item) => (
-                  <div
+                  <article
                     key={item.label}
                     style={{
                       padding: '18px 16px',
                       borderRadius: 20,
                       border: '1px solid #EBEBEA',
-                      backgroundColor: '#FAFAF8',
+                      backgroundColor: '#F8F6F2',
                     }}
                   >
                     <p
@@ -130,7 +234,7 @@ export default function AboutPage() {
                     <p
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontSize: 'clamp(1.3rem,2vw,1.8rem)',
+                        fontSize: 'clamp(1.3rem,1.8vw,1.75rem)',
                         fontWeight: 700,
                         fontStyle: 'italic',
                         lineHeight: 1.08,
@@ -140,7 +244,7 @@ export default function AboutPage() {
                     >
                       {item.value}
                     </p>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -148,87 +252,63 @@ export default function AboutPage() {
         </RevealSection>
       </section>
 
-      <section className="section surface-light">
+      <section className="section surface-warm" style={{ paddingTop: 0 }}>
         <RevealSection>
           <div
-            className="container about-story-grid"
+            className="container about-story"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.1fr)',
-              gap: 40,
+              gridTemplateColumns: 'minmax(0, 0.78fr) minmax(0, 1.22fr)',
+              gap: 28,
               alignItems: 'start',
             }}
           >
             <div data-reveal>
-              <p
-                style={{
-                  fontFamily: 'var(--font-ui)',
-                  fontSize: 10,
-                  fontWeight: 500,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  color: '#888886',
-                  marginBottom: 16,
-                }}
-              >
-                The story
+              <p className="section-tag" style={{ marginBottom: 20 }}>
+                Why it started
               </p>
               <h2 className="text-h1" style={{ color: '#111111', maxWidth: '10ch' }}>
-                Built for the moment a prospect asks, &quot;What have you done before?&quot;
+                Built for the moment a business realizes its current site is underselling it.
               </h2>
             </div>
 
-            <div
+            <article
               data-reveal
-              data-delay="0.1"
+              data-delay="0.08"
               style={{
+                padding: 'clamp(1.75rem,2.4vw,2.4rem)',
+                borderRadius: 30,
+                border: '1px solid #EBEBEA',
+                backgroundColor: '#FAFAF8',
+                boxShadow: '0 24px 70px rgba(17,17,17,0.05)',
                 display: 'grid',
-                gap: 22,
-                maxWidth: 720,
+                gap: 20,
               }}
             >
-              <p
-                style={{
-                  fontFamily: 'var(--font-ui)',
-                  fontSize: 'clamp(1rem,1.15vw,1.0625rem)',
-                  lineHeight: 1.9,
-                  color: '#333332',
-                }}
-              >
-                STAR started from a simple problem. Businesses would invest in their service, their
-                interiors, their photography, or their event experience, then send prospects to a
-                website that looked generic, dated, or forgettable.
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-ui)',
-                  fontSize: 'clamp(1rem,1.15vw,1.0625rem)',
-                  lineHeight: 1.9,
-                  color: '#333332',
-                }}
-              >
-                Ali built the agency around a stronger model: design and build the first version
-                before asking for payment. That way, the client judges the work itself, not a sales
-                pitch around it.
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-ui)',
-                  fontSize: 'clamp(1rem,1.15vw,1.0625rem)',
-                  lineHeight: 1.9,
-                  color: '#333332',
-                }}
-              >
-                The bar is not just &quot;working website.&quot; It is a site that carries taste,
-                trust, clarity, and enough distinctiveness to make the business feel harder to
-                overlook in a competitive market.
-              </p>
-            </div>
+              {[
+                'Many premium businesses invest heavily in service quality, interiors, photography, or presentation, then send prospects to a website that feels generic, dated, or too easy to confuse with everyone else.',
+                'Ali built STAR around a more convincing answer than another sales pitch: design and build the first version before asking for payment, so the client can judge the work directly.',
+                'That shifts the standard. The site has to carry taste, trust, positioning, and enough originality to make the business feel harder to overlook in its category.',
+              ].map((paragraph) => (
+                <p
+                  key={paragraph}
+                  style={{
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 'clamp(1rem,1.15vw,1.0625rem)',
+                    lineHeight: 1.92,
+                    color: '#333332',
+                    maxWidth: '60ch',
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </article>
           </div>
         </RevealSection>
       </section>
 
-      <section className="section surface-light" style={{ paddingTop: 0 }}>
+      <section className="section surface-light">
         <RevealSection>
           <div className="container">
             <div
@@ -239,15 +319,15 @@ export default function AboutPage() {
                 alignItems: 'end',
                 gap: 24,
                 flexWrap: 'wrap',
-                marginBottom: 28,
+                marginBottom: 30,
               }}
             >
               <div>
-                <p className="section-tag" style={{ marginBottom: 20 }}>
-                  Working principles
+                <p className="section-tag" style={{ marginBottom: 18 }}>
+                  Principles
                 </p>
                 <h2 className="text-h1" style={{ color: '#111111', maxWidth: '11ch' }}>
-                  What stays true across every project.
+                  The style can change by category. The standard does not.
                 </h2>
               </div>
 
@@ -260,7 +340,8 @@ export default function AboutPage() {
                   maxWidth: '34ch',
                 }}
               >
-                The style can change by industry. The craft standard does not.
+                These are the ideas that stay consistent whether the client is an architecture
+                studio, wedding planner, or hospitality brand.
               </p>
             </div>
 
@@ -273,15 +354,17 @@ export default function AboutPage() {
                 gap: 18,
               }}
             >
-              {aboutPillars.map((pillar) => (
+              {principles.map((principle) => (
                 <article
-                  key={pillar.title}
+                  key={principle.title}
                   data-stagger-child
                   style={{
                     padding: '28px 26px',
-                    borderRadius: 24,
+                    borderRadius: 26,
                     border: '1px solid #EBEBEA',
-                    backgroundColor: '#F8F6F2',
+                    background:
+                      'linear-gradient(180deg, rgba(250,250,248,1) 0%, rgba(248,246,242,1) 100%)',
+                    boxShadow: '0 18px 40px rgba(17,17,17,0.04)',
                   }}
                 >
                   <h3
@@ -290,23 +373,23 @@ export default function AboutPage() {
                       fontSize: 'clamp(1.4rem,1.8vw,1.9rem)',
                       fontWeight: 700,
                       fontStyle: 'italic',
-                      lineHeight: 1.1,
+                      lineHeight: 1.08,
                       letterSpacing: '-0.02em',
                       color: '#111111',
                       marginBottom: 16,
                     }}
                   >
-                    {pillar.title}
+                    {principle.title}
                   </h3>
                   <p
                     style={{
                       fontFamily: 'var(--font-ui)',
                       fontSize: 15,
-                      lineHeight: 1.8,
+                      lineHeight: 1.82,
                       color: '#555553',
                     }}
                   >
-                    {pillar.text}
+                    {principle.text}
                   </p>
                 </article>
               ))}
@@ -322,18 +405,18 @@ export default function AboutPage() {
               data-reveal
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.15fr)',
-                gap: 36,
-                alignItems: 'start',
-                marginBottom: 36,
+                gridTemplateColumns: 'minmax(0, 0.86fr) minmax(0, 1.14fr)',
+                gap: 34,
+                alignItems: 'end',
+                marginBottom: 34,
               }}
             >
               <div>
-                <p className="section-tag" style={{ color: 'rgba(250,250,248,0.55)' }}>
-                  How STAR works
+                <p className="section-tag" style={{ color: 'rgba(250,250,248,0.52)' }}>
+                  Working model
                 </p>
                 <h2 className="text-h1" style={{ color: '#FAFAF8', maxWidth: '10ch' }}>
-                  A simpler process, with far less guesswork for the client.
+                  A cleaner process, with less guesswork on the client side.
                 </h2>
               </div>
 
@@ -343,12 +426,12 @@ export default function AboutPage() {
                   fontSize: 'clamp(1rem,1.15vw,1.0625rem)',
                   lineHeight: 1.9,
                   color: 'rgba(250,250,248,0.72)',
-                  maxWidth: '40ch',
+                  maxWidth: '42ch',
                 }}
               >
-                The model is deliberately straightforward: understand the business, build the first
-                version, refine what matters, and only move forward commercially once the work is
-                genuinely convincing.
+                The structure is simple on purpose: understand the business properly, build a
+                first version worth judging, refine the details that matter, then move commercially
+                once the quality feels convincing.
               </p>
             </div>
 
@@ -417,14 +500,16 @@ export default function AboutPage() {
               }}
             >
               <div>
-                <p className="section-tag">Selected work</p>
+                <p className="section-tag" style={{ marginBottom: 18 }}>
+                  Selected work
+                </p>
                 <h2 className="text-h1" style={{ color: '#111111', maxWidth: '11ch' }}>
-                  The portfolio spans industries, but the standard stays sharp.
+                  Different industries. Same demand for taste, clarity, and trust.
                 </h2>
               </div>
 
               <Link href="/work" className="btn btn-outline" data-cursor="view">
-                See all work
+                See the full portfolio
               </Link>
             </div>
 
@@ -458,6 +543,7 @@ export default function AboutPage() {
                       borderRadius: 24,
                       border: '1px solid #EBEBEA',
                       backgroundColor: project.palette[0],
+                      boxShadow: '0 20px 48px rgba(17,17,17,0.06)',
                     }}
                   >
                     <Image
@@ -525,10 +611,12 @@ export default function AboutPage() {
               gridTemplateColumns: 'minmax(0, 1fr) auto',
               gap: 24,
               alignItems: 'center',
-              padding: 'clamp(1.75rem,3vw,2.5rem)',
-              borderRadius: 28,
+              padding: 'clamp(1.9rem,3vw,2.7rem)',
+              borderRadius: 30,
               border: '1px solid #EBEBEA',
-              backgroundColor: '#FAFAF8',
+              background:
+                'linear-gradient(135deg, rgba(250,250,248,1) 0%, rgba(243,241,236,1) 100%)',
+              boxShadow: '0 24px 70px rgba(17,17,17,0.05)',
             }}
           >
             <div>
@@ -536,7 +624,7 @@ export default function AboutPage() {
                 Next step
               </p>
               <h2 className="text-h1" style={{ color: '#111111', maxWidth: '11ch', marginBottom: 16 }}>
-                If the model makes sense, the next move is simple.
+                If the model feels right, the next move is just to share the brief.
               </h2>
               <p
                 style={{
@@ -547,16 +635,16 @@ export default function AboutPage() {
                   maxWidth: '40ch',
                 }}
               >
-                Share the business, the current website, and what is not working. Ali will review
-                the brief and start from the strongest direction.
+                Send the current website, what feels weak today, and the kind of standard the
+                business should be operating at. STAR will start from the strongest direction.
               </p>
             </div>
 
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              <Link href="/contact" className="btn btn-primary">
+              <Link href="/contact" className="btn btn-primary" data-cursor="open">
                 Start a project
               </Link>
-              <Link href="/work" className="btn btn-outline">
+              <Link href="/work" className="btn btn-outline" data-cursor="view">
                 Review the work
               </Link>
             </div>
@@ -566,13 +654,13 @@ export default function AboutPage() {
 
       <style>{`
         @media (max-width: 1080px) {
-          .about-intro,
-          .about-story-grid,
+          .about-hero,
+          .about-story,
           .about-cta {
             grid-template-columns: 1fr !important;
           }
 
-          .about-intro__facts,
+          .about-hero__facts,
           .about-principles,
           .about-process-grid,
           .about-featured-grid {
@@ -581,7 +669,7 @@ export default function AboutPage() {
         }
 
         @media (max-width: 720px) {
-          .about-intro__facts,
+          .about-hero__facts,
           .about-principles,
           .about-process-grid,
           .about-featured-grid {

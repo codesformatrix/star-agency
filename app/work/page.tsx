@@ -10,8 +10,21 @@ export const metadata = {
 
 export default function WorkPage() {
   return (
-    <section className="section surface-light">
-      <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
+    <section className="section surface-light" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: '-12% auto auto 62%',
+          width: '28rem',
+          height: '28rem',
+          borderRadius: '50%',
+          background: 'rgba(232,148,10,0.1)',
+          filter: 'blur(28px)',
+        }}
+      />
+
+      <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 56 }}>
         <div
           className="work-page__intro"
           style={{
@@ -26,16 +39,16 @@ export default function WorkPage() {
             <h1
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(3rem,7vw,6.5rem)',
+                fontSize: 'clamp(3.2rem,7vw,6.8rem)',
                 fontWeight: 800,
                 fontStyle: 'italic',
-                lineHeight: 1,
+                lineHeight: 0.98,
                 letterSpacing: '-0.03em',
                 color: '#111111',
                 maxWidth: '10ch',
               }}
             >
-              Work that makes the next conversation easier.
+              Work that makes the next conversation feel easier to trust.
             </h1>
           </div>
 
@@ -49,8 +62,8 @@ export default function WorkPage() {
               justifySelf: 'end',
             }}
           >
-            A temporary curated portfolio for outreach, trust-building, and case-study presentation.
-            The structure is final. The project imagery can be upgraded later without changing the system.
+            The visuals are still a curated temporary set, but the portfolio structure, case-study
+            rhythm, and trust-building role are already the real system.
           </p>
         </div>
 
@@ -65,7 +78,7 @@ export default function WorkPage() {
             {
               label: 'Projects',
               value: `${allProjects.length}`,
-              note: 'Curated temporary showcase',
+              note: 'Curated portfolio system',
             },
             {
               label: 'Primary sectors',
@@ -75,16 +88,17 @@ export default function WorkPage() {
             {
               label: 'Purpose',
               value: 'Trust asset',
-              note: 'Built for outreach and case-study depth',
+              note: 'Built for outreach and deeper proof',
             },
           ].map((item) => (
             <div
               key={item.label}
               style={{
                 padding: '24px 24px 22px',
-                borderRadius: 20,
+                borderRadius: 24,
                 border: '1px solid #EBEBEA',
                 backgroundColor: '#F8F6F2',
+                boxShadow: '0 16px 40px rgba(17,17,17,0.04)',
               }}
             >
               <p

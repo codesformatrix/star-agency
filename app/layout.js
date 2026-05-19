@@ -12,6 +12,7 @@
  */
 
 import { Fraunces, Syne } from 'next/font/google'
+import ExperienceShell from '@/components/layout/ExperienceShell'
 import SmoothScroll from '@/components/layout/SmoothScroll'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -67,14 +68,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${syne.variable}`}>
       <body style={{ background: '#FAFAF8', overflowX: 'hidden' }}>
-        <SmoothScroll>
-          <Cursor />
-          <Navbar />
-          <main id="main-content" tabIndex={-1} style={{ paddingTop: 64 }}>
-            {children}
-          </main>
-          <Footer />
-        </SmoothScroll>
+        <ExperienceShell>
+          <SmoothScroll>
+            <Cursor />
+            <Navbar />
+            <main id="main-content" tabIndex={-1} style={{ paddingTop: 64 }}>
+              {children}
+            </main>
+            <Footer />
+          </SmoothScroll>
+        </ExperienceShell>
       </body>
     </html>
   )

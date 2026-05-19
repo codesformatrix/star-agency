@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import { gsap } from 'gsap'
@@ -10,11 +11,11 @@ import { LENIS_CONFIG } from '@/lib/motion'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function SmoothScroll({ children }) {
-  useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches
+  const pathname = usePathname()
+  const lenisRef = useRef(null)
 
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) return
 
     const lenis = new Lenis({
@@ -24,51 +25,49 @@ export default function SmoothScroll({ children }) {
       autoRaf: false,
     })
 
+    lenisRef.current = lenis
     window.starLenis = lenis
 
-    const onRefresh = () => lenis.resize()
-
-    ScrollTrigger.scrollerProxy(document.documentElement, {
-      scrollTop(value) {
-        if (arguments.length) {
-          lenis.scrollTo(value, { immediate: true })
-        }
-        return lenis.scroll
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        }
-      },
-      pinType: document.documentElement.style.transform ? 'transform' : 'fixed',
-    })
-
-    ScrollTrigger.addEventListener('refresh', onRefresh)
-    lenis.on('scroll', ScrollTrigger.update)
-
-    // GSAP ticker time is in seconds; Lenis raf expects milliseconds
     const raf = (time) => {
       lenis.raf(time * 1000)
     }
 
+    const onResize = () => {
+      lenis.resize()
+      ScrollTrigger.refresh()
+    }
+
+    lenis.on('scroll', ScrollTrigger.update)
     gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
+    window.addEventListener('resize', onResize)
 
     requestAnimationFrame(() => {
       ScrollTrigger.refresh()
     })
 
     return () => {
-      ScrollTrigger.removeEventListener('refresh', onRefresh)
+      window.removeEventListener('resize', onResize)
       gsap.ticker.remove(raf)
       lenis.destroy()
+      lenisRef.current = null
       delete window.starLenis
-      ScrollTrigger.scrollerProxy(document.documentElement, {})
     }
   }, [])
+
+  useEffect(() => {
+    const lenis = lenisRef.current
+
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh()
+    })
+  }, [pathname])
 
   return <>{children}</>
 }

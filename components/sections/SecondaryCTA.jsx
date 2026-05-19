@@ -1,13 +1,5 @@
 'use client'
 
-/**
- * SecondaryCTA.jsx — Section 08
- *
- * Captures visitors not yet ready to commit via WhatsApp.
- * Softer ask: "See all our work first."
- * Dark background — transitions naturally into the dark footer.
- */
-
 import Link from 'next/link'
 import { useReveal } from '@/lib/hooks/useReveal'
 
@@ -18,178 +10,120 @@ export default function SecondaryCTA() {
     <section
       ref={sectionRef}
       id="section-alt-cta"
+      className="surface-dark"
       style={{
-        backgroundColor: '#111111',
-        borderTop:       '1px solid #1E1E1E',
+        position: 'relative',
+        overflow: 'hidden',
+        borderTop: '1px solid #1E1E1E',
       }}
     >
-      <div style={{
-        maxWidth:       1440,
-        margin:        '0 auto',
-        padding:       'clamp(5rem,10vw,8rem) clamp(1.5rem,4vw,4rem)',
-        display:       'flex',
-        justifyContent:'space-between',
-        alignItems:    'center',
-        flexWrap:      'wrap',
-        gap:           'clamp(2rem,4vw,3rem)',
-      }}>
-
-        {/* Left */}
+      <div
+        className="container"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(280px, 0.74fr)',
+          gap: 28,
+          alignItems: 'center',
+          paddingTop: 'clamp(5rem,10vw,8rem)',
+          paddingBottom: 'clamp(5rem,10vw,8rem)',
+        }}
+      >
         <div>
-          <div data-reveal style={{ marginBottom: 16 }}>
-            <span style={{
-              fontFamily:    'var(--font-ui)',
-              fontSize:       10,
-              fontWeight:     500,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color:         '#555553',
-              display:       'inline-flex',
-              alignItems:    'center',
-              gap:            12,
-            }}>
-              <span style={{ display:'block', width:28, height:1, background:'#555553' }} />
-              08 — See The Work
-            </span>
-          </div>
-
+          <p className="section-tag" style={{ color: 'rgba(250,250,248,0.46)' }}>
+            08 - See the work
+          </p>
           <h2
             data-reveal
-            data-delay="0.1"
             style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(2rem,4.5vw,4rem)',
-              fontWeight:     800,
-              fontStyle:     'italic',
-              lineHeight:     1.05,
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(2.5rem,5vw,4.6rem)',
+              fontWeight: 800,
+              fontStyle: 'italic',
+              lineHeight: 1.02,
               letterSpacing: '-0.02em',
-              color:         '#FAFAF8',
-              maxWidth:      '22ch',
+              color: '#FAFAF8',
+              maxWidth: '12ch',
+              marginBottom: 18,
             }}
           >
-            Not convinced yet? Let the work speak first.
+            If the offer sounds strong, let the portfolio confirm it.
           </h2>
+          <p
+            data-reveal
+            data-delay="0.08"
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'clamp(1rem,1.18vw,1.06rem)',
+              lineHeight: 1.88,
+              color: 'rgba(250,250,248,0.62)',
+              maxWidth: '36ch',
+            }}
+          >
+            Some visitors are ready to talk immediately. Others want to study the work first. Both
+            paths should feel intentional.
+          </p>
         </div>
 
-        {/* Right — links */}
         <div
-          data-reveal
-          data-delay="0.15"
+          data-reveal="stagger-parent"
           style={{
-            display:       'flex',
-            flexDirection: 'column',
-            gap:            16,
-            alignItems:    'flex-start',
+            display: 'grid',
+            gap: 14,
           }}
         >
-          <Link
-            href="/work"
-            style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(1.125rem,2vw,1.5rem)',
-              fontStyle:     'italic',
-              fontWeight:     700,
-              color:         '#FAFAF8',
-              textDecoration:'none',
-              display:       'flex',
-              alignItems:    'center',
-              gap:            12,
-              letterSpacing: '-0.01em',
-              transition:    'color 0.2s ease',
-              paddingBottom:  12,
-              borderBottom:  '1px solid #1E1E1E',
-              width:         '100%',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = '#E8940A'
-              e.currentTarget.querySelector('.arrow').style.transform = 'translateX(6px)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = '#FAFAF8'
-              e.currentTarget.querySelector('.arrow').style.transform = 'translateX(0)'
-            }}
-          >
-            View all projects
-            <span
-              className="arrow"
-              style={{ transition:'transform 0.3s ease', display:'inline-block' }}
+          {[
+            { href: '/work', label: 'View all projects', state: 'view' },
+            { href: '/about', label: 'Read Ali Asgar\'s story', state: 'open' },
+            { href: '/contact', label: 'Start with a project brief', state: 'open' },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              data-stagger-child
+              data-cursor={item.state}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 16,
+                padding: '1.2rem 1.25rem',
+                borderRadius: 24,
+                border: '1px solid rgba(255,255,255,0.08)',
+                background: 'rgba(255,255,255,0.04)',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.3rem,2vw,1.75rem)',
+                fontWeight: 700,
+                fontStyle: 'italic',
+                lineHeight: 1.08,
+                letterSpacing: '-0.02em',
+                color: '#FAFAF8',
+              }}
             >
-              →
-            </span>
-          </Link>
-
-          <Link
-            href="/about"
-            style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(1.125rem,2vw,1.5rem)',
-              fontStyle:     'italic',
-              fontWeight:     700,
-              color:         '#555553',
-              textDecoration:'none',
-              display:       'flex',
-              alignItems:    'center',
-              gap:            12,
-              letterSpacing: '-0.01em',
-              transition:    'color 0.2s ease',
-              paddingBottom:  12,
-              borderBottom:  '1px solid #1E1E1E',
-              width:         '100%',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = '#FAFAF8'
-              e.currentTarget.querySelector('.arrow2').style.transform = 'translateX(6px)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = '#555553'
-              e.currentTarget.querySelector('.arrow2').style.transform = 'translateX(0)'
-            }}
-          >
-            About Ali Asgar
-            <span
-              className="arrow2"
-              style={{ transition:'transform 0.3s ease', display:'inline-block' }}
-            >
-              →
-            </span>
-          </Link>
-
-          <Link
-            href="/contact"
-            style={{
-              fontFamily:    'var(--font-display)',
-              fontSize:      'clamp(1.125rem,2vw,1.5rem)',
-              fontStyle:     'italic',
-              fontWeight:     700,
-              color:         '#555553',
-              textDecoration:'none',
-              display:       'flex',
-              alignItems:    'center',
-              gap:            12,
-              letterSpacing: '-0.01em',
-              transition:    'color 0.2s ease',
-              width:         '100%',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = '#FAFAF8'
-              e.currentTarget.querySelector('.arrow3').style.transform = 'translateX(6px)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = '#555553'
-              e.currentTarget.querySelector('.arrow3').style.transform = 'translateX(0)'
-            }}
-          >
-            Get in touch
-            <span
-              className="arrow3"
-              style={{ transition:'transform 0.3s ease', display:'inline-block' }}
-            >
-              →
-            </span>
-          </Link>
+              <span>{item.label}</span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-ui)',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: '#E8940A',
+                }}
+              >
+                Open
+              </span>
+            </Link>
+          ))}
         </div>
-
       </div>
+
+      <style>{`
+        @media (max-width: 920px) {
+          #section-alt-cta .container {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
