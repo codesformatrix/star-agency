@@ -1,10 +1,7 @@
 import Link from 'next/link'
+import { buildWhatsAppUrl, siteConfig } from '@/lib/site'
 
-const WA_NUMBER = '91XXXXXXXXXX' // Replace with your WhatsApp number
-const WA_MESSAGE = encodeURIComponent(
-  "Hi Ali, I saw your portfolio and I'm interested in a website for my business."
-)
-const WA_URL = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`
+const WA_URL = buildWhatsAppUrl()
 
 const LINKS = [
   { label: 'Work', href: '/work' },
@@ -157,7 +154,7 @@ export default function Footer() {
             }}
           >
             <span style={{ color: '#E8940A', fontSize: 10 }}>✦</span>
-            Ali Asgar · Bhopal, India
+            {siteConfig.founderName} · {siteConfig.locationLabel}
           </span>
         </div>
 
@@ -178,7 +175,7 @@ export default function Footer() {
               letterSpacing: '0.04em',
             }}
           >
-            © {new Date().getFullYear()} STAR Web Design Agency
+            © {new Date().getFullYear()} {siteConfig.agencyName}
           </p>
 
           <p
