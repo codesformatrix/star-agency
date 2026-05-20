@@ -37,24 +37,12 @@ export default function Hero() {
 
   const wallStyle = {
     transform: [
-      `translate3d(0, ${-180 + scrollProgress * 300}px, 0)`,
-      `rotateX(${15 - scrollProgress * 15 + pointer.y * -4}deg)`,
-      `rotateY(${pointer.x * 5}deg)`,
-      `rotateZ(${9 - scrollProgress * 9}deg)`,
+      `translate3d(0, ${-150 + scrollProgress * 260}px, 0)`,
+      `rotateX(${13 - scrollProgress * 13 + pointer.y * -3.5}deg)`,
+      `rotateY(${pointer.x * 4}deg)`,
+      `rotateZ(${8 - scrollProgress * 8}deg)`,
     ].join(' '),
-    opacity: 0.45 + scrollProgress * 0.55,
-  }
-
-  const firstRowStyle = {
-    transform: `translate3d(${scrollProgress * 860}px, 0, 0)`,
-  }
-
-  const secondRowStyle = {
-    transform: `translate3d(${-scrollProgress * 860}px, 0, 0)`,
-  }
-
-  const thirdRowStyle = {
-    transform: `translate3d(${scrollProgress * 620}px, 0, 0)`,
+    opacity: 0.52 + scrollProgress * 0.48,
   }
 
   return (
@@ -66,37 +54,38 @@ export default function Hero() {
       <div className="hero__noise" aria-hidden="true" />
 
       <div className="hero__stage container">
-        <div className="hero__content">
+        <div className="hero__content hero__content--corner">
           <p className="hero__eyebrow">
             STAR <span className="hero__star">*</span> Web Design Agency
           </p>
 
-          <h1 className="hero__title">
-            Web design that gives Indian businesses the kind of presence people remember.
+          <h1 className="hero__title hero__title--compact">
+            We make websites that make businesses memorable.
           </h1>
 
-          <p className="hero__lede">
-            Built for architects, wedding planners, hospitality brands, and ambitious businesses
-            that need more than another polite template.
+          <p className="hero__lede hero__lede--corner">
+            For architects, wedding planners, hospitality brands, and ambitious Indian businesses
+            that want a stronger first impression online.
           </p>
 
           <div className="hero__actions">
             <Link href="/work" className="btn btn-primary" data-cursor="view">
-              View the work
+              View Work
             </Link>
-            <Link href="/contact" className="btn btn-outline" data-cursor="open">
-              Start a project
+            <Link href="/contact" className="btn btn-outline">
+              Start a Project
             </Link>
           </div>
 
           <div className="hero__meta">
-            <span>Bhopal-based, India-wide</span>
-            <span>Build first. Pay only if you love it.</span>
+            <span>Bhopal based</span>
+            <span>Zero upfront cost</span>
+            <span>Built across India</span>
           </div>
         </div>
 
         <div
-          className="hero__wall-wrap"
+          className="hero__wall-wrap hero__wall-wrap--balanced"
           style={wallStyle}
           onMouseMove={(event) => {
             const bounds = event.currentTarget.getBoundingClientRect()
@@ -107,27 +96,31 @@ export default function Hero() {
           onMouseLeave={() => setPointer({ x: 0, y: 0 })}
         >
           <div className="hero__wall">
-            <div className="hero__row hero__row--reverse" style={firstRowStyle}>
+            <div
+              className="hero__row hero__row--reverse"
+              style={{ transform: `translate3d(${scrollProgress * 760}px, 0, 0)` }}
+            >
               {rows[0].map((item) => (
                 <HeroWallCard key={item.id} item={item} />
               ))}
             </div>
-            <div className="hero__row" style={secondRowStyle}>
+            <div
+              className="hero__row"
+              style={{ transform: `translate3d(${-scrollProgress * 760}px, 0, 0)` }}
+            >
               {rows[1].map((item) => (
                 <HeroWallCard key={item.id} item={item} />
               ))}
             </div>
-            <div className="hero__row hero__row--reverse" style={thirdRowStyle}>
+            <div
+              className="hero__row hero__row--reverse"
+              style={{ transform: `translate3d(${scrollProgress * 560}px, 0, 0)` }}
+            >
               {rows[2].map((item) => (
                 <HeroWallCard key={item.id} item={item} />
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="hero__scroll">
-          <span className="hero__scroll-line" aria-hidden="true" />
-          <span className="hero__scroll-label">Scroll to explore</span>
         </div>
       </div>
     </section>

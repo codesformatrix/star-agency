@@ -105,7 +105,7 @@ export default function AboutPage() {
                   marginBottom: 24,
                 }}
               >
-                STAR exists to make hiring better web design feel less risky.
+                A better website should make the business look as good online as it does in real life.
               </h1>
               <p
                 data-reveal
@@ -119,9 +119,8 @@ export default function AboutPage() {
                   marginBottom: 28,
                 }}
               >
-                Built by Ali Asgar in {siteConfig.locationCity}, STAR helps Indian businesses look
-                more considered online without asking them to commit blindly upfront. The work has
-                to prove itself first.
+                STAR is built for businesses that want stronger presentation, clearer positioning,
+                and a more convincing first impression without committing blindly upfront.
               </p>
 
               <div
@@ -181,7 +180,7 @@ export default function AboutPage() {
                     maxWidth: '12ch',
                   }}
                 >
-                  The portfolio should do part of the selling before the call even starts.
+                  The website should start building trust before a prospect ever sends a message.
                 </p>
                 <p
                   style={{
@@ -191,8 +190,8 @@ export default function AboutPage() {
                     color: 'rgba(250,250,248,0.72)',
                   }}
                 >
-                  STAR was built around that exact moment: when a prospect asks what has been done
-                  before, and the answer needs to feel sharp, credible, and hard to forget.
+                  That is the standard behind STAR: build work that helps the business look more
+                  credible, more deliberate, and easier to trust from the very first visit.
                 </p>
               </article>
 
@@ -268,7 +267,7 @@ export default function AboutPage() {
                 Why it started
               </p>
               <h2 className="text-h1" style={{ color: '#111111', maxWidth: '10ch' }}>
-                Built for the moment a business realizes its current site is underselling it.
+                Built for businesses that know their online presence should be doing more.
               </h2>
             </div>
 
@@ -286,9 +285,9 @@ export default function AboutPage() {
               }}
             >
               {[
-                'Many premium businesses invest heavily in service quality, interiors, photography, or presentation, then send prospects to a website that feels generic, dated, or too easy to confuse with everyone else.',
-                'Ali built STAR around a more convincing answer than another sales pitch: design and build the first version before asking for payment, so the client can judge the work directly.',
-                'That shifts the standard. The site has to carry taste, trust, positioning, and enough originality to make the business feel harder to overlook in its category.',
+                'Many businesses invest properly in their service, visuals, interiors, or operations, then send prospects to a website that makes the brand feel smaller than it really is.',
+                'STAR was built around a more confident model: create the first version first, let the quality speak, and remove as much uncertainty from the decision as possible.',
+                'That raises the bar. The website has to communicate trust, taste, and positioning clearly enough that the business feels memorable before the first conversation begins.',
               ].map((paragraph) => (
                 <p
                   key={paragraph}
@@ -327,7 +326,7 @@ export default function AboutPage() {
                   Principles
                 </p>
                 <h2 className="text-h1" style={{ color: '#111111', maxWidth: '11ch' }}>
-                  The style can change by category. The standard does not.
+                  Different industries need different aesthetics. The quality bar stays the same.
                 </h2>
               </div>
 
@@ -416,7 +415,7 @@ export default function AboutPage() {
                   Working model
                 </p>
                 <h2 className="text-h1" style={{ color: '#FAFAF8', maxWidth: '10ch' }}>
-                  A cleaner process, with less guesswork on the client side.
+                A straightforward process built to keep the quality visible.
                 </h2>
               </div>
 
@@ -429,9 +428,9 @@ export default function AboutPage() {
                   maxWidth: '42ch',
                 }}
               >
-                The structure is simple on purpose: understand the business properly, build a
-                first version worth judging, refine the details that matter, then move commercially
-                once the quality feels convincing.
+                The structure stays simple on purpose: understand the business, build a first
+                version worth judging, refine what matters, and move forward once the standard is
+                clear on screen.
               </p>
             </div>
 
@@ -504,7 +503,7 @@ export default function AboutPage() {
                   Selected work
                 </p>
                 <h2 className="text-h1" style={{ color: '#111111', maxWidth: '11ch' }}>
-                  Different industries. Same demand for taste, clarity, and trust.
+                  Different sectors. Same need for trust, clarity, and a memorable first impression.
                 </h2>
               </div>
 
@@ -624,7 +623,7 @@ export default function AboutPage() {
                 Next step
               </p>
               <h2 className="text-h1" style={{ color: '#111111', maxWidth: '11ch', marginBottom: 16 }}>
-                If the model feels right, the next move is just to share the brief.
+                If the direction feels right, the next step is simply to share the brief.
               </h2>
               <p
                 style={{
@@ -635,8 +634,8 @@ export default function AboutPage() {
                   maxWidth: '40ch',
                 }}
               >
-                Send the current website, what feels weak today, and the kind of standard the
-                business should be operating at. STAR will start from the strongest direction.
+                Share the current website, what feels weak today, and where the business should be
+                positioned. STAR will start from the strongest direction for that gap.
               </p>
             </div>
 

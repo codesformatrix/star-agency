@@ -18,21 +18,21 @@ const MARQUEE_WORDS = [
 const PAIN_POINTS = [
   {
     num: '01',
-    title: 'The website looks polite, not memorable',
+    title: 'A forgettable website weakens a strong first impression',
     body:
-      'Most businesses are not losing trust because they lack information. They are losing it because the presentation feels generic before the visitor has even started reading.',
+      'Prospects start judging the standard of a business long before they read the details. If the website feels generic, the brand immediately looks easier to overlook.',
   },
   {
     num: '02',
-    title: 'Good work is being framed too weakly',
+    title: 'Premium work can look ordinary when the presentation is wrong',
     body:
-      'Architects, wedding planners, and hospitality brands rely on taste. If the site does not express that standard immediately, the work gets judged lower than it deserves.',
+      'Architects, wedding planners, and hospitality brands sell trust, taste, and confidence. When the digital presentation feels flat, the work itself gets undervalued.',
   },
   {
     num: '03',
-    title: 'The next step feels forgettable',
+    title: 'Visitors leave when the story never builds conviction',
     body:
-      'When the story, motion, and contact path feel interchangeable, visitors browse, compare, and leave. The business becomes easy to admire and easy to forget.',
+      'If the website does not guide attention, build desire, and make the next step feel natural, visitors compare, hesitate, and move on to the next option.',
   },
 ]
 
@@ -126,7 +126,7 @@ export default function Problem() {
               maxWidth: '10ch',
             }}
           >
-            Better businesses deserve a stronger digital first impression.
+            A weak website makes a premium business easier to ignore.
           </h2>
           <p
             style={{
@@ -137,8 +137,8 @@ export default function Problem() {
               maxWidth: '34ch',
             }}
           >
-            The issue is rarely the business itself. It is the gap between how thoughtful the work
-            is in real life and how ordinary the website makes it look online.
+            Most businesses do not lose trust because they lack information. They lose it because
+            the website fails to make the quality of the business feel real from the first screen.
           </p>
         </div>
 

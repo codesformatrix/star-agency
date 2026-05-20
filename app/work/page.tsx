@@ -48,7 +48,7 @@ export default function WorkPage() {
                 maxWidth: '10ch',
               }}
             >
-              Work that makes the next conversation feel easier to trust.
+              A portfolio built to make the business feel credible before the first reply.
             </h1>
           </div>
 
@@ -62,8 +62,8 @@ export default function WorkPage() {
               justifySelf: 'end',
             }}
           >
-            The visuals are still a curated temporary set, but the portfolio structure, case-study
-            rhythm, and trust-building role are already the real system.
+            This is the trust layer behind the agency. The visuals will keep improving, but the
+            role stays the same: help prospects see the standard before the conversation starts.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function WorkPage() {
             {
               label: 'Projects',
               value: `${allProjects.length}`,
-              note: 'Curated portfolio system',
+              note: 'Selected proof of work',
             },
             {
               label: 'Primary sectors',
@@ -88,7 +88,7 @@ export default function WorkPage() {
             {
               label: 'Purpose',
               value: 'Trust asset',
-              note: 'Built for outreach and deeper proof',
+              note: 'Built for outreach and premium trust',
             },
           ].map((item) => (
             <div

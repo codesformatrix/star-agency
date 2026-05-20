@@ -93,7 +93,7 @@ export default function ContactPage() {
                   marginBottom: 24,
                 }}
               >
-                Bring the brief. STAR will build the first version before you decide.
+                Bring the brief. We will build the first version before asking you to decide.
               </h1>
               <p
                 data-reveal
@@ -107,8 +107,8 @@ export default function ContactPage() {
                   marginBottom: 28,
                 }}
               >
-                This works best when the business already knows the current website is too generic,
-                too dated, or too weak to support the level of client it wants to attract.
+                This works best for businesses that already know the current website feels too
+                generic, too dated, or too weak for the kind of clients they want to win.
               </p>
 
               <div
@@ -174,7 +174,7 @@ export default function ContactPage() {
                     maxWidth: '13ch',
                   }}
                 >
-                  Share what feels off now, not just what you want added later.
+                  Share what is not working now, not just what you want added later.
                 </p>
                 <p
                   style={{
@@ -184,9 +184,9 @@ export default function ContactPage() {
                     color: 'rgba(250,250,248,0.72)',
                   }}
                 >
-                  The stronger the context, the sharper the first direction becomes. Current links,
-                  category references, and the real commercial problem are more useful than vague
-                  wishlists.
+                  The stronger the context, the stronger the first direction becomes. Current
+                  links, category references, and the real commercial problem are far more useful
+                  than vague wishlists.
                 </p>
               </article>
 
@@ -457,8 +457,8 @@ export default function ContactPage() {
                       maxWidth: '36ch',
                     }}
                   >
-                    Skip the form and send a short WhatsApp message first. The structured brief can
-                    follow once the direction is clear.
+                    Start with a short WhatsApp message if that feels easier. The full brief can
+                    follow once the conversation is moving in the right direction.
                   </p>
                 </div>
 
@@ -498,7 +498,7 @@ export default function ContactPage() {
                 Need more proof first?
               </p>
               <h2 className="text-h1" style={{ color: '#FAFAF8', maxWidth: '11ch', marginBottom: 16 }}>
-                Review the portfolio, then come back with the strongest direction.
+                Review the portfolio first, then come back with the direction you want to pursue.
               </h2>
               <p
                 style={{
@@ -509,8 +509,8 @@ export default function ContactPage() {
                   maxWidth: '40ch',
                 }}
               >
-                If you prefer to judge the standard before starting the conversation, that is what
-                the work pages are there for.
+                If you want to judge the standard before starting the conversation, that is exactly
+                what the work pages are built for.
               </p>
             </div>
 

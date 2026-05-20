@@ -5,21 +5,21 @@ import { useReveal } from '@/lib/hooks/useReveal'
 const FEATURES = [
   {
     num: '01',
-    title: 'Designed around category cues, not template habits',
+    title: 'Designed for your category, not copied from a template',
     body:
-      'The site direction starts from the business, city context, and the kind of client trust the brand needs to earn, not from a recycled layout.',
+      'The visual system starts with your industry, audience, and positioning so the final website feels aligned with the brand, not borrowed from another business.',
   },
   {
     num: '02',
-    title: 'Motion that carries attention instead of decorating it',
+    title: 'Motion that guides attention instead of distracting from it',
     body:
-      'Depth, parallax, and choreographed reveals help the story land more clearly. The movement exists to frame the work, not to distract from it.',
+      'Parallax, pacing, and reveal choreography are used to control emphasis, improve storytelling, and make the experience feel more intentional.',
   },
   {
     num: '03',
-    title: 'Presentation strong enough for outreach and premium positioning',
+    title: 'Built to support premium positioning and better outreach',
     body:
-      'The result is not just a website that works. It becomes a trust asset that helps prospects take the business more seriously before the first conversation.',
+      'The result is more than a working site. It becomes a portfolio-grade trust asset that helps prospects take the business seriously before the first reply.',
   },
 ]
 
@@ -78,7 +78,7 @@ export default function Solution() {
                 marginBottom: 18,
               }}
             >
-              A stronger website should feel like a clearer point of view.
+              A better website should make the business look clearer, sharper, and more valuable.
             </h2>
             <p
               style={{
@@ -89,8 +89,8 @@ export default function Solution() {
                 maxWidth: '38ch',
               }}
             >
-              STAR builds digital presentation with more hierarchy, more atmosphere, and far more
-              intent than the usual agency template stack.
+              Every part of the build is there to strengthen perception: the layout, the pacing,
+              the typography, the motion, and the path to enquiry.
             </p>
           </div>
 
@@ -147,7 +147,7 @@ export default function Solution() {
                     textTransform: 'uppercase',
                   }}
                 >
-                  Signature difference
+                  Why it works
                 </span>
                 <h3
                   style={{
@@ -162,7 +162,7 @@ export default function Solution() {
                     maxWidth: '12ch',
                   }}
                 >
-                  Build the trust first. Ask for money later.
+                  Show the standard first. Let the work earn the decision.
                 </h3>
               </div>
 
@@ -176,8 +176,8 @@ export default function Solution() {
                     maxWidth: '34ch',
                   }}
                 >
-                  The model is deliberately rare: design and build the first version so the client
-                  can judge the craft directly instead of buying a promise around it.
+                  Instead of selling vague promises, STAR builds the first version so the quality
+                  can be judged directly, with much less guesswork on the client side.
                 </p>
                 <span
                   style={{

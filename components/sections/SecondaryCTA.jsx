@@ -46,7 +46,7 @@ export default function SecondaryCTA() {
               marginBottom: 18,
             }}
           >
-            If the offer sounds strong, let the portfolio confirm it.
+            If the standard matters, the portfolio should make that obvious.
           </h2>
           <p
             data-reveal
@@ -59,8 +59,8 @@ export default function SecondaryCTA() {
               maxWidth: '36ch',
             }}
           >
-            Some visitors are ready to talk immediately. Others want to study the work first. Both
-            paths should feel intentional.
+            Some visitors are ready to enquire immediately. Others want proof first. Both paths
+            should feel clear, deliberate, and easy to follow.
           </p>
         </div>
 
@@ -73,8 +73,8 @@ export default function SecondaryCTA() {
         >
           {[
             { href: '/work', label: 'View all projects', state: 'view' },
-            { href: '/about', label: 'Read Ali Asgar\'s story', state: 'open' },
-            { href: '/contact', label: 'Start with a project brief', state: 'open' },
+            { href: '/about', label: 'See how STAR approaches the work', state: 'open' },
+            { href: '/contact', label: 'Start with your project brief', state: 'open' },
           ].map((item) => (
             <Link
               key={item.href}

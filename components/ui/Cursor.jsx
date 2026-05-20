@@ -2,18 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { MOTION } from '@/lib/motion'
-
-const CURSOR_LABELS = {
-  view: 'View',
-  open: 'Open',
-  drag: 'Drag',
-}
 
 export default function Cursor() {
   const cursorRef = useRef(null)
   const labelRef = useRef(null)
-  const activeTargetRef = useRef(null)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -31,96 +23,94 @@ export default function Cursor() {
       opacity: 0,
       xPercent: -50,
       yPercent: -50,
-      width: MOTION.cursor.idleSize,
-      height: MOTION.cursor.idleSize,
+      width: 10,
+      height: 10,
     })
 
     gsap.set(label, { opacity: 0, y: 10 })
 
     const xTo = gsap.quickTo(cursor, 'x', {
-      duration: MOTION.cursor.moveDuration,
+      duration: 0.5,
       ease: 'power3.out',
     })
     const yTo = gsap.quickTo(cursor, 'y', {
-      duration: MOTION.cursor.moveDuration,
+      duration: 0.5,
       ease: 'power3.out',
     })
 
-    const updateCursorState = (target) => {
-      activeTargetRef.current = target
-
-      const mode =
-        target?.getAttribute('data-cursor') ||
-        (target?.matches('a, button') ? 'open' : '')
-      const customLabel = target?.getAttribute('data-cursor-label')
-      const nextLabel = customLabel || CURSOR_LABELS[mode] || ''
-      const nextSize = mode === 'drag' ? MOTION.cursor.dragSize : MOTION.cursor.hoverSize
-
+    const setDefault = () => {
       gsap.to(cursor, {
-        width: mode ? nextSize : MOTION.cursor.idleSize,
-        height: mode ? nextSize : MOTION.cursor.idleSize,
+        width: 10,
+        height: 10,
         duration: 0.3,
         ease: 'back.out(1.7)',
       })
-
       gsap.to(label, {
-        opacity: nextLabel ? 1 : 0,
-        y: nextLabel ? 0 : 10,
-        duration: MOTION.cursor.labelDuration,
+        opacity: 0,
+        y: 10,
+        duration: 0.24,
         ease: 'power2.out',
       })
-
-      label.textContent = nextLabel
+      label.textContent = ''
     }
 
-    const move = (event) => {
+    const setView = () => {
+      gsap.to(cursor, {
+        width: 44,
+        height: 44,
+        duration: 0.3,
+        ease: 'back.out(1.7)',
+      })
+      label.textContent = 'View'
+      gsap.to(label, {
+        opacity: 1,
+        y: 0,
+        duration: 0.24,
+        ease: 'power2.out',
+      })
+    }
+
+    const handleMove = (event) => {
       xTo(event.clientX)
       yTo(event.clientY)
     }
 
-    const hide = () => {
+    const handleOver = (event) => {
+      const target = event.target instanceof Element ? event.target.closest('[data-cursor]') : null
+      if (target?.getAttribute('data-cursor') === 'view') {
+        setView()
+        return
+      }
+
+      setDefault()
+    }
+
+    const handleLeaveWindow = () => {
       gsap.to(cursor, { opacity: 0, duration: 0.2 })
     }
 
-    const show = () => {
+    const handleEnterWindow = () => {
       gsap.to(cursor, { opacity: 1, duration: 0.2 })
     }
 
-    const onPointerOver = (event) => {
-      const target = event.target instanceof Element ? event.target.closest('[data-cursor], a, button') : null
-      updateCursorState(target)
-    }
-
-    const onPointerOut = (event) => {
-      const relatedTarget =
-        event.relatedTarget instanceof Element
-          ? event.relatedTarget.closest('[data-cursor], a, button')
-          : null
-
-      if (relatedTarget === activeTargetRef.current) return
-      updateCursorState(relatedTarget)
-    }
-
-    const onFirstMove = () => {
+    const handleFirstMove = () => {
       gsap.to(cursor, { opacity: 1, duration: 0.3 })
-      window.removeEventListener('mousemove', onFirstMove)
+      window.removeEventListener('mousemove', handleFirstMove)
     }
 
-    window.addEventListener('mousemove', move)
-    window.addEventListener('mousemove', onFirstMove)
-    document.documentElement.addEventListener('mouseleave', hide)
-    document.documentElement.addEventListener('mouseenter', show)
-    document.body.addEventListener('mouseover', onPointerOver)
-    document.body.addEventListener('mouseout', onPointerOut)
+    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('mousemove', handleFirstMove)
+    document.body.addEventListener('mouseover', handleOver)
+    document.documentElement.addEventListener('mouseleave', handleLeaveWindow)
+    document.documentElement.addEventListener('mouseenter', handleEnterWindow)
 
     return () => {
       document.body.classList.remove('has-custom-cursor')
-      window.removeEventListener('mousemove', move)
-      window.removeEventListener('mousemove', onFirstMove)
-      document.documentElement.removeEventListener('mouseleave', hide)
-      document.documentElement.removeEventListener('mouseenter', show)
-      document.body.removeEventListener('mouseover', onPointerOver)
-      document.body.removeEventListener('mouseout', onPointerOut)
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('mousemove', handleFirstMove)
+      document.body.removeEventListener('mouseover', handleOver)
+      document.documentElement.removeEventListener('mouseleave', handleLeaveWindow)
+      document.documentElement.removeEventListener('mouseenter', handleEnterWindow)
     }
   }, [])
 

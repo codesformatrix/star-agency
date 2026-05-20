@@ -10,27 +10,27 @@ gsap.registerPlugin(ScrollTrigger)
 const STEPS = [
   {
     num: '01',
-    title: 'Study the business before styling the page',
+    title: 'Understand the business before designing the screen',
     body:
-      'The process starts with category research, references, and the current weak spots, so the direction is grounded in the business rather than decoration.',
+      'The first step is strategy: category references, buyer expectations, positioning gaps, and what the current website fails to communicate clearly.',
   },
   {
     num: '02',
-    title: 'Build the first version with real momentum',
+    title: 'Build a first version that already feels commercially ready',
     body:
-      'Layout, motion, hierarchy, and contact flow get designed together so the site already feels like a finished point of view, not an early placeholder.',
+      'Structure, hierarchy, visual language, and contact flow are developed together so the first version already feels considered, not half-finished.',
   },
   {
     num: '03',
-    title: 'Refine the details until the story clicks',
+    title: 'Refine until the message, pacing, and presentation feel right',
     body:
-      'The strongest version usually comes from sharpening rhythm, emphasis, and clarity after the first pass has made the opportunity visible.',
+      'The strongest websites usually come from tightening emphasis, contrast, and clarity after the first direction has made the opportunity visible.',
   },
   {
     num: '04',
-    title: 'Only then does the payment conversation matter',
+    title: 'Decide after the quality is visible',
     body:
-      'The client sees the work, reviews it, and decides from a position of certainty. The standard has to be visible before the invoice exists.',
+      'Once the work is on screen, the decision becomes far more straightforward. The standard is visible before any payment conversation begins.',
   },
 ]
 
@@ -106,7 +106,7 @@ export default function Process() {
               marginBottom: 20,
             }}
           >
-            A cleaner process keeps the quality visible the whole way through.
+            The process is simple because the decision should not feel risky.
           </h2>
           <p
             style={{
@@ -117,8 +117,8 @@ export default function Process() {
               maxWidth: '36ch',
             }}
           >
-            The point is not to create more steps. It is to remove blind commitment so the business
-            can judge the standard with more confidence and less guesswork.
+            The goal is not to add complexity. It is to remove blind commitment and make the
+            standard easy to judge before the business spends money.
           </p>
         </div>
 

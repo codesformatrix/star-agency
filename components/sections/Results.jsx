@@ -6,21 +6,21 @@ import { useReveal } from '@/lib/hooks/useReveal'
 const RESULTS = [
   {
     stat: '01',
-    label: 'The business looks more established before the first call.',
+    label: 'The business feels more established before the first conversation.',
     body:
-      'A more deliberate website changes the tone of the conversation. Visitors arrive with more confidence, more context, and a stronger sense that the brand already knows what it is doing.',
+      'A more deliberate website changes the tone of the enquiry. Visitors arrive with more confidence, more context, and a stronger sense of quality.',
   },
   {
     stat: '02',
-    label: 'Premium positioning feels easier to justify.',
+    label: 'Premium positioning becomes easier to support.',
     body:
-      'When the presentation is aligned with the quality of the work, the business stops looking like it should compete on price alone. The perception becomes sharper, calmer, and more credible.',
+      'When the presentation finally matches the standard of the work, the brand no longer looks like it should compete on price alone.',
   },
   {
     stat: '03',
-    label: 'Outreach becomes less about persuasion and more about proof.',
+    label: 'Outreach starts relying on proof instead of persuasion.',
     body:
-      'The website starts doing part of the selling by itself. Instead of explaining taste and capability in messages, the business can point people to something that already communicates both.',
+      'A stronger website does part of the selling by itself. Instead of explaining taste and capability in messages, the business can point prospects to proof.',
   },
 ]
 
@@ -86,7 +86,7 @@ export default function Results() {
                 maxWidth: '10ch',
               }}
             >
-              The shift is not just visual. It changes the way the business is read.
+              Better presentation changes how the business is valued.
             </h2>
           </div>
 
@@ -100,8 +100,8 @@ export default function Results() {
               justifySelf: 'end',
             }}
           >
-            Better motion and better presentation do not exist for their own sake. They exist to
-            make the business feel more convincing, more distinctive, and harder to overlook.
+            The outcome is not just a nicer interface. It is a business that feels more credible,
+            more distinctive, and more memorable the moment someone lands on the site.
           </p>
         </div>
 
@@ -191,7 +191,7 @@ export default function Results() {
               color: 'rgba(250,250,248,0.44)',
             }}
           >
-            Built to become a better trust asset
+            Built to strengthen trust before the first call
           </span>
           <Link href="/work" className="btn btn-outline" data-cursor="view" style={{ color: '#FAFAF8', borderColor: 'rgba(255,255,255,0.18)' }}>
             See the portfolio

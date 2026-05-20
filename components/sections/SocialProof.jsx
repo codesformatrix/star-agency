@@ -8,13 +8,13 @@ import { allProjects } from '@/lib/data/projects'
 const TESTIMONIALS = [
   {
     quote:
-      'The first thing people noticed was not just that the website looked better. It felt like the business itself had become more sure of its own standard.',
+      'The website finally matched the level of the work. Prospects could feel the difference before the first call even happened.',
     author: 'Architecture client',
     role: 'Portfolio repositioning',
   },
   {
     quote:
-      'The difference was how much more intentional everything felt. The website finally looked like it belonged to a premium wedding brand instead of a placeholder service page.',
+      'The brand stopped feeling like just another option online. It started feeling premium, deliberate, and worth remembering.',
     author: 'Wedding planning client',
     role: 'Luxury presentation refresh',
   },
@@ -69,7 +69,7 @@ export default function SocialProof() {
                 marginBottom: 18,
               }}
             >
-              The work has to carry the pitch by itself.
+              The work should do the convincing before the sales call starts.
             </h2>
           </div>
 
@@ -83,8 +83,8 @@ export default function SocialProof() {
               justifySelf: 'end',
             }}
           >
-            That is why the portfolio matters. The strongest trust signal is not a claim about what
-            STAR can do. It is a body of work that already feels considered.
+            A strong portfolio removes doubt faster than a long explanation ever will. People trust
+            what they can see, not just what they are told.
           </p>
         </div>
 
@@ -299,7 +299,7 @@ export default function SocialProof() {
               color: '#888886',
             }}
           >
-            Temporary portfolio set, final structure
+            Built to function as a real trust asset
           </span>
           <Link href="/work" className="btn btn-outline" data-cursor="view">
             View all work

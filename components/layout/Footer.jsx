@@ -81,7 +81,7 @@ export default function Footer() {
                 marginBottom: 18,
               }}
             >
-              Websites that make your business feel harder to ignore.
+              Websites designed to make strong businesses feel unforgettable online.
             </p>
 
             <p
@@ -94,7 +94,7 @@ export default function Footer() {
               }}
             >
               Based in {siteConfig.locationCity}. Working across India. Built for businesses that
-              already know their current website is not matching the standard of the work behind it.
+              need a more credible, more distinctive, and more premium digital first impression.
             </p>
           </div>
 
@@ -128,7 +128,8 @@ export default function Footer() {
                 marginBottom: 18,
               }}
             >
-              STAR builds first. You pay only if the work feels right.
+              STAR builds the first version before asking for payment, so the quality is visible
+              before the decision is.
             </p>
             <a
               href={WA_URL}

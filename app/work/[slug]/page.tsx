@@ -346,7 +346,7 @@ export default async function WorkCaseStudyPage({
                 color: '#111111',
               }}
             >
-              Repeated crops from the same design system.
+              Supporting views from the same design direction.
             </h2>
           </div>
 
@@ -426,7 +426,7 @@ export default async function WorkCaseStudyPage({
                   color: '#111111',
                 }}
               >
-                Keep exploring the portfolio.
+                Continue through the portfolio.
               </h2>
             </div>
 

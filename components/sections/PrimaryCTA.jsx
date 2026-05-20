@@ -63,7 +63,7 @@ export default function PrimaryCTA() {
               marginBottom: 18,
             }}
           >
-            If the current website is underselling the business, this is the part to fix next.
+            If the website is weakening the brand, this is the right time to fix it.
           </h2>
           <p
             data-reveal
@@ -76,8 +76,8 @@ export default function PrimaryCTA() {
               maxWidth: '36ch',
             }}
           >
-            Bring the website, the Instagram, or even just the business context. STAR will build
-            the first version before asking for payment so the standard is visible from the start.
+            Share the current website, Instagram, or business context. STAR will build the first
+            version before asking for payment, so the quality is visible before the commitment is.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export default function PrimaryCTA() {
           <div style={{ display: 'grid', gap: 16, marginBottom: 22 }}>
             {[
               'No upfront payment',
-              'Website built before the invoice conversation',
+              'First version built before payment',
               'WhatsApp-first review and feedback flow',
             ].map((item) => (
               <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -144,7 +144,7 @@ export default function PrimaryCTA() {
               color: 'rgba(250,250,248,0.44)',
             }}
           >
-            Build first. Decide after.
+            See the work first. Decide after.
           </span>
         </div>
       </div>
