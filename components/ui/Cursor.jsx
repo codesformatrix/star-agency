@@ -1,114 +1,159 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+/**
+ * Cursor.jsx
+ * Custom cursor — replaces the default OS cursor on desktop.
+ *
+ * Behaviour:
+ * - Small 10px dot that follows the mouse with slight lag (GSAP quickTo)
+ * - Expands to 44px circle on hover over links, buttons, [data-cursor]
+ * - mix-blend-mode: difference — inverts colour against any background
+ *   (appears white on dark sections, dark on light sections — automatically)
+ * - Hidden on touch devices — they never have a cursor
+ * - "View" label appears when hovering project cards [data-cursor="view"]
+ */
+
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 export default function Cursor() {
   const cursorRef = useRef(null)
   const labelRef = useRef(null)
-  const [mounted, setMounted] = useState(false)
+  const isHovering = useRef(false)
 
   useEffect(() => {
-    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
-    if (coarsePointer) return
+    if (window.matchMedia('(pointer: coarse)').matches) return
 
     const cursor = cursorRef.current
     const label = labelRef.current
     if (!cursor || !label) return
 
-    setMounted(true)
-    document.body.classList.add('has-custom-cursor')
+    gsap.set(cursor, { opacity: 1 })
 
-    gsap.set(cursor, {
-      opacity: 0,
-      xPercent: -50,
-      yPercent: -50,
-    })
+    const xTo = gsap.quickTo(cursor, 'x', { duration: 0.5, ease: 'power3.out' })
+    const yTo = gsap.quickTo(cursor, 'y', { duration: 0.5, ease: 'power3.out' })
 
-    gsap.set(label, { opacity: 0, y: 10 })
-
-    const xTo = gsap.quickTo(cursor, 'x', {
-      duration: 0.5,
-      ease: 'power3.out',
-    })
-    const yTo = gsap.quickTo(cursor, 'y', {
-      duration: 0.5,
-      ease: 'power3.out',
-    })
-
-    const resetCursor = () => {
-      cursor.classList.remove('is-hovering')
-      label.textContent = ''
-      gsap.to(label, {
-        opacity: 0,
-        y: 10,
-        duration: 0.22,
-        ease: 'power2.out',
-      })
-    }
-
-    const activateView = () => {
-      cursor.classList.add('is-hovering')
-      label.textContent = 'View'
-      gsap.to(label, {
-        opacity: 1,
-        y: 0,
-        duration: 0.22,
-        ease: 'power2.out',
-      })
-    }
-
-    const handleMove = (event) => {
+    const onMouseMove = (event) => {
       xTo(event.clientX)
       yTo(event.clientY)
     }
 
-    const handleOver = (event) => {
-      const target = event.target instanceof Element ? event.target.closest('[data-cursor="view"]') : null
-      if (target) {
-        activateView()
-        return
+    const onEnter = (event) => {
+      if (isHovering.current) return
+      isHovering.current = true
+
+      const cursorType = event.currentTarget.dataset.cursor || 'hover'
+
+      gsap.to(cursor, {
+        width: 44,
+        height: 44,
+        duration: 0.35,
+        ease: 'back.out(1.7)',
+      })
+
+      if (cursorType === 'view') {
+        gsap.to(label, {
+          opacity: 1,
+          duration: 0.2,
+          ease: 'power2.out',
+        })
       }
-
-      resetCursor()
     }
 
-    const handleFirstMove = () => {
-      gsap.to(cursor, { opacity: 1, duration: 0.3 })
-      window.removeEventListener('mousemove', handleFirstMove)
+    const onLeave = () => {
+      isHovering.current = false
+
+      gsap.to(cursor, {
+        width: 10,
+        height: 10,
+        duration: 0.35,
+        ease: 'power3.out',
+      })
+
+      gsap.to(label, {
+        opacity: 0,
+        duration: 0.15,
+        ease: 'power2.out',
+      })
     }
 
-    const hide = () => {
-      gsap.to(cursor, { opacity: 0, duration: 0.2 })
+    const onMouseLeave = () => gsap.to(cursor, { opacity: 0, duration: 0.2 })
+    const onMouseEnter = () => gsap.to(cursor, { opacity: 1, duration: 0.2 })
+
+    window.addEventListener('mousemove', onMouseMove)
+    document.documentElement.addEventListener('mouseleave', onMouseLeave)
+    document.documentElement.addEventListener('mouseenter', onMouseEnter)
+
+    const onBodyEnter = (event) => {
+      const target = event.target.closest('a, button, [data-cursor]')
+      if (target) onEnter({ currentTarget: target })
+    }
+    const onBodyLeave = (event) => {
+      const target = event.target.closest('a, button, [data-cursor]')
+      if (target) onLeave()
     }
 
-    const show = () => {
-      gsap.to(cursor, { opacity: 1, duration: 0.2 })
-    }
-
-    window.addEventListener('mousemove', handleMove)
-    window.addEventListener('mousemove', handleFirstMove)
-    document.body.addEventListener('mouseover', handleOver)
-    document.documentElement.addEventListener('mouseleave', hide)
-    document.documentElement.addEventListener('mouseenter', show)
+    document.body.addEventListener('mouseover', onBodyEnter)
+    document.body.addEventListener('mouseout', onBodyLeave)
 
     return () => {
-      document.body.classList.remove('has-custom-cursor')
-      window.removeEventListener('mousemove', handleMove)
-      window.removeEventListener('mousemove', handleFirstMove)
-      document.body.removeEventListener('mouseover', handleOver)
-      document.documentElement.removeEventListener('mouseleave', hide)
-      document.documentElement.removeEventListener('mouseenter', show)
+      window.removeEventListener('mousemove', onMouseMove)
+      document.documentElement.removeEventListener('mouseleave', onMouseLeave)
+      document.documentElement.removeEventListener('mouseenter', onMouseEnter)
+      document.body.removeEventListener('mouseover', onBodyEnter)
+      document.body.removeEventListener('mouseout', onBodyLeave)
     }
   }, [])
 
-  if (!mounted) {
-    return null
-  }
-
   return (
-    <div ref={cursorRef} className="cursor" aria-hidden="true">
-      <span ref={labelRef} className="cursor__label" />
-    </div>
+    <>
+      <style>{`
+        @media (pointer: fine) {
+          *, *::before, *::after { cursor: none !important; }
+        }
+      `}</style>
+
+      <div
+        ref={cursorRef}
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: 10,
+          height: 10,
+          borderRadius: '50%',
+          backgroundColor: '#FAFAF8',
+          pointerEvents: 'none',
+          zIndex: 9999,
+          opacity: 0,
+          mixBlendMode: 'difference',
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          willChange: 'transform, width, height',
+        }}
+      >
+        <span
+          ref={labelRef}
+          style={{
+            fontFamily: 'var(--font-syne), system-ui, sans-serif',
+            fontSize: 9,
+            fontWeight: 600,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: '#111111',
+            opacity: 0,
+            whiteSpace: 'nowrap',
+            mixBlendMode: 'normal',
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        >
+          View
+        </span>
+      </div>
+    </>
   )
 }

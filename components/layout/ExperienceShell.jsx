@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 const SESSION_KEY = 'star-intro-seen'
+const TOTAL_DURATION = 4200
 
 function readSessionFlag() {
   try {
@@ -22,6 +23,7 @@ function writeSessionFlag() {
 
 export default function ExperienceShell({ children }) {
   const [showIntro, setShowIntro] = useState(false)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -35,14 +37,23 @@ export default function ExperienceShell({ children }) {
       document.body.classList.add('is-intro-active')
     })
 
+    const startTime = Date.now()
+    const intervalId = window.setInterval(() => {
+      const elapsed = Date.now() - startTime
+      const nextProgress = Math.min(100, Math.max(1, Math.round((elapsed / TOTAL_DURATION) * 100)))
+      setProgress(nextProgress)
+    }, 40)
+
     const timeout = window.setTimeout(() => {
+      setProgress(100)
       setShowIntro(false)
       document.body.classList.remove('is-intro-active')
       writeSessionFlag()
-    }, 1800)
+    }, TOTAL_DURATION + 300)
 
     return () => {
       window.cancelAnimationFrame(frameId)
+      window.clearInterval(intervalId)
       window.clearTimeout(timeout)
       document.body.classList.remove('is-intro-active')
     }
@@ -60,9 +71,10 @@ export default function ExperienceShell({ children }) {
             <span className="intro-loader__star">*</span>
           </div>
           <div className="intro-loader__line" />
-          <p className="intro-loader__caption">
-            Premium websites for businesses that should be remembered.
-          </p>
+          <div className="intro-loader__progress">
+            <span className="intro-loader__progress-value">{progress}%</span>
+            <span className="intro-loader__progress-label">Loading</span>
+          </div>
         </div>
       ) : null}
     </>

@@ -1,30 +1,100 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReveal } from '@/lib/hooks/useReveal'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const FEATURES = [
   {
     num: '01',
     title: 'Designed for your category, not copied from a template',
     body:
-      'The visual system starts with your industry, audience, and positioning so the final website feels aligned with the brand, not borrowed from another business.',
+      'The visual direction starts with your industry, your audience, and the level of trust your business needs to build.',
   },
   {
     num: '02',
-    title: 'Motion that guides attention instead of distracting from it',
+    title: 'Motion used to guide attention with intent',
     body:
-      'Parallax, pacing, and reveal choreography are used to control emphasis, improve storytelling, and make the experience feel more intentional.',
+      'Parallax, timing, and scroll choreography are used to improve focus, clarify hierarchy, and make the story easier to follow.',
   },
   {
     num: '03',
-    title: 'Built to support premium positioning and better outreach',
+    title: 'Built to strengthen premium positioning',
     body:
-      'The result is more than a working site. It becomes a portfolio-grade trust asset that helps prospects take the business seriously before the first reply.',
+      'The final website becomes more than a brochure. It works as a trust asset for outreach, referrals, and better first impressions.',
   },
 ]
 
 export default function Solution() {
   const sectionRef = useReveal()
+  const manifestoRef = useRef(null)
+  const cardsRef = useRef([])
+
+  useEffect(() => {
+    const cards = cardsRef.current.filter(Boolean)
+    if (!manifestoRef.current || !cards.length) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        manifestoRef.current,
+        {
+          y: 64,
+          scale: 0.96,
+          opacity: 0.6,
+        },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: manifestoRef.current,
+            start: 'top 84%',
+            end: 'top 34%',
+            scrub: 1,
+          },
+        }
+      )
+
+      cards.forEach((card, index) => {
+        gsap.fromTo(
+          card,
+          {
+            y: 56 + index * 16,
+            opacity: 0.5,
+            scale: 0.96,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              end: 'top 42%',
+              scrub: 1,
+            },
+          }
+        )
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => card.classList.add('solution-card--active'),
+          onEnterBack: () => card.classList.add('solution-card--active'),
+          onLeave: () => card.classList.remove('solution-card--active'),
+          onLeaveBack: () => card.classList.remove('solution-card--active'),
+        })
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [sectionRef])
 
   return (
     <section
@@ -68,41 +138,41 @@ export default function Solution() {
             <h2
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.8rem,6vw,5.6rem)',
+                fontSize: 'clamp(2.5rem,5.2vw,4.7rem)',
                 fontWeight: 800,
                 fontStyle: 'italic',
-                lineHeight: 0.98,
+                lineHeight: 1,
                 letterSpacing: '-0.03em',
                 color: '#111111',
-                maxWidth: '10ch',
+                maxWidth: '10.5ch',
                 marginBottom: 18,
               }}
             >
-              A better website should make the business look clearer, sharper, and more valuable.
+              A stronger website makes the business feel clearer, sharper, and easier to trust.
             </h2>
             <p
               style={{
                 fontFamily: 'var(--font-ui)',
-                fontSize: 'clamp(1rem,1.2vw,1.08rem)',
-                lineHeight: 1.9,
+                fontSize: 'clamp(1rem,1.05vw,1.0625rem)',
+                lineHeight: 1.82,
                 color: '#555553',
-                maxWidth: '38ch',
+                maxWidth: '39ch',
               }}
             >
-              Every part of the build is there to strengthen perception: the layout, the pacing,
-              the typography, the motion, and the path to enquiry.
+              Layout, typography, motion, and messaging all work together to improve perception and
+              help the brand leave a stronger impression.
             </p>
           </div>
 
           <div
+            ref={manifestoRef}
             data-reveal
             data-delay="0.08"
-            data-cursor="open"
             style={{
               position: 'relative',
               overflow: 'hidden',
-              minHeight: 420,
-              padding: 'clamp(1.8rem,3vw,2.5rem)',
+              minHeight: 400,
+              padding: 'clamp(1.7rem,2.8vw,2.3rem)',
               borderRadius: 34,
               background:
                 'linear-gradient(135deg, rgba(17,17,17,0.98), rgba(44,33,20,0.9) 52%, rgba(232,148,10,0.86))',
@@ -147,16 +217,16 @@ export default function Solution() {
                     textTransform: 'uppercase',
                   }}
                 >
-                  Why it works
+                  Core approach
                 </span>
                 <h3
                   style={{
                     marginTop: 18,
                     fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(2rem,3.5vw,3.8rem)',
+                    fontSize: 'clamp(1.75rem,3vw,3rem)',
                     fontWeight: 800,
                     fontStyle: 'italic',
-                    lineHeight: 1,
+                    lineHeight: 1.04,
                     letterSpacing: '-0.03em',
                     color: '#FAFAF8',
                     maxWidth: '12ch',
@@ -170,8 +240,8 @@ export default function Solution() {
                 <p
                   style={{
                     fontFamily: 'var(--font-ui)',
-                    fontSize: 15,
-                    lineHeight: 1.85,
+                    fontSize: 'clamp(0.95rem,1vw,1rem)',
+                    lineHeight: 1.78,
                     color: 'rgba(250,250,248,0.82)',
                     maxWidth: '34ch',
                   }}
@@ -208,6 +278,10 @@ export default function Solution() {
           {FEATURES.map((feature, index) => (
             <article
               key={feature.num}
+              ref={(element) => {
+                cardsRef.current[index] = element
+              }}
+              className="solution-card"
               data-stagger-child
               data-cursor="view"
               style={{
@@ -215,17 +289,19 @@ export default function Solution() {
                 gridTemplateColumns: 'auto 1fr',
                 gap: 18,
                 alignItems: 'start',
-                padding: '1.5rem',
+                padding: '1.35rem 1.4rem',
                 borderRadius: 28,
                 border: '1px solid #EBEBEA',
                 background: index === 1 ? '#F7F0E3' : '#FAFAF8',
                 boxShadow: '0 20px 48px rgba(17,17,17,0.04)',
+                transition:
+                  'transform 320ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1), border-color 320ms cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
               <div
                 style={{
-                  width: 56,
-                  height: 56,
+                  width: 52,
+                  height: 52,
                   borderRadius: 18,
                   display: 'grid',
                   placeItems: 'center',
@@ -245,13 +321,14 @@ export default function Solution() {
                 <h3
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.55rem,2.2vw,2.2rem)',
+                    fontSize: 'clamp(1.35rem,1.7vw,1.7rem)',
                     fontWeight: 700,
                     fontStyle: 'italic',
-                    lineHeight: 1.05,
+                    lineHeight: 1.1,
                     letterSpacing: '-0.02em',
                     color: '#111111',
-                    marginBottom: 12,
+                    marginBottom: 10,
+                    maxWidth: '24ch',
                   }}
                 >
                   {feature.title}
@@ -259,8 +336,8 @@ export default function Solution() {
                 <p
                   style={{
                     fontFamily: 'var(--font-ui)',
-                    fontSize: 15,
-                    lineHeight: 1.85,
+                    fontSize: 'clamp(0.95rem,0.98vw,1rem)',
+                    lineHeight: 1.78,
                     color: '#555553',
                     maxWidth: '38ch',
                   }}
@@ -274,6 +351,12 @@ export default function Solution() {
       </div>
 
       <style>{`
+        .solution-card.solution-card--active {
+          transform: translateY(-8px) scale(1.01) !important;
+          border-color: rgba(232,148,10,0.24) !important;
+          box-shadow: 0 28px 64px rgba(17,17,17,0.08) !important;
+        }
+
         @media (max-width: 980px) {
           #section-solution .container {
             grid-template-columns: 1fr !important;
