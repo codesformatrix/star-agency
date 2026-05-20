@@ -8,19 +8,44 @@ import { allProjects } from '@/lib/data/projects'
 const TESTIMONIALS = [
   {
     quote:
-      'The website finally matched the level of the work. Prospects could feel the difference before the first call even happened.',
+      'The website finally gave the studio the level of presentation our work deserved. It felt sharper, calmer, and far more credible.',
     author: 'Architecture client',
     role: 'Portfolio repositioning',
   },
   {
     quote:
-      'The brand stopped feeling like just another option online. It started feeling premium, deliberate, and worth remembering.',
+      'The difference was immediate. The brand stopped feeling generic online and started feeling like a premium service again.',
     author: 'Wedding planning client',
     role: 'Luxury presentation refresh',
+  },
+  {
+    quote:
+      'The new direction made the business look more established before anyone even reached out. That changed the tone of enquiries completely.',
+    author: 'Hospitality client',
+    role: 'Experience-led website rebuild',
+  },
+  {
+    quote:
+      'Instead of explaining what made the brand special, we could simply send the website and let it speak for itself.',
+    author: 'Architecture client',
+    role: 'Trust-first redesign',
+  },
+  {
+    quote:
+      'The site felt intentional from the first screen. It no longer looked like a placeholder business trying to sell a premium service.',
+    author: 'Wedding planning client',
+    role: 'Brand presentation upgrade',
+  },
+  {
+    quote:
+      'The strongest part was clarity. Everything felt easier to understand, easier to trust, and easier to remember.',
+    author: 'Boutique brand client',
+    role: 'Conversion and positioning refresh',
   },
 ]
 
 const PROJECTS = allProjects.slice(0, 4)
+const TESTIMONIAL_TRACK = [...TESTIMONIALS, ...TESTIMONIALS]
 
 export default function SocialProof() {
   const sectionRef = useReveal()
@@ -69,104 +94,109 @@ export default function SocialProof() {
                 marginBottom: 18,
               }}
             >
-              The work should do the convincing before the sales call starts.
+              The website should make the standard obvious before you have to explain it.
             </h2>
           </div>
 
           <p
             style={{
               fontFamily: 'var(--font-ui)',
-              fontSize: 'clamp(1rem,1.18vw,1.06rem)',
-              lineHeight: 1.88,
+              fontSize: 'clamp(1rem,1.05vw,1.0625rem)',
+              lineHeight: 1.8,
               color: '#555553',
               maxWidth: '35ch',
               justifySelf: 'end',
             }}
           >
-            A strong portfolio removes doubt faster than a long explanation ever will. People trust
-            what they can see, not just what they are told.
+            This is why the work matters. Prospects trust what they can see, what they can feel,
+            and what already looks considered before the first reply is ever sent.
           </p>
         </div>
 
         <div
-          data-reveal="stagger-parent"
+          data-reveal
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-            gap: 18,
+            overflow: 'hidden',
+            marginInline: 'calc(var(--gutter) * -1)',
+            paddingInline: 'var(--gutter)',
           }}
         >
-          {TESTIMONIALS.map((testimonial, index) => (
-            <article
-              key={testimonial.author}
-              data-stagger-child
-              style={{
-                padding: 'clamp(1.6rem,3vw,2.1rem)',
-                borderRadius: 30,
-                border: '1px solid #EBEBEA',
-                background: index === 0 ? '#F8F6F2' : '#111111',
-                color: index === 0 ? '#111111' : '#FAFAF8',
-                boxShadow: index === 0 ? '0 20px 48px rgba(17,17,17,0.06)' : '0 26px 56px rgba(17,17,17,0.12)',
-              }}
-            >
-              <span
+          <div className="proof-slider">
+            {TESTIMONIAL_TRACK.map((testimonial, index) => (
+              <article
+                key={`${testimonial.author}-${testimonial.role}-${index}`}
+                className="proof-slider__card"
                 style={{
-                  display: 'block',
-                  marginBottom: 18,
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 48,
-                  fontWeight: 700,
-                  fontStyle: 'italic',
-                  lineHeight: 1,
-                  color: index === 0 ? '#E8940A' : '#F2B24A',
+                  padding: '1.6rem',
+                  borderRadius: 28,
+                  border: '1px solid #EBEBEA',
+                  background: index % 3 === 1 ? '#111111' : '#F8F6F2',
+                  color: index % 3 === 1 ? '#FAFAF8' : '#111111',
+                  boxShadow:
+                    index % 3 === 1
+                      ? '0 26px 56px rgba(17,17,17,0.12)'
+                      : '0 20px 48px rgba(17,17,17,0.06)',
                 }}
               >
-                &ldquo;
-              </span>
-              <p
-                style={{
-                  fontFamily: 'var(--font-ui)',
-                  fontSize: 'clamp(1rem,1.15vw,1.06rem)',
-                  lineHeight: 1.9,
-                  color: index === 0 ? '#333332' : 'rgba(250,250,248,0.82)',
-                  marginBottom: 22,
-                  maxWidth: '38ch',
-                }}
-              >
-                {testimonial.quote}
-              </p>
-              <div
-                style={{
-                  paddingTop: 16,
-                  borderTop: `1px solid ${index === 0 ? '#E5E3DE' : 'rgba(255,255,255,0.1)'}`,
-                }}
-              >
-                <p
+                <span
                   style={{
-                    fontFamily: 'var(--font-ui)',
-                    fontSize: 13,
+                    display: 'block',
+                    marginBottom: 16,
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 42,
                     fontWeight: 700,
-                    color: index === 0 ? '#111111' : '#FAFAF8',
-                    marginBottom: 3,
+                    fontStyle: 'italic',
+                    lineHeight: 1,
+                    color: index % 3 === 1 ? '#F2B24A' : '#E8940A',
                   }}
                 >
-                  {testimonial.author}
-                </p>
+                  &ldquo;
+                </span>
                 <p
                   style={{
                     fontFamily: 'var(--font-ui)',
-                    fontSize: 11,
-                    fontWeight: 600,
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    color: index === 0 ? '#888886' : 'rgba(250,250,248,0.48)',
+                    fontSize: 'clamp(0.98rem,1vw,1rem)',
+                    lineHeight: 1.82,
+                    color: index % 3 === 1 ? 'rgba(250,250,248,0.82)' : '#333332',
+                    marginBottom: 18,
+                    maxWidth: '30ch',
                   }}
                 >
-                  {testimonial.role}
+                  {testimonial.quote}
                 </p>
-              </div>
-            </article>
-          ))}
+                <div
+                  style={{
+                    paddingTop: 14,
+                    borderTop: `1px solid ${index % 3 === 1 ? 'rgba(255,255,255,0.1)' : '#E5E3DE'}`,
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-ui)',
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: index % 3 === 1 ? '#FAFAF8' : '#111111',
+                      marginBottom: 3,
+                    }}
+                  >
+                    {testimonial.author}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-ui)',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      color: index % 3 === 1 ? 'rgba(250,250,248,0.48)' : '#888886',
+                    }}
+                  >
+                    {testimonial.role}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
 
         <div
@@ -230,13 +260,13 @@ export default function SocialProof() {
                   <h3
                     style={{
                       fontFamily: 'var(--font-display)',
-                      fontSize: 'clamp(1.7rem,2.4vw,2.6rem)',
+                      fontSize: 'clamp(1.45rem,2vw,2rem)',
                       fontWeight: 700,
                       fontStyle: 'italic',
-                      lineHeight: 1.04,
+                      lineHeight: 1.08,
                       letterSpacing: '-0.02em',
                       color: '#111111',
-                      marginBottom: 12,
+                      marginBottom: 10,
                     }}
                   >
                     {project.title}
@@ -244,8 +274,8 @@ export default function SocialProof() {
                   <p
                     style={{
                       fontFamily: 'var(--font-ui)',
-                      fontSize: 15,
-                      lineHeight: 1.82,
+                      fontSize: 'clamp(0.95rem,0.98vw,1rem)',
+                      lineHeight: 1.78,
                       color: '#555553',
                       maxWidth: '32ch',
                     }}
@@ -299,7 +329,7 @@ export default function SocialProof() {
               color: '#888886',
             }}
           >
-            Built to function as a real trust asset
+            Built to function as a serious trust asset
           </span>
           <Link href="/work" className="btn btn-outline" data-cursor="view">
             View all work
@@ -308,6 +338,27 @@ export default function SocialProof() {
       </div>
 
       <style>{`
+        .proof-slider {
+          display: flex;
+          gap: 18px;
+          width: max-content;
+          animation: proof-slider-scroll 34s linear infinite;
+        }
+
+        .proof-slider:hover {
+          animation-play-state: paused;
+        }
+
+        .proof-slider__card {
+          width: min(24rem, 82vw);
+          flex-shrink: 0;
+        }
+
+        @keyframes proof-slider-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(calc(-50% - 9px)); }
+        }
+
         @media (max-width: 980px) {
           #section-proof .container > div {
             grid-template-columns: 1fr !important;

@@ -9,18 +9,24 @@ const RESULTS = [
     label: 'The business feels more established before the first conversation.',
     body:
       'A more deliberate website changes the tone of the enquiry. Visitors arrive with more confidence, more context, and a stronger sense of quality.',
+    accent: '#E8940A',
+    surface: 'rgba(232,148,10,0.14)',
   },
   {
     stat: '02',
     label: 'Premium positioning becomes easier to support.',
     body:
       'When the presentation finally matches the standard of the work, the brand no longer looks like it should compete on price alone.',
+    accent: '#FAFAF8',
+    surface: 'rgba(250,250,248,0.12)',
   },
   {
     stat: '03',
     label: 'Outreach starts relying on proof instead of persuasion.',
     body:
       'A stronger website does part of the selling by itself. Instead of explaining taste and capability in messages, the business can point prospects to proof.',
+    accent: '#F2B24A',
+    surface: 'rgba(242,178,74,0.16)',
   },
 ]
 
@@ -116,36 +122,44 @@ export default function Results() {
             <article
               key={item.stat}
               data-stagger-child
+              className="results-point"
               style={{
+                '--results-accent': item.accent,
+                '--results-surface': item.surface,
                 display: 'grid',
                 gridTemplateColumns: 'minmax(86px, 0.16fr) minmax(0, 0.92fr) minmax(0, 0.92fr)',
                 gap: 24,
                 alignItems: 'start',
-                padding: '1.7rem 0',
+                padding: '1.7rem 1rem',
                 borderTop: index === 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
                 borderBottom: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 24,
+                transition:
+                  'background-color 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1), border-color 280ms cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
               <span
+                className="results-point__stat"
                 style={{
                   fontFamily: 'var(--font-ui)',
                   fontSize: 12,
                   fontWeight: 700,
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  color: '#E8940A',
+                  color: item.accent,
                 }}
               >
                 {item.stat}
               </span>
 
               <h3
+                className="results-point__label"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(1.75rem,2.8vw,3rem)',
+                  fontSize: 'clamp(1.6rem,2.2vw,2.35rem)',
                   fontWeight: 700,
                   fontStyle: 'italic',
-                  lineHeight: 1.06,
+                  lineHeight: 1.08,
                   letterSpacing: '-0.02em',
                   color: '#FAFAF8',
                   maxWidth: '16ch',
@@ -155,10 +169,11 @@ export default function Results() {
               </h3>
 
               <p
+                className="results-point__body"
                 style={{
                   fontFamily: 'var(--font-ui)',
-                  fontSize: 15,
-                  lineHeight: 1.85,
+                  fontSize: 'clamp(0.95rem,0.98vw,1rem)',
+                  lineHeight: 1.8,
                   color: 'rgba(250,250,248,0.64)',
                   maxWidth: '40ch',
                 }}
@@ -193,13 +208,33 @@ export default function Results() {
           >
             Built to strengthen trust before the first call
           </span>
-          <Link href="/work" className="btn btn-outline" data-cursor="view" style={{ color: '#FAFAF8', borderColor: 'rgba(255,255,255,0.18)' }}>
+          <Link
+            href="/work"
+            className="btn btn-outline"
+            data-cursor="view"
+            style={{ color: '#FAFAF8', borderColor: 'rgba(255,255,255,0.18)' }}
+          >
             See the portfolio
           </Link>
         </div>
       </div>
 
       <style>{`
+        .results-point:hover {
+          background: var(--results-surface);
+          transform: translateY(-6px);
+          border-color: rgba(255,255,255,0.14) !important;
+        }
+
+        .results-point:hover .results-point__label,
+        .results-point:hover .results-point__stat {
+          color: var(--results-accent) !important;
+        }
+
+        .results-point:hover .results-point__body {
+          color: rgba(250,250,248,0.84) !important;
+        }
+
         @media (max-width: 980px) {
           #section-results [data-reveal] {
             grid-template-columns: 1fr !important;

@@ -10,36 +10,38 @@ gsap.registerPlugin(ScrollTrigger)
 const STEPS = [
   {
     num: '01',
-    title: 'Understand the business before designing the screen',
+    title: 'We study the business first',
     body:
-      'The first step is strategy: category references, buyer expectations, positioning gaps, and what the current website fails to communicate clearly.',
+      'Before any styling decisions happen, we look at your category, audience, positioning, and what the current website fails to communicate.',
   },
   {
     num: '02',
-    title: 'Build a first version that already feels commercially ready',
+    title: 'We design the first real direction',
     body:
-      'Structure, hierarchy, visual language, and contact flow are developed together so the first version already feels considered, not half-finished.',
+      'The first version is built to feel intentional from the start, with clear structure, stronger hierarchy, and a sharper visual language.',
   },
   {
     num: '03',
-    title: 'Refine until the message, pacing, and presentation feel right',
+    title: 'We refine what strengthens perception',
     body:
-      'The strongest websites usually come from tightening emphasis, contrast, and clarity after the first direction has made the opportunity visible.',
+      'Then we improve the parts that matter most: clarity, pacing, contrast, trust, and how naturally the website leads people to the next step.',
   },
   {
     num: '04',
-    title: 'Decide after the quality is visible',
+    title: 'You decide after seeing the quality',
     body:
-      'Once the work is on screen, the decision becomes far more straightforward. The standard is visible before any payment conversation begins.',
+      'Once the work is visible on screen, the decision is far clearer. The website earns confidence before the payment conversation begins.',
   },
 ]
 
 export default function Process() {
   const sectionRef = useReveal()
   const lineRef = useRef(null)
+  const cardsRef = useRef([])
 
   useEffect(() => {
-    if (!lineRef.current) return
+    const cards = cardsRef.current.filter(Boolean)
+    if (!lineRef.current || !cards.length) return
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -47,16 +49,50 @@ export default function Process() {
         { scaleY: 0, transformOrigin: 'top center' },
         {
           scaleY: 1,
-          ease: 'power2.out',
-          duration: 1.4,
+          ease: 'none',
           scrollTrigger: {
             trigger: lineRef.current,
-            start: 'top 75%',
-            end: 'bottom center',
-            scrub: 0.9,
+            start: 'top 78%',
+            end: 'bottom 40%',
+            scrub: 1,
           },
         }
       )
+
+      cards.forEach((card, index) => {
+        gsap.fromTo(
+          card,
+          {
+            x: index % 2 === 0 ? 54 : -54,
+            y: 60,
+            opacity: 0.45,
+            scale: 0.96,
+          },
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              end: 'top 42%',
+              scrub: 1,
+            },
+          }
+        )
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top 54%',
+          end: 'bottom 52%',
+          onEnter: () => card.classList.add('process-card--active'),
+          onEnterBack: () => card.classList.add('process-card--active'),
+          onLeave: () => card.classList.remove('process-card--active'),
+          onLeaveBack: () => card.classList.remove('process-card--active'),
+        })
+      })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -89,36 +125,36 @@ export default function Process() {
             position: 'sticky',
             top: 96,
             alignSelf: 'start',
-            maxWidth: 480,
+            maxWidth: 460,
           }}
         >
           <p className="section-tag">04 - How it works</p>
           <h2
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.8rem,6vw,5.6rem)',
+              fontSize: 'clamp(2.5rem,5.3vw,4.8rem)',
               fontWeight: 800,
               fontStyle: 'italic',
-              lineHeight: 0.98,
+              lineHeight: 1,
               letterSpacing: '-0.03em',
               color: '#111111',
-              maxWidth: '10ch',
-              marginBottom: 20,
+              maxWidth: '10.5ch',
+              marginBottom: 18,
             }}
           >
-            The process is simple because the decision should not feel risky.
+            A straightforward process makes the decision feel easier.
           </h2>
           <p
             style={{
               fontFamily: 'var(--font-ui)',
-              fontSize: 'clamp(1rem,1.2vw,1.08rem)',
-              lineHeight: 1.9,
+              fontSize: 'clamp(1rem,1.02vw,1.0625rem)',
+              lineHeight: 1.8,
               color: '#555553',
-              maxWidth: '36ch',
+              maxWidth: '35ch',
             }}
           >
-            The goal is not to add complexity. It is to remove blind commitment and make the
-            standard easy to judge before the business spends money.
+            The process is designed to remove guesswork, keep quality visible, and let the website
+            earn trust before any commitment is made.
           </p>
         </div>
 
@@ -127,16 +163,16 @@ export default function Process() {
           style={{
             position: 'relative',
             display: 'grid',
-            gap: 20,
+            gap: 18,
             paddingLeft: 'clamp(1.25rem,3vw,2.25rem)',
           }}
         >
           <div
             style={{
               position: 'absolute',
-              top: 22,
+              top: 18,
               left: 10,
-              bottom: 22,
+              bottom: 18,
               width: 1,
               background: 'rgba(17,17,17,0.08)',
             }}
@@ -156,19 +192,24 @@ export default function Process() {
           {STEPS.map((step, index) => (
             <article
               key={step.num}
+              ref={(element) => {
+                cardsRef.current[index] = element
+              }}
+              className="process-card"
               data-stagger-child
-              data-cursor="open"
               style={{
                 position: 'relative',
                 display: 'grid',
                 gridTemplateColumns: 'auto 1fr',
-                gap: 20,
+                gap: 18,
                 alignItems: 'start',
-                padding: '1.5rem 1.5rem 1.5rem 0.6rem',
-                borderRadius: 28,
+                padding: '1.35rem 1.35rem 1.35rem 0.65rem',
+                borderRadius: 26,
                 background: index === 1 ? '#FAFAF8' : 'rgba(250,250,248,0.72)',
                 border: '1px solid rgba(17,17,17,0.08)',
                 boxShadow: '0 18px 48px rgba(17,17,17,0.05)',
+                transition:
+                  'transform 320ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1), border-color 320ms cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
               <div
@@ -195,14 +236,14 @@ export default function Process() {
                 <h3
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.5rem,2.15vw,2.15rem)',
+                    fontSize: 'clamp(1.35rem,1.7vw,1.7rem)',
                     fontWeight: 700,
                     fontStyle: 'italic',
-                    lineHeight: 1.06,
+                    lineHeight: 1.1,
                     letterSpacing: '-0.02em',
                     color: '#111111',
-                    marginBottom: 12,
-                    maxWidth: '18ch',
+                    marginBottom: 10,
+                    maxWidth: '24ch',
                   }}
                 >
                   {step.title}
@@ -210,8 +251,8 @@ export default function Process() {
                 <p
                   style={{
                     fontFamily: 'var(--font-ui)',
-                    fontSize: 15,
-                    lineHeight: 1.85,
+                    fontSize: 'clamp(0.95rem,0.98vw,1rem)',
+                    lineHeight: 1.78,
                     color: '#555553',
                     maxWidth: '40ch',
                   }}
@@ -225,6 +266,12 @@ export default function Process() {
       </div>
 
       <style>{`
+        .process-card.process-card--active {
+          transform: translateY(-8px) scale(1.01) !important;
+          border-color: rgba(232,148,10,0.24) !important;
+          box-shadow: 0 26px 62px rgba(17,17,17,0.08) !important;
+        }
+
         @media (max-width: 960px) {
           #section-process .container {
             grid-template-columns: 1fr !important;
