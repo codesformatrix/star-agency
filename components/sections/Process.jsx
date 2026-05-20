@@ -142,7 +142,7 @@ export default function Process() {
               marginBottom: 18,
             }}
           >
-            A straightforward process makes the decision feel easier.
+            A simple process makes the decision feel easier.
           </h2>
           <p
             style={{
