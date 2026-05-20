@@ -23,8 +23,6 @@ export default function Cursor() {
       opacity: 0,
       xPercent: -50,
       yPercent: -50,
-      width: 10,
-      height: 10,
     })
 
     gsap.set(label, { opacity: 0, y: 10 })
@@ -38,34 +36,24 @@ export default function Cursor() {
       ease: 'power3.out',
     })
 
-    const setDefault = () => {
-      gsap.to(cursor, {
-        width: 10,
-        height: 10,
-        duration: 0.3,
-        ease: 'back.out(1.7)',
-      })
+    const resetCursor = () => {
+      cursor.classList.remove('is-hovering')
+      label.textContent = ''
       gsap.to(label, {
         opacity: 0,
         y: 10,
-        duration: 0.24,
+        duration: 0.22,
         ease: 'power2.out',
       })
-      label.textContent = ''
     }
 
-    const setView = () => {
-      gsap.to(cursor, {
-        width: 44,
-        height: 44,
-        duration: 0.3,
-        ease: 'back.out(1.7)',
-      })
+    const activateView = () => {
+      cursor.classList.add('is-hovering')
       label.textContent = 'View'
       gsap.to(label, {
         opacity: 1,
         y: 0,
-        duration: 0.24,
+        duration: 0.22,
         ease: 'power2.out',
       })
     }
@@ -76,21 +64,13 @@ export default function Cursor() {
     }
 
     const handleOver = (event) => {
-      const target = event.target instanceof Element ? event.target.closest('[data-cursor]') : null
-      if (target?.getAttribute('data-cursor') === 'view') {
-        setView()
+      const target = event.target instanceof Element ? event.target.closest('[data-cursor="view"]') : null
+      if (target) {
+        activateView()
         return
       }
 
-      setDefault()
-    }
-
-    const handleLeaveWindow = () => {
-      gsap.to(cursor, { opacity: 0, duration: 0.2 })
-    }
-
-    const handleEnterWindow = () => {
-      gsap.to(cursor, { opacity: 1, duration: 0.2 })
+      resetCursor()
     }
 
     const handleFirstMove = () => {
@@ -98,19 +78,27 @@ export default function Cursor() {
       window.removeEventListener('mousemove', handleFirstMove)
     }
 
+    const hide = () => {
+      gsap.to(cursor, { opacity: 0, duration: 0.2 })
+    }
+
+    const show = () => {
+      gsap.to(cursor, { opacity: 1, duration: 0.2 })
+    }
+
     window.addEventListener('mousemove', handleMove)
     window.addEventListener('mousemove', handleFirstMove)
     document.body.addEventListener('mouseover', handleOver)
-    document.documentElement.addEventListener('mouseleave', handleLeaveWindow)
-    document.documentElement.addEventListener('mouseenter', handleEnterWindow)
+    document.documentElement.addEventListener('mouseleave', hide)
+    document.documentElement.addEventListener('mouseenter', show)
 
     return () => {
       document.body.classList.remove('has-custom-cursor')
       window.removeEventListener('mousemove', handleMove)
       window.removeEventListener('mousemove', handleFirstMove)
       document.body.removeEventListener('mouseover', handleOver)
-      document.documentElement.removeEventListener('mouseleave', handleLeaveWindow)
-      document.documentElement.removeEventListener('mouseenter', handleEnterWindow)
+      document.documentElement.removeEventListener('mouseleave', hide)
+      document.documentElement.removeEventListener('mouseenter', show)
     }
   }, [])
 

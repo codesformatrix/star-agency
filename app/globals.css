@@ -832,6 +832,11 @@ body.is-intro-active {
   will-change: transform, width, height;
 }
 
+.cursor.is-hovering {
+  width: 40px;
+  height: 40px;
+}
+
 .cursor__label {
   font-family: var(--font-ui);
   font-size: 0.58rem;
@@ -1203,6 +1208,11 @@ body.is-intro-active {
 @media (max-width: 767px) {
   .intro-loader__line {
     width: min(16rem, 72vw);
+  }
+
+  .intro-loader__caption {
+    max-width: 18rem;
+    font-size: 0.72rem;
   }
 
   .hero__title {

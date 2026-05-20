@@ -1,6 +1,11 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReveal } from '@/lib/hooks/useReveal'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const MARQUEE_WORDS = [
   'Quiet website',
@@ -38,6 +43,51 @@ const PAIN_POINTS = [
 
 export default function Problem() {
   const sectionRef = useReveal()
+  const cardsRef = useRef([])
+
+  useEffect(() => {
+    const cards = cardsRef.current.filter(Boolean)
+    if (!cards.length) return
+
+    const ctx = gsap.context(() => {
+      cards.forEach((card, index) => {
+        gsap.fromTo(
+          card,
+          {
+            y: 80 + index * 28,
+            rotateX: 8 - index,
+            scale: 0.94,
+            opacity: 0.5,
+          },
+          {
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              end: 'top 36%',
+              scrub: 1.1,
+            },
+          }
+        )
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => card.classList.add('problem-card--active'),
+          onEnterBack: () => card.classList.add('problem-card--active'),
+          onLeave: () => card.classList.remove('problem-card--active'),
+          onLeaveBack: () => card.classList.remove('problem-card--active'),
+        })
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [sectionRef])
 
   return (
     <section
@@ -147,13 +197,18 @@ export default function Problem() {
           style={{
             display: 'grid',
             gap: 18,
+            perspective: '1400px',
           }}
         >
           {PAIN_POINTS.map((item, index) => (
             <article
               key={item.num}
+              ref={(element) => {
+                cardsRef.current[index] = element
+              }}
+              className="problem-card"
               data-stagger-child
-              data-cursor="open"
+              data-cursor="view"
               style={{
                 position: 'relative',
                 overflow: 'hidden',
@@ -166,6 +221,8 @@ export default function Problem() {
                     : 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
                 boxShadow: '0 24px 56px rgba(0,0,0,0.24)',
                 transform: `translateZ(${16 + index * 8}px)`,
+                transition:
+                  'transform 320ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1), border-color 320ms cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
               <div
@@ -246,6 +303,12 @@ export default function Problem() {
         @keyframes problem-marquee {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+
+        .problem-card.problem-card--active {
+          transform: translateY(-10px) scale(1.02) !important;
+          border-color: rgba(232,148,10,0.26) !important;
+          box-shadow: 0 32px 70px rgba(0,0,0,0.32) !important;
         }
 
         @media (max-width: 940px) {
