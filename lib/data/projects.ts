@@ -49,7 +49,7 @@ export const allProjects: Project[] = [
     location: 'Jaipur',
     year: 2025,
     url: 'https://roshan-events.pages.dev',
-    screenshot: '/images/projects/roshan-events.svg',
+    screenshot: '/images/projects/roshan-events.webp',
     palette: ['#0A0D1A', '#C9A84C'],
     tags: ['Wedding', 'Events', 'Editorial', 'WhatsApp'],
     description:
@@ -71,30 +71,30 @@ export const allProjects: Project[] = [
     ],
     heroFrames: [
       {
-        image: '/images/projects/roshan-events.svg',
+        image: '/images/projects/roshan-events.webp',
         alt: 'Roshan Events editorial hero frame',
         objectPosition: 'center top',
       },
       {
-        image: '/images/projects/roshan-events.svg',
+        image: '/images/projects/roshan-events.webp',
         alt: 'Roshan Events enquiry flow frame',
         objectPosition: 'right center',
       },
       {
-        image: '/images/projects/roshan-events.svg',
+        image: '/images/projects/roshan-events.webp',
         alt: 'Roshan Events cinematic portfolio frame',
         objectPosition: 'center center',
       },
     ],
     gallery: [
       {
-        image: '/images/projects/roshan-events.svg',
+        image: '/images/projects/roshan-events.webp',
         alt: 'Roshan Events homepage detail crop',
         aspect: 'landscape',
         objectPosition: 'center top',
       },
       {
-        image: '/images/projects/roshan-events.svg',
+        image: '/images/projects/roshan-events.webp',
         alt: 'Roshan Events mobile-style crop',
         aspect: 'portrait',
         objectPosition: 'right center',
