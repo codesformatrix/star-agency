@@ -81,7 +81,7 @@ export const allProjects: Project[] = [
         objectPosition: 'right center',
       },
       {
-        image: '/images/projects/roshan-events.webp',
+        image: '/images/projects/roshan-event-portfolio.jpg',
         alt: 'Roshan Events cinematic portfolio frame',
         objectPosition: 'center center',
       },
@@ -94,7 +94,7 @@ export const allProjects: Project[] = [
         objectPosition: 'center top',
       },
       {
-        image: '/images/projects/roshan-events.webp',
+        image: '/images/projects/roshan-events-mobile.webp',
         alt: 'Roshan Events mobile-style crop',
         aspect: 'portrait',
         objectPosition: 'right center',
