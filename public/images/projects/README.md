@@ -4,7 +4,7 @@ Temporary Phase 5 portfolio visuals live here.
 
 These are local SVG website mockups for now:
 
-- `roshan-events.svg`
+- `roshan-events.webp`
 - `atelier-mora.svg`
 - `studio-canopy.svg`
 - `courtyard-line.svg`
