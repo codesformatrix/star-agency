@@ -293,7 +293,7 @@ export const allProjects: Project[] = [
     location: 'Udaipur',
     year: 2025,
     url: '',
-    screenshot: '/images/projects/vivaah-planners.svg',
+    screenshot: '/images/projects/vivah-utsav-events.jpg',
     palette: ['#1A0F14', '#D4A574'],
     tags: ['Wedding', 'Luxury', 'Gallery', 'Storytelling'],
     description:
@@ -315,12 +315,12 @@ export const allProjects: Project[] = [
     ],
     heroFrames: [
       {
-        image: '/images/projects/vivaah-planners.svg',
+        image: '/images/projects/vivah-utsav-events.jpg',
         alt: 'Vivaah Planners editorial frame',
         objectPosition: 'center top',
       },
       {
-        image: '/images/projects/vivaah-planners.svg',
+        image: '/images/projects/vivah-utsav-event-portfolio',
         alt: 'Vivaah Planners gallery frame',
         objectPosition: 'left center',
       },
@@ -332,7 +332,7 @@ export const allProjects: Project[] = [
     ],
     gallery: [
       {
-        image: '/images/projects/vivaah-planners.svg',
+        image: '/images/projects/vivah-utsav-events.jpg',
         alt: 'Vivaah Planners layout crop',
         aspect: 'landscape',
         objectPosition: 'center top',
